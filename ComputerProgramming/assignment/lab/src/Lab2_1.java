@@ -19,5 +19,11 @@ public class Lab2_1 {
             System.out.print(elt + " ");
         }
         System.out.println();
+
+        // 인풋을 반대로 프린트함
+        for (int i=0; i<num; i++) {
+            System.out.print(arr[num-1-i] + " ");
+        }
+        System.out.println();
     }
 }

@@ -42,7 +42,7 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.StudentIDChecker">
     <configuration name="Lab2_1" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Lab2_1" />
       <module name="StudentIDChecker" />
@@ -50,6 +50,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="StudentIDChecker" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="StudentIDChecker" />
+      <module name="StudentIDChecker" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Lab2_1" />
+      <item itemvalue="Application.StudentIDChecker" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -59,7 +70,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1647609370453</updated>
-      <workItem from="1647609371947" duration="2892000" />
+      <workItem from="1647609371947" duration="8192000" />
     </task>
     <servers />
   </component>
