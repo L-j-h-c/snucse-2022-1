@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4c6fd809-9327-4fa4-a4a9-5bba96e4356c" name="Changes" comment="" />
+    <list default="true" id="c60b3f0b-9c09-438d-9a15-c878e42d0901" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,7 +16,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="26ZhwoVU7LDdemDOVh8h14HwfYo" />
+  <component name="ProjectId" id="26b1YrM2PVqgdckw6xUK5rSed0u" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -37,9 +37,9 @@
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager">
-    <configuration name="DrawingFigure" type="Application" factoryName="Application">
+    <configuration name="CharacterPatternSearch" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Test" />
-      <module name="problem3" />
+      <module name="problem4" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -48,13 +48,13 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="4c6fd809-9327-4fa4-a4a9-5bba96e4356c" name="Changes" comment="" />
-      <created>1647637258377</created>
+      <changelist id="c60b3f0b-9c09-438d-9a15-c878e42d0901" name="Changes" comment="" />
+      <created>1647677522913</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1647637258377</updated>
-      <workItem from="1647637260905" duration="2736000" />
-      <workItem from="1647672947914" duration="4499000" />
+      <updated>1647677522913</updated>
+      <workItem from="1647677526760" duration="937000" />
+      <workItem from="1647780873978" duration="3093000" />
     </task>
     <servers />
   </component>
