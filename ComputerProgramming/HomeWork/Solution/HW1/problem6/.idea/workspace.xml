@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78df57fe-b04d-40e5-af27-d0964848671e" name="Changes" comment="" />
+    <list default="true" id="43a446d0-a4b9-4976-911e-6803dc8acb53" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,7 +16,7 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="26eVswBAwkUMZGwl4nCugYpracK" />
+  <component name="ProjectId" id="26et9PpYHBPk481LJqNOBM6kNTY" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -31,15 +31,15 @@
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="SDKs" />
+    <property name="project.structure.last.edited" value="Problems" />
     <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RunManager">
-    <configuration name="HexNumberConverter" type="Application" factoryName="Application">
+    <configuration name="Prime Numbers" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="Test" />
-      <module name="problem5" />
+      <module name="problem6" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -48,12 +48,12 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="78df57fe-b04d-40e5-af27-d0964848671e" name="Changes" comment="" />
-      <created>1647784251675</created>
+      <changelist id="43a446d0-a4b9-4976-911e-6803dc8acb53" name="Changes" comment="" />
+      <created>1647795732842</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1647784251675</updated>
-      <workItem from="1647784255582" duration="6387000" />
+      <updated>1647795732842</updated>
+      <workItem from="1647795737453" duration="1687000" />
     </task>
     <servers />
   </component>
