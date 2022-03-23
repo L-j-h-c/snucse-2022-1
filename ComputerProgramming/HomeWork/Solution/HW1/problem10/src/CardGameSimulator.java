@@ -1,9 +1,32 @@
 public class CardGameSimulator {
 	private static final Player[] players = new Player[2];
 
+	private static Player losePlayer;
+	private static Card lastCard;
+
 	public static void simulateCardGame(String inputA, String inputB) {
-		// DO NOT change the skeleton code.
-		// You can add codes anywhere you want.
+		players[0] = new Player();
+		players[0].setName("A");
+		players[1] = new Player();
+		players[1].setName("B");
+		players[0].initCardList(inputA);
+		players[1].initCardList(inputB);
+
+		players[0].firstCard();
+		lastCard = players[0].ownLastCard;
+
+		while(true) {
+			losePlayer = players[1].useDeck(lastCard);
+			if(losePlayer!=null) {
+				printLoseMessage(losePlayer);
+				break;
+			} else lastCard = players[1].ownLastCard;
+			losePlayer = players[0].useDeck(lastCard);
+			if(losePlayer!=null) {
+				printLoseMessage(losePlayer);
+				break;
+			} else lastCard = players[0].ownLastCard;
+		}
 	}
 
 	private static void printLoseMessage(Player player) {
