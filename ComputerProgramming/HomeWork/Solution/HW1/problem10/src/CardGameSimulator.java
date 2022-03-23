@@ -29,6 +29,21 @@ class Card {
 	private char number; // int
 	private char letter;
 
+	public void initCard(String a) {
+		this.number = a.charAt(0);
+		this.letter = a.charAt(1);
+	}
+
+	public int getNum() {
+		String st = Character.toString(number);
+
+		return Integer.parseInt(st);
+	}
+
+	public char getLetter() {
+		return letter;
+	}
+
 	@Override
 	public String toString() {
 		return "" + number + letter;
