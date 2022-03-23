@@ -10,6 +10,8 @@ public class Test {
         test("4D 3A 1C 1A 3B 3D 5B 5D 5A 1D", "1B 2A 5C 4B 3C 2C 4C 4A 2B 2D");
         test("1A 2A 3A 4A 5A 1B 2B 3B 4B 5B", "1C 2C 3C 4C 5C 1D 2D 3D 4D 5D");
 
+        test("5A 5C 4B 4D 3A 3C 2B 2D 1A 1C", "5B 5D 4A 4C 3B 3D 2A 2C 1B 1D");
+
         // Test your own inputs
         System.out.println("Enter our inputs:");
         Scanner sc = new Scanner(System.in);
