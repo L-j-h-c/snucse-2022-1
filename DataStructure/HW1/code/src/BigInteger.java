@@ -239,9 +239,33 @@ public class BigInteger
         }
     }
 
-    public BigInteger multiply(BigInteger big)
+    public BigInteger mulInside(BigInteger that) {
+        int length1 = this.numArray.length;
+        int length2 = that.numArray.length;
+        int[] result = new int[length1 + length2];
+
+        for(int i=0; i<length1; i++) {
+            for(int j=0; j<length2; j++) {
+                result[i+j+1] += (this.numArray[i]*that.numArray[j])%10;
+                result[i+j] += (this.numArray[i]*that.numArray[j])/10;
+                result[i+j] += result[i+j+1]/10;
+                result[i+j+1] %= 10;
+            }
+        }
+        if(this.numArray[0]*that.numArray[0]<10) {
+            int[] rt = new int[result.length-1];
+            for(int i=0; i<result.length-1; i++) rt[i]=result[i+1];
+            return new BigInteger(rt);
+        }
+        return new BigInteger(result);
+    }
+
+    public BigInteger multiply(BigInteger that)
     {
-        return big;
+        BigInteger rt = mulInside(that);
+        if(this.getSign()==that.getSign()) rt.setSign('+');
+        else rt.setSign('-');
+        return rt;
     }
 
     @Override
