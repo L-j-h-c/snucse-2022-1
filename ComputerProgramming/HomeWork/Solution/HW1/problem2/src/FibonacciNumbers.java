@@ -16,7 +16,7 @@ public class FibonacciNumbers {
         }
         sum -= lastNum;
         System.out.println();
-        System.out.printf("sum : %s",sumToString(sum));
+        System.out.print("sum : " + sumToString(sum));
     }
 
     static String sumToString(int sum) {
