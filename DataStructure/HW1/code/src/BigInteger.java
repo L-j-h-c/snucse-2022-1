@@ -198,9 +198,45 @@ public class BigInteger
         return rt;
     }
 
-    public BigInteger subtract(BigInteger big)
+    public BigInteger add(BigInteger that)
     {
-        return big;
+        if(this.getSign()==that.getSign()) {
+            return addInside(that);
+        } else {
+            BigInteger rt = subInside(that);
+            if(this.getSign()=='+') {
+                if(rt.getSign()=='+') rt.setSign('+');
+                else rt.setSign('-');
+            } else {
+                if(rt.getSign()=='+') rt.setSign('-');
+                else rt.setSign('+');
+            }
+            return rt;
+        }
+    }
+
+    public BigInteger subtract(BigInteger that)
+    {
+        if(this.getSign()!=that.getSign()) {
+            BigInteger rt = addInside(that);
+            if(getSign()=='+') {
+                rt.setSign('+');
+            } else {
+                rt.setSign('-');
+            }
+            return rt;
+        } else {
+            BigInteger rt = subInside(that);
+            if(rt.getSign()=='+') {
+                if(this.getSign()=='+') rt.setSign('+');
+                else rt.setSign('-');
+            }
+            else {
+                if(this.getSign()=='+') rt.setSign('-');
+                else rt.setSign('+');
+            }
+            return rt;
+        }
     }
 
     public BigInteger multiply(BigInteger big)
