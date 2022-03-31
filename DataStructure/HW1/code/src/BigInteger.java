@@ -15,39 +15,119 @@ public class BigInteger
     private int[] numArray;
     private char sign;
 
-    public BigInteger(int i)
-    {
-    }
+//    public BigInteger(int i)
+//    {
+//    }
 
     public BigInteger(int[] num1)
     {
+        numArray = num1;
     }
 
     public BigInteger(String s)
     {
         numArray = new int[s.length()];
         for(int i=0; i < s.length(); i++) {
-//            System.out.print(Character.getNumericValue(s.charAt(i)));
             numArray[i] = Character.getNumericValue(s.charAt(i));
         }
     }
 
-//    public BigInteger add(BigInteger big)
-//    {
-//    }
-//
-//    public BigInteger subtract(BigInteger big)
-//    {
-//    }
-//
-//    public BigInteger multiply(BigInteger big)
-//    {
-//    }
+    public BigInteger add(BigInteger that)
+    {
+        int shortLength;
+        int longlength;
+        BigInteger longOne;
+        BigInteger shortOne;
+        boolean carry=false;
+
+        if(numArray.length<=that.numArray.length) {
+            shortLength = numArray.length;
+            longlength = that.numArray.length;
+            shortOne = this;
+            longOne = that;
+        } else {
+            shortLength = that.numArray.length;
+            longlength = numArray.length;
+            shortOne = that;
+            longOne = this;
+        }
+        int[] resultArray = new int[longlength+1];
+
+        if(this.getSign()==that.getSign()) {
+
+                for(int i=0; i<shortLength; i++) {
+                    if(carry) {
+                        if(longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]+1>=10) {
+                            resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]+1-10;
+                            carry = true;
+                        } else {
+                            resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]+1;
+                            carry = false;
+                        }
+                    } else {
+                        if(longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]>=10) {
+                            resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]-10;
+                            carry = true;
+                        } else {
+                            resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i];
+                            carry = false;
+                        }
+                    }
+                }
+                for(int i=shortLength; i<longlength; i++) {
+                    if(carry) {
+                        if(1+longOne.numArray[longlength-i-1]>=10) {
+                            resultArray[longlength-i]=0;
+                            carry = true;
+                        } else {
+                            resultArray[longlength-i] = 1+longOne.numArray[longlength-i-1];
+                            carry = false;
+                        }
+                    } else {
+                        resultArray[longlength-i] = longOne.numArray[longlength-i-1];
+                    }
+                }
+                if(carry) {
+                    resultArray[0] = 1;
+                } else {
+                    int[] array = new int[resultArray.length-1];
+                    for(int i=0; i<resultArray.length-1; i++) {
+                        array[i] = resultArray[i+1];
+                    }
+                    BigInteger rt = new BigInteger(array);
+                    if(this.getSign()=='+') {
+                        rt.setSign('+');
+                    } else {
+                        rt.setSign('-');
+                    }
+                    return rt;
+                }
+            BigInteger rt = new BigInteger(resultArray);
+            if(this.getSign()=='+') {
+                rt.setSign('+');
+            } else {
+                rt.setSign('-');
+            }
+                return rt;
+        }
+        return that;
+    }
+
+    public BigInteger subtract(BigInteger big)
+    {
+        return big;
+    }
+
+    public BigInteger multiply(BigInteger big)
+    {
+        return big;
+    }
 
     @Override
     public String toString()
     {
         StringBuilder result = new StringBuilder();
+        if(getSign()=='-') result.append('-');
         for (int j : numArray) {
             result.append(j);
         }
@@ -55,7 +135,7 @@ public class BigInteger
     }
 
     // 생성한 BigInteger의 부호 얻어오기
-    public char getSign(BigInteger num) {
+    public char getSign() {
         return this.sign;
     }
 
@@ -132,11 +212,20 @@ public class BigInteger
 
         BigInteger num1 = bigIntegers[0];
         BigInteger num2 = bigIntegers[1];
-        // BigInteger num1 = new BigInteger(arg1);
-        // BigInteger num2 = new BigInteger(arg2);
-        // BigInteger result = num1.add(num2);
-        // return result;
-        return num2;
+
+        BigInteger result = null;
+        switch(operator) {
+            case '+':
+                result = num1.add(num2);
+                break;
+            case '-':
+                result = num1.subtract(num2);
+                break;
+            case '*':
+                result = num1.multiply(num2);
+                break;
+        }
+        return result;
     }
 
     public static void main(String[] args) throws Exception
