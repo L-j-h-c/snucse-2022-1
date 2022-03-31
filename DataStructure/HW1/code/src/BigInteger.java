@@ -15,9 +15,12 @@ public class BigInteger
     private int[] numArray;
     private char sign;
 
-//    public BigInteger(int i)
-//    {
-//    }
+    public BigInteger(int i)
+    {
+        int[] array = new int[1];
+        array[0] = i;
+        numArray = array;
+    }
 
     public BigInteger(int[] num1)
     {
@@ -32,8 +35,7 @@ public class BigInteger
         }
     }
 
-    public BigInteger add(BigInteger that)
-    {
+    public BigInteger addInside(BigInteger that) {
         int shortLength;
         int longlength;
         BigInteger longOne;
@@ -52,65 +54,148 @@ public class BigInteger
             longOne = this;
         }
         int[] resultArray = new int[longlength+1];
-
-        if(this.getSign()==that.getSign()) {
-
-                for(int i=0; i<shortLength; i++) {
-                    if(carry) {
-                        if(longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]+1>=10) {
-                            resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]+1-10;
-                            carry = true;
-                        } else {
-                            resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]+1;
-                            carry = false;
-                        }
-                    } else {
-                        if(longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]>=10) {
-                            resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]-10;
-                            carry = true;
-                        } else {
-                            resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i];
-                            carry = false;
-                        }
-                    }
-                }
-                for(int i=shortLength; i<longlength; i++) {
-                    if(carry) {
-                        if(1+longOne.numArray[longlength-i-1]>=10) {
-                            resultArray[longlength-i]=0;
-                            carry = true;
-                        } else {
-                            resultArray[longlength-i] = 1+longOne.numArray[longlength-i-1];
-                            carry = false;
-                        }
-                    } else {
-                        resultArray[longlength-i] = longOne.numArray[longlength-i-1];
-                    }
-                }
+            for(int i=0; i<shortLength; i++) {
                 if(carry) {
-                    resultArray[0] = 1;
-                } else {
-                    int[] array = new int[resultArray.length-1];
-                    for(int i=0; i<resultArray.length-1; i++) {
-                        array[i] = resultArray[i+1];
-                    }
-                    BigInteger rt = new BigInteger(array);
-                    if(this.getSign()=='+') {
-                        rt.setSign('+');
+                    if(longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]+1>=10) {
+                        resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]+1-10;
                     } else {
-                        rt.setSign('-');
+                        resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]+1;
+                        carry = false;
                     }
-                    return rt;
+                } else {
+                    if(longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]>=10) {
+                        resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i]-10;
+                        carry = true;
+                    } else {
+                        resultArray[longlength-i] = longOne.numArray[longlength-1-i]+shortOne.numArray[shortLength-1-i];
+                    }
                 }
+            }
+            for(int i=shortLength; i<longlength; i++) {
+                if(carry) {
+                    if(1+longOne.numArray[longlength-i-1]>=10) {
+                        resultArray[longlength-i]=0;
+                    } else {
+                        resultArray[longlength-i] = 1+longOne.numArray[longlength-i-1];
+                        carry = false;
+                    }
+                } else {
+                    resultArray[longlength-i] = longOne.numArray[longlength-i-1];
+                }
+            }
+            if(carry) {
+                resultArray[0] = 1;
+            } else {
+                int[] array = new int[resultArray.length-1];
+                for(int i=0; i<resultArray.length-1; i++) {
+                    array[i] = resultArray[i+1];
+                }
+                BigInteger rt = new BigInteger(array);
+                if(this.getSign()=='+') {
+                    rt.setSign('+');
+                } else {
+                    rt.setSign('-');
+                }
+                return rt;
+            }
             BigInteger rt = new BigInteger(resultArray);
             if(this.getSign()=='+') {
                 rt.setSign('+');
             } else {
                 rt.setSign('-');
             }
-                return rt;
+            return rt;
+    }
+
+    public BigInteger subInside(BigInteger that) {
+        int shortLength=0;
+        int longlength=0;
+        BigInteger longOne = null;
+        BigInteger shortOne = null;
+        boolean carry=false;
+
+        if(numArray.length<that.numArray.length) {
+            shortLength = numArray.length;
+            longlength = that.numArray.length;
+            shortOne = this;
+            longOne = that;
+        } else if(numArray.length==that.numArray.length) {
+            for(int i=0; i<numArray.length; i++) {
+                if(numArray[i] < that.numArray[i]) {
+                    shortLength = numArray.length;
+                    longlength = that.numArray.length;
+                    shortOne = this;
+                    longOne = that;
+                    break;
+                }
+                if(numArray[i] > that.numArray[i])  {
+                    shortLength = that.numArray.length;
+                    longlength = numArray.length;
+                    shortOne = that;
+                    longOne = this;
+                    break;
+                }
+            }
+        } else {
+            shortLength = that.numArray.length;
+            longlength = numArray.length;
+            shortOne = that;
+            longOne = this;
         }
-        return that;
+        if(shortOne==null) return new BigInteger(0);
+
+        int[] resultArray = new int[longlength];
+
+        for(int i=0; i<shortLength; i++) {
+            if(carry) {
+                if(longOne.numArray[longlength-1-i]-shortOne.numArray[shortLength-1-i]-1<0) {
+                    resultArray[longlength-i-1] = 10-1+longOne.numArray[longlength-1-i]-shortOne.numArray[shortLength-1-i];
+                } else {
+                    resultArray[longlength-i-1] = longOne.numArray[longlength-1-i]-shortOne.numArray[shortLength-1-i]-1;
+                    carry = false;
+                }
+            } else {
+                if(longOne.numArray[longlength-1-i]-shortOne.numArray[shortLength-1-i]<0) {
+                    resultArray[longlength-i-1] = 10+longOne.numArray[longlength-1-i]-shortOne.numArray[shortLength-1-i];
+                    carry = true;
+                } else {
+                    resultArray[longlength-i-1] = longOne.numArray[longlength-1-i]-shortOne.numArray[shortLength-1-i];
+                }
+            }
+        }
+        for(int i=shortLength; i<longlength; i++) {
+            if(carry) {
+                if(longOne.numArray[longlength-i-1]==0) {
+                    resultArray[longlength-i-1]=9;
+                } else {
+                    resultArray[longlength-i-1]= longOne.numArray[longlength-i-1]-1;
+                    carry = false;
+                }
+            } else {
+                resultArray[longlength-i-1] = longOne.numArray[longlength-i-1];
+            }
+        }
+
+        int shortenIndex=0;
+        for(int i=0; i<longlength; i++) {
+            shortenIndex=i;
+            if(resultArray[i]!=0) {
+                break;
+            }
+        }
+        int[] rtArray = new int[longlength-shortenIndex];
+        rtArray[0]=resultArray[shortenIndex];
+        for(int i=0; i<rtArray.length; i++) {
+            rtArray[i] = resultArray[i+shortenIndex];
+        }
+
+        BigInteger rt = new BigInteger(rtArray);
+        if(this==longOne) {
+            rt.setSign('+');
+        } else {
+            rt.setSign('-');
+        }
+        return rt;
     }
 
     public BigInteger subtract(BigInteger big)
