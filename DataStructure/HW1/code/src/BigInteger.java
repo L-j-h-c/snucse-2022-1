@@ -244,6 +244,7 @@ public class BigInteger
         int length2 = that.numArray.length;
         int[] result = new int[length1 + length2];
 
+        if(this.numArray[0]==0 || that.numArray[0]==0) return new BigInteger(0);
         for(int i=0; i<length1; i++) {
             for(int j=0; j<length2; j++) {
                 result[i+j+1] += (this.numArray[i]*that.numArray[j])%10;
@@ -252,11 +253,18 @@ public class BigInteger
                 result[i+j+1] %= 10;
             }
         }
-        if(this.numArray[0]*that.numArray[0]<10) {
+
+        for(int i=1; i<result.length-1; i++) {
+            result[result.length-i-2] += result[result.length-i-1]/10;
+            result[result.length-i-1] %= 10;
+        }
+
+        if(result[0]==0) {
             int[] rt = new int[result.length-1];
             for(int i=0; i<result.length-1; i++) rt[i]=result[i+1];
             return new BigInteger(rt);
         }
+
         return new BigInteger(result);
     }
 
@@ -272,7 +280,7 @@ public class BigInteger
     public String toString()
     {
         StringBuilder result = new StringBuilder();
-        if(getSign()=='-') result.append('-');
+        if(getSign()=='-'&&numArray[0]!=0) result.append('-');
         for (int j : numArray) {
             result.append(j);
         }
@@ -305,7 +313,6 @@ public class BigInteger
 
             // operator 할당
             operator = s.charAt(lastIndex++);
-            System.out.println("operator: " + operator);
 
             // operator의 다음 문자가 숫자이면
             if(Character.isDigit(s.charAt(lastIndex))) {
@@ -331,7 +338,6 @@ public class BigInteger
 
             // operator 할당
             operator = s.charAt(lastIndex++);
-            System.out.println("operator: " + operator);
 
             // operator의 다음 문자가 숫자이면
             if(Character.isDigit(s.charAt(lastIndex))) {
