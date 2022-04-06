@@ -10,16 +10,20 @@ public class RockPaperScissors {
 
         System.out.println(userRCP + " " + opponentRCP);
 
-        if(userRCP == opponentRCP) {
+        if(!userRCP.equals("rock") && !userRCP.equals("scissor") && !userRCP.equals("paper")) {
+            return -1;
+        }
+
+        if(userRCP.equals(opponentRCP)) {
             return 0;
-        } else if (userRCP == "rock") {
-            if (opponentRCP == "scissor") return 1;
+        } else if (userRCP.equals("rock")) {
+            if (opponentRCP.equals("scissor")) return 1;
             else return -1;
-        } else if (userRCP == "scissor") {
-            if (opponentRCP == "paper") return 1;
+        } else if (userRCP.equals("scissor")) {
+            if (opponentRCP.equals("paper")) return 1;
             else return -1;
         } else {
-            if (opponentRCP == "rock") return 1;
+            if (opponentRCP.equals("rock")) return 1;
             else return -1;
         }
     }
