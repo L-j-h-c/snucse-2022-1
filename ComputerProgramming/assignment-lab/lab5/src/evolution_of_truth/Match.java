@@ -1,5 +1,7 @@
 package evolution_of_truth;
 
+import evolution_of_truth.agent.Agent;
+
 public class Match {
 
     public static int CHEAT = 0;
