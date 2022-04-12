@@ -1,10 +1,8 @@
 package evolution_of_truth.environment;
 
-import evolution_of_truth.agent.Agent;
-import evolution_of_truth.agent.Angel;
-import evolution_of_truth.agent.Devil;
-import evolution_of_truth.agent.Copycat;
+import evolution_of_truth.agent.*;
 import evolution_of_truth.match.Match;
+import evolution_of_truth.match.MistakeMatch;
 import evolution_of_truth.population.Individual;
 import evolution_of_truth.population.Population;
 
@@ -14,7 +12,7 @@ public class Tournament {
     public Tournament() {
         agentPopulation = new Population();
         for (int i = 0; i < 15; i++) {
-            agentPopulation.addIndividual(new Angel());
+            agentPopulation.addIndividual(new Copykitten());
         }
         for (int i = 0; i < 5; i++) {
             agentPopulation.addIndividual(new Devil());
@@ -24,23 +22,23 @@ public class Tournament {
         }
     }
 
-    private Match[] createAllMatches() {
+    private MistakeMatch[] createAllMatches() {
         int n = agentPopulation.size();
         Individual[] agents = agentPopulation.getIndividuals();
-        Match[] matches = new Match[n*(n-1)/2];
+        MistakeMatch[] matches = new MistakeMatch[n*(n-1)/2];
         int index = 0;
         for(int i=0; i<n; i++) {
             for(int j=1+i; j<n; j++) {
-                matches[index++] = new Match((Agent)agents[i], (Agent)agents[j]);
+                matches[index++] = new MistakeMatch((Agent)agents[i], (Agent)agents[j]);
             }
         }
         return matches;
     }
 
     public void playAllGames(int numRounds) {
-        Match[] matches = createAllMatches();
+        MistakeMatch[] matches = createAllMatches();
         for(int i=0; i<numRounds; i++) {
-            for(Match match : matches){
+            for(MistakeMatch match : matches){
                 match.playGame();
             }
         }

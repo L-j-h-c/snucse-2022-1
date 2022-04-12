@@ -12,7 +12,7 @@ public class Angel extends Agent {
     }
 
     @Override
-    public int choice(int previousOpponentChoice) {
+    public int choice(int previousOpponentChoice, int prePreviousChoice) {
         return Match.COOPERATE;
     }
 }

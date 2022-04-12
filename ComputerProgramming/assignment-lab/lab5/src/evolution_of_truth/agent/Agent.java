@@ -21,7 +21,7 @@ abstract public class Agent extends Individual {
         this.score = newScore;
     }
 
-    abstract public int choice(int previousOpponentChoice);
+    abstract public int choice(int previousOpponentChoice,int prePreviousChoice);
 
     public int sortKey() {
         return getScore();

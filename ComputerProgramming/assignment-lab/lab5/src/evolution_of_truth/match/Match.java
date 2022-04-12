@@ -9,9 +9,9 @@ public class Match {
     public static int UNDEFINED = -1;
 
     Agent agentA, agentB;
-    int previousChoiceA, previousChoiceB;
+    int previousChoiceA, previousChoiceB, prePreviousChoiceA, prePreviousChoiceB;
 
-    private static int ruleMatrix[][][] = {
+    protected static int ruleMatrix[][][] = {
             {
                     {0, 0},
                     {3, -1}
@@ -28,14 +28,20 @@ public class Match {
 
         previousChoiceA = Match.UNDEFINED;
         previousChoiceB = Match.UNDEFINED;
+        prePreviousChoiceA = Match.UNDEFINED;
+        prePreviousChoiceB = Match.UNDEFINED;
     }
 
     public void playGame() {
-        int aChoice = agentA.choice(previousChoiceB);
-        int bChoice = agentB.choice(previousChoiceA);
+        int aChoice = agentA.choice(previousChoiceB, prePreviousChoiceB);
+        int bChoice = agentB.choice(previousChoiceA, prePreviousChoiceA);
+
+        prePreviousChoiceA = previousChoiceA;
+        prePreviousChoiceB = previousChoiceB;
 
         previousChoiceA = aChoice;
         previousChoiceB = bChoice;
+
 
         int aScoreChange = Match.ruleMatrix[aChoice][bChoice][0];
         int bScoreChange = Match.ruleMatrix[aChoice][bChoice][1];

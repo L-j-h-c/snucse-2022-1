@@ -3,20 +3,20 @@ package evolution_of_truth.agent;
 import evolution_of_truth.match.Match;
 import evolution_of_truth.population.Individual;
 
-public class Copycat extends Agent {
-    public Copycat() { super("Copycat");}
+public class Copykitten extends Agent {
+    public Copykitten() { super("Copykitten");}
 
     @Override
     public Individual clone() {
-        return new Copycat();
+        return new Copykitten();
     }
 
     @Override
     public int choice(int previousOpponentChoice, int prePreviousChoice) {
-        if (previousOpponentChoice == Match.UNDEFINED) {
-            return Match.COOPERATE;
+        if (previousOpponentChoice == Match.CHEAT && prePreviousChoice == Match.CHEAT) {
+            return Match.CHEAT;
         } else {
-            return previousOpponentChoice;
+            return Match.COOPERATE;
         }
     }
 }
