@@ -1,6 +1,8 @@
 package evolution_of_truth.agent;
 
-abstract public class Agent {
+import evolution_of_truth.population.Individual;
+
+abstract public class Agent extends Individual {
 
     private int score;
     private String name;
@@ -20,6 +22,10 @@ abstract public class Agent {
     }
 
     abstract public int choice(int previousOpponentChoice);
+
+    public int sortKey() {
+        return getScore();
+    }
 
     @Override
     public String toString() {
