@@ -1,6 +1,6 @@
 package evolution_of_truth.agent;
 
-import evolution_of_truth.Match;
+import evolution_of_truth.match.Match;
 
 public class Angel extends Agent {
     public Angel() { super("Angel");}

@@ -1,4 +1,4 @@
-package evolution_of_truth;
+package evolution_of_truth.match;
 
 import evolution_of_truth.agent.Agent;
 

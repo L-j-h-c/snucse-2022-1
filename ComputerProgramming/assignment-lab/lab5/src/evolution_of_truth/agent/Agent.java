@@ -1,7 +1,5 @@
 package evolution_of_truth.agent;
 
-import evolution_of_truth.Match;
-
 abstract public class Agent {
 
     private int score;
