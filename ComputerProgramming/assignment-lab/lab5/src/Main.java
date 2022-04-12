@@ -1,17 +1,22 @@
 import evolution_of_truth.agent.Agent;
 
 import evolution_of_truth.Match;
-import evolution_of_truth.agent.Angel;
+import evolution_of_truth.agent.Copycat;
 import evolution_of_truth.agent.Devil;
 
 public class Main {
     public static void main(String args[]) {
-        Agent agentA = new Angel();
+        Agent agentA = new Copycat();
         Agent agentB = new Devil();
 
-        Match.playGame(agentA, agentB);
+        Match match = new Match(agentA, agentB);
+        match.playGame();
+        match.playGame();
+        match.playGame();
+        match.playGame();
+        match.playGame();
 
-        System.out.println(agentA.getScore());
-        System.out.println(agentB.getScore());
+        System.out.println(agentA.toString());
+        System.out.println(agentB.toString());
     }
 }

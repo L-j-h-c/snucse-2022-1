@@ -5,10 +5,13 @@ import evolution_of_truth.Match;
 abstract public class Agent {
 
     private int score;
+    private String name;
 
     public Agent() {
         score = 0;
     }
+
+    protected Agent(String name) { this.name = name; }
 
     public int getScore() {
         return this.score;
@@ -18,5 +21,10 @@ abstract public class Agent {
         this.score = newScore;
     }
 
-    abstract public int choice();
+    abstract public int choice(int previousOpponentChoice);
+
+    @Override
+    public String toString() {
+        return name + ": " + getScore();
+    }
 }

@@ -8,6 +8,9 @@ public class Match {
     public static int COOPERATE = 1;
     public static int UNDEFINED = -1;
 
+    Agent agentA, agentB;
+    int previousChoiceA, previousChoiceB;
+
     private static int ruleMatrix[][][] = {
             {
                     {0, 0},
@@ -19,9 +22,20 @@ public class Match {
             }
     };
 
-    public static void playGame(Agent agentA, Agent agentB) {
-        int aChoice = agentA.choice();
-        int bChoice = agentB.choice();
+    public Match(Agent agentA, Agent agentB) {
+        this.agentA = agentA;
+        this.agentB = agentB;
+
+        previousChoiceA = Match.UNDEFINED;
+        previousChoiceB = Match.UNDEFINED;
+    }
+
+    public void playGame() {
+        int aChoice = agentA.choice(previousChoiceB);
+        int bChoice = agentB.choice(previousChoiceA);
+
+        previousChoiceA = aChoice;
+        previousChoiceB = bChoice;
 
         int aScoreChange = Match.ruleMatrix[aChoice][bChoice][0];
         int bScoreChange = Match.ruleMatrix[aChoice][bChoice][1];
