@@ -1,10 +1,9 @@
 package evolution_of_truth.environment;
 
 import evolution_of_truth.agent.*;
-import evolution_of_truth.match.Match;
 import evolution_of_truth.match.MistakeMatch;
-import evolution_of_truth.population.Individual;
-import evolution_of_truth.population.Population;
+import population.Individual;
+import population.Population;
 
 public class Tournament {
     Population agentPopulation;

@@ -1,4 +1,4 @@
-package evolution_of_truth.population;
+package population;
 
 import java.util.ArrayList;
 import java.util.Comparator;

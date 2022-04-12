@@ -1,6 +1,6 @@
 package evolution_of_truth.agent;
 
-import evolution_of_truth.population.Individual;
+import population.Individual;
 
 abstract public class Agent extends Individual {
 

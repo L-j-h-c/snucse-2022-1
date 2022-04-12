@@ -1,4 +1,4 @@
-package evolution_of_truth.population;
+package population;
 
 abstract public class Individual {
     private static int idCount = 0;
