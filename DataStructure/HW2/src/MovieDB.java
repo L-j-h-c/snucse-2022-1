@@ -102,8 +102,21 @@ public class MovieDB {
     	// Printing functionality is provided for the sake of debugging.
         // This code should be removed before submitting your work.
 
-
-        System.err.printf("[trace] MovieDB: DELETE [%s] [%s]\n", item.getGenre(), item.getTitle());
+		int genreCounter = 0;
+		for(MyLinkedList<MovieDBItem> list : allGenreList) {
+			int movieCounter = 0;
+			for(MovieDBItem dbItem : list) {
+				if(dbItem.equals(item)) {
+					list.remove(movieCounter);
+					if(list.size()==0) {
+						allGenreList.remove(genreCounter);
+					}
+					return;
+				}
+				movieCounter++;
+			}
+			genreCounter++;
+		}
     }
 
     public MyLinkedList<MovieDBItem> search(String term) {
@@ -122,7 +135,12 @@ public class MovieDB {
     	// FIXME remove this code and return an appropriate MyLinkedList<MovieDBItem> instance.
     	// This code is supplied for avoiding compilation error.   
         MyLinkedList<MovieDBItem> results = new MyLinkedList<MovieDBItem>();
-
+		MyLinkedList<MovieDBItem> lists = items();
+		for(MovieDBItem dbItem : lists) {
+			if(dbItem.getGenre().contains(term) || dbItem.getTitle().contains(term)) {
+				results.add(dbItem);
+			}
+		}
         return results;
     }
     
@@ -242,39 +260,17 @@ class MyLinkedList<T> implements ListInterface<T> {
 		numItems += 1;
 	}
 
-	// 아래에 add 메서드를 구현하려고 보니까, 각 Node 자체가 비교가 가능하면 좋지 않을까 하는 생각이 들었다.
-	// last.getItem을 하면 T인 MovieDBItem에 접근이 가능한데.
-	// MovieDBItem의 getGenre와 item의 getGenre와 같은지 검사한다.
-	//
-	public void insertMovieDBItem(MovieDBItem item) {
-		Node<MovieDBItem> last = (Node<MovieDBItem>) head;
-
-		// 같은거 있는지 먼저 확인, 같은거 있으면 return
-		while (!last.getItem().equals(item)&&last.getNext()!=null) {
-			if(last.getItem().equals(item)) return ;
+	public void remove(int i) {
+		if(i>this.size()) {
+			throw new NullPointerException();
+		}
+		Node<T> last = head;
+		for(int j=0; j<i; j++) {
 			last = last.getNext();
-			if(last.getNext()==null) last = (Node<MovieDBItem>) head;
 		}
-
-		int compareCount;
-		int nextCompareCount;
-		// 같은거 없는 경우, 넣을 자리를 찾는다.
-		while (last.getNext() != null) {
-			compareCount = item.compareTo(last.getItem());
-			if(compareCount==-1) {
-				nextCompareCount = item.compareTo(last.getNext().getItem());
-				if(nextCompareCount==1) {
-					last.insertNext(item);
-					numItems += 1;
-					return;
-				}
-				last = last.getNext();
-			} else {
-				assert false : "여기 오면 오류다";
-			}
-		}
-		last.insertNext(item);
-		numItems += 1;
+		Node<T> tmp = last.getNext().getNext();
+		last.setNext(tmp);
+		numItems -= 1;
 	}
 
 	@Override
