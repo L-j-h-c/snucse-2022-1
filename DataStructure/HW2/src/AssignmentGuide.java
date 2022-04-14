@@ -73,6 +73,7 @@ public class AssignmentGuide {
     		it.remove();
     		assert false : "should not reach here"; 
     	} catch (IllegalStateException e) {
+            System.out.println("성공");
     		// expected
     	}
     	it.next();
@@ -90,7 +91,7 @@ public class AssignmentGuide {
 	}
 
     private static void testMovieList() {
-        ListInterface<String> l = new MovieList();
+        ListInterface<String> l = new MyLinkedList<>();
 
         // You should not modify these lines below to pass the tests.
         String item1 = "Data Structure";
