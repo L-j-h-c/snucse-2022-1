@@ -29,7 +29,6 @@ public class MovieDB {
 			MyLinkedList<MovieDBItem> firstMovieList = new MyLinkedList<>();
 			firstMovieList.add(item);
 			allGenreList.add(firstMovieList);
-			System.out.println("1");
 		}
 
 		// 하나라도 있는 경우
@@ -38,9 +37,7 @@ public class MovieDB {
 			// 장르에 대해 판단하기
 			int genreIndex = 0;
 			for(MyLinkedList<MovieDBItem> list : allGenreList) {
-				System.out.println("장르리스트 크기 : "+allGenreList.size() +" 리스트 크기 : "+list.size());
 				int compareCount = list.first().getGenre().compareTo(item.getGenre());
-				System.out.println("CompareCount:" + compareCount);
 
 				// 리스트에 있는 것이 더 크다 == 맨 앞에있는것보다 String이 작다는 것. 맨 앞에 추가해주기.
 				// 동시에 같은 장르가 없다는 뜻.
@@ -48,7 +45,6 @@ public class MovieDB {
 					MyLinkedList<MovieDBItem> newGenreList = new MyLinkedList<>();
 					newGenreList.add(item);
 					allGenreList.insert(genreIndex, newGenreList);
-					System.out.println("2");
 					return;
 				} else if(compareCount==0) {
 
@@ -59,23 +55,18 @@ public class MovieDB {
 						// 타이틀 비교하기
 						if(movieCompareCount>0) {
 							list.insert(movieIndex, item);
-							System.out.println("3");
 							return;
 						} else if (movieCompareCount==0) {
-							System.out.println("4");
 							return;
 						} else {
 							movieIndex++;
-							System.out.println("5 : "+ movieIndex);
 							if(list.size()==movieIndex) {
-								System.out.println("success?");
 								list.insert(movieIndex, item);
 								return;
 							}
 						}
 					}
 				} else {
-					System.out.println("장르리스트 크기 : "+allGenreList.size() +" 리스트 크기 : "+list.size() +" " +genreIndex);
 					genreIndex++;
 					if(allGenreList.size()==genreIndex) {
 						MyLinkedList<MovieDBItem> newGenreList = new MyLinkedList<>();
@@ -92,7 +83,6 @@ public class MovieDB {
 
     	// Printing functionality is provided for the sake of debugging.
         // This code should be removed before submitting your work.
-        System.err.printf("[trace] MovieDB: INSERT [%s] [%s]\n", item.getGenre(), item.getTitle());
     }
 
     public void delete(MovieDBItem item) {
@@ -130,14 +120,13 @@ public class MovieDB {
     	
         // This tracing functionality is provided for the sake of debugging.
         // This code should be removed before submitting your work.
-    	System.err.printf("[trace] MovieDB: SEARCH [%s]\n", term);
     	
     	// FIXME remove this code and return an appropriate MyLinkedList<MovieDBItem> instance.
     	// This code is supplied for avoiding compilation error.   
         MyLinkedList<MovieDBItem> results = new MyLinkedList<MovieDBItem>();
 		MyLinkedList<MovieDBItem> lists = items();
 		for(MovieDBItem dbItem : lists) {
-			if(dbItem.getGenre().contains(term) || dbItem.getTitle().contains(term)) {
+			if(dbItem.getTitle().contains(term)) {
 				results.add(dbItem);
 			}
 		}
@@ -155,7 +144,6 @@ public class MovieDB {
 
     	// Printing functionality is provided for the sake of debugging.
         // This code should be removed before submitting your work.
-        System.err.printf("[trace] MovieDB: ITEMS\n");
 
     	// FIXME remove this code and return an appropriate MyLinkedList<MovieDBItem> instance.
     	// This code is supplied for avoiding compilation error.   

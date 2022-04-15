@@ -69,15 +69,8 @@ public class MovieDatabaseConsole {
 				// 입력 - 해석 - 처리 과정을 반복하는 것으로 구성되어 있음을
 				// 명확하게 드러낼 수 있다.
 			} catch (CommandParseException e) {
-				System.err.printf("command parse failure: %s [cmd=%s, input=%s]\n",
-						e.getMessage(), e.getCommand(), e.getInput());
-				e.printStackTrace(System.err);
 			} catch (CommandNotFoundException e) {
-				System.err.printf("command not found: %s\n", e.getCommand());
-				e.printStackTrace(System.err);
 			} catch (Exception e) {
-				System.err.printf("unexpected exception with input: [%s]\n", input);
-				e.printStackTrace(System.err);
 			}
 		}
 	}
