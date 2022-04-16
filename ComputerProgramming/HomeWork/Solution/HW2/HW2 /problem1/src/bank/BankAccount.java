@@ -66,7 +66,20 @@ class BankAccount {
         }
     }
 
-    boolean secondaryAuthenticate(String questionAnswer) {
-        //TODO: Problem 1.3
+    public Event[] getEvents() {
+        if(eventIndex==0&&events[0]==null) return null;
+        Event[] eventArray = new Event[eventIndex];
+        for(int i=0; i<eventIndex; i++) {
+                eventArray[i] = events[i];
+        }
+        return eventArray;
     }
+
+    public int getBalance() {
+        return this.balance;
+    }
+
+//    boolean secondaryAuthenticate(String questionAnswer) {
+//        //TODO: Problem 1.3
+//    }
 }

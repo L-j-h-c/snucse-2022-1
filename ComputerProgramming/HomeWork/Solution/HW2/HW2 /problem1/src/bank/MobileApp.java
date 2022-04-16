@@ -24,24 +24,24 @@ public class MobileApp {
         this.password = password;
     }
 
-    public Encrypted<BankSymmetricKey> sendSymKey(BankPublicKey publickey){
-        //TODO: Problem 1.2
-    }
-
-    public Encrypted<Message> deposit(int amount){
-        //TODO: Problem 1.2
-    }
-
-    public Encrypted<Message> withdraw(int amount){
-        //TODO: Problem 1.2
-    }
-
-    public boolean processResponse(Encrypted<Boolean> obj) {
-        //TODO: Problem 1.2
-    }
-
-    public Encrypted<Message> requestCompensate(String question, String answer, int[] transIdList){
-        //TODO: Problem 1.3
-    }
+//    public Encrypted<BankSymmetricKey> sendSymKey(BankPublicKey publickey){
+//        //TODO: Problem 1.2
+//    }
+//
+//    public Encrypted<Message> deposit(int amount){
+//        //TODO: Problem 1.2
+//    }
+//
+//    public Encrypted<Message> withdraw(int amount){
+//        //TODO: Problem 1.2
+//    }
+//
+//    public boolean processResponse(Encrypted<Boolean> obj) {
+//        //TODO: Problem 1.2
+//    }
+//
+//    public Encrypted<Message> requestCompensate(String question, String answer, int[] transIdList){
+//        //TODO: Problem 1.3
+//    }
 }
 

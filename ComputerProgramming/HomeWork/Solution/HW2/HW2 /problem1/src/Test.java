@@ -1,17 +1,17 @@
 import bank.Bank;
 import bank.MobileApp;
 import bank.event.*;
-import security.Protocol;
+//import security.Protocol;
 import security.method.*;
 
 public class Test {
     public static void main(String[] args) {
         System.out.println("1.1 Test Cases -----------------------------");
         subproblem1();
-        System.out.println("1.2 Test Cases -----------------------------");
-        subproblem2();
-        System.out.println("1.3 Test Cases -----------------------------");
-        subproblem3();
+//        System.out.println("1.2 Test Cases -----------------------------");
+//        subproblem2();
+//        System.out.println("1.3 Test Cases -----------------------------");
+//        subproblem3();
     }
     static void subproblem1() {
         Bank bank = new Bank();
@@ -103,139 +103,139 @@ public class Test {
                         compareEvents(events2,new char[]{d,w,d,d,w,w,d,w,r,s,s,r,w,r,d,d,d,s,r}));
     }
 
-    static void subproblem2() {
-        Bank bank = new Bank();
-        Integer b1,b2,b3;
-        boolean bool1,bool2;
-        String janePW = "1234asdf";
-        String evaPW = "5678ghkj";
-        String janeid = "Jane";
-        String evaid = "Eva";
-        bank.createAccount(janeid, janePW );
-        bank.createAccount(evaid, evaPW, 1000);
-        MobileApp jane = new MobileApp(janeid, janePW);
-        MobileApp eva = new MobileApp(evaid, evaPW);
-        Protocol.handshake(jane,bank);
-        Protocol.communicate(new Deposit(),jane, bank,600);
-        Protocol.communicate(new Deposit(),jane, bank, 768);
-        Protocol.communicate(new Deposit(),jane, bank, 123);
-        Protocol.handshake(eva,bank);
-        Protocol.communicate(new Deposit(),eva, bank, 928);
-        Protocol.communicate(new Deposit(),eva, bank, 1221);
-        b1 = bank.getBalance(janeid,janePW);
-        b2 = bank.getBalance(evaid,evaPW);
-        printOX("1.2.1. deposit with secure connection", b1 == 1491 && b2 == 3149 );
-
-        Protocol.handshake(eva,bank);
-        Protocol.handshake(jane,bank);
-        Protocol.communicate(new Withdraw(),jane, bank, 491);
-        Protocol.communicate(new Withdraw(),eva, bank, 928);
-        Protocol.communicate(new Withdraw(),jane, bank, 231);
-        Protocol.communicate(new Withdraw(),eva, bank, 21);
-        Protocol.communicate(new Withdraw(),eva, bank, 3150);
-        Protocol.communicate(new Withdraw(),jane, bank, 1500);
-        b1 = bank.getBalance(janeid,janePW);
-        b2 = bank.getBalance(evaid,evaPW);
-        printOX("1.2.2. withdraw with secure connection", b1 == 769 && b2 == 2200 );
-
-        Protocol.handshake(jane,bank);
-        Protocol.handshake(eva,bank);
-        Protocol.communicate(new Deposit(),jane, bank, 3900);
-        Protocol.communicate(new Deposit(),eva, bank, 5000);
-        bank.transfer(janeid, janePW,  evaid,20,48);
-        bank.transfer(evaid, evaPW,  janeid,320,49);
-        bank.transfer(janeid, janePW,  evaid,1100,50);
-        bank.transfer(janeid, janePW,  evaid,1000,51);
-        bank.transfer(evaid, evaPW,  janeid,1925,52);
-        bank.transfer(janeid, janePW,  evaid,62000,53);
-        bank.transfer(evaid, evaPW,  janeid,7076,54);
-
-        bank.transfer(evaid, evaPW,  janeid,1925,55);
-        bank.transfer(janeid, janePW,  evaid,1000,565);
-        Protocol.communicate(new Withdraw(),eva, bank, 3150);
-        bank.transfer(janeid, janePW,  evaid,1000,57);
-        Protocol.communicate(new Withdraw(),jane, bank, 231);
-        bank.transfer(janeid, janePW,  evaid,1100,58);
-        b1 = bank.getBalance(janeid,janePW);
-        Protocol.communicate(new Withdraw(),jane, bank, 231);
-        Protocol.communicate(new Withdraw(),jane, bank, 1500);
-        bool1 = bank.transfer(evaid, evaPW,  janeid,7076,59);
-        Protocol.communicate(new Withdraw(),eva, bank, 928);
-        bank.transfer(evaid, evaPW, janeid,320,60);
-        Protocol.communicate(new Deposit(),jane, bank, 123);
-        Protocol.communicate(new Withdraw(),jane, bank, 491);
-        b2 = bank.getBalance(evaid,evaPW);
-        Protocol.communicate(new Withdraw(),eva, bank,21);
-        Protocol.communicate(new Withdraw(),jane, bank,491);
-        Protocol.communicate(new Deposit(),jane, bank,123);
-        Protocol.communicate(new Withdraw(),eva, bank,928);
-        Protocol.communicate(new Deposit(),jane, bank,768);
-        bank.transfer(evaid, evaPW,janeid,1925,61);
-        bank.transfer(janeid, janePW,evaid,20,62);
-        bool2 = bank.transfer(janeid, janePW,evaid,62000,63);
-        Protocol.communicate(new Withdraw(),eva, bank, 21);
-        bank.transfer(janeid, janePW, evaid,1100,64);
-        Protocol.communicate(new Deposit(),jane, bank,600);
-        Protocol.communicate(new Deposit(),jane, bank,768);
-        b1 = bank.getBalance(janeid,janePW);
-        b2 = bank.getBalance(evaid,evaPW);
-        printOX("1.2.3. deposit and withdraw with secure connection",
-                b1 == 4182 &&  b2 == 2077 &&
-                        !bool1  && !bool2);
-
-        Event[] events1,events2;
-        char d = 'd', w = 'w' ,s='s',r='r';
-        events1 = bank.getEvents(janeid,janePW);
-        events2 = bank.getEvents(evaid,evaPW);
-        printOX("1.2.4. getEvents with secure connection",
-                events1 != null && compareEvents(events1,new char[]{d,d,d,w,w,d,s,r,s,s,r,r,s,s,w,s,w,w,r,d,w,w,d,d,r,s,s,d,d}) &&
-                        events2 != null && compareEvents(events2,new char[]{d,d,w,w,d,r,s,r,r,s,s,r,w,r,r,w,s,w,w,s,r,w,r}) );
-
-    }
-    static void subproblem3() {
-        Bank bank = new Bank();
-        Integer b1,b2,b3;
-        boolean bool1,bool2;
-        String janePW = "1234asdf";
-        String evaPW = "5678ghkj";
-        String janeid = "Jane";
-        String evaid = "Eva";
-        String janeQ ="BestProfessor";
-        String evaQ = "BestTA";
-        String janeA="LJW";
-        String evaA = "JWS";
-
-
-        bank.createAccount(janeid, janePW );
-        bank.createAccount(janeid,janePW,0,janeQ, janeA);
-        bank.createAccount(evaid, evaPW,0,evaQ,evaA);
-        MobileApp jane = new MobileApp(janeid, janePW);
-        MobileApp eva = new MobileApp(evaid, evaPW);
-        jane.setCurTransId(1);
-        Protocol.handshake(jane,bank);
-        Protocol.communicate(new Deposit(),jane, bank,200);
-        Protocol.communicate(new Deposit(),jane, bank, 300);
-        Protocol.communicate(new Deposit(),jane, bank, 400);
-        Protocol.communicate(new Withdraw(),jane,bank,300);
-        Protocol.communicate(new Withdraw(),jane,bank,10);
-        Protocol.communicate(new Withdraw(),jane,bank,20);
-        Protocol.handshake(eva,bank);
-        Protocol.communicate(new Deposit(),eva, bank, 1000);
-        Protocol.communicate(new Deposit(),eva, bank, 1500);
-        Protocol.communicate(new Withdraw(),eva,bank,1);
-        Protocol.communicate(new Withdraw(),eva,bank,2);
-        Protocol.communicate(new Withdraw(),eva,bank,3);
-
-        int[] janeReqTransIdList = {1,4,5};
-        int[] evaReqTransIdList = {7,10,11};
-
-        bool1 = Protocol.communicate(new Compensate(),jane,bank,janeQ,janeA,janeReqTransIdList);
-        bool2 = Protocol.communicate(new Compensate(),eva,bank,evaQ,janeA,evaReqTransIdList);
-        b1 = bank.getBalance(janeid,janePW);
-        b2 = bank.getBalance(evaid,evaPW);
-        printOX("1.3.1. processCompensate",bool1 && !bool2 && b1==880 && b2==2494);
-
-    }
+//    static void subproblem2() {
+//        Bank bank = new Bank();
+//        Integer b1,b2,b3;
+//        boolean bool1,bool2;
+//        String janePW = "1234asdf";
+//        String evaPW = "5678ghkj";
+//        String janeid = "Jane";
+//        String evaid = "Eva";
+//        bank.createAccount(janeid, janePW );
+//        bank.createAccount(evaid, evaPW, 1000);
+//        MobileApp jane = new MobileApp(janeid, janePW);
+//        MobileApp eva = new MobileApp(evaid, evaPW);
+//        Protocol.handshake(jane,bank);
+//        Protocol.communicate(new Deposit(),jane, bank,600);
+//        Protocol.communicate(new Deposit(),jane, bank, 768);
+//        Protocol.communicate(new Deposit(),jane, bank, 123);
+//        Protocol.handshake(eva,bank);
+//        Protocol.communicate(new Deposit(),eva, bank, 928);
+//        Protocol.communicate(new Deposit(),eva, bank, 1221);
+//        b1 = bank.getBalance(janeid,janePW);
+//        b2 = bank.getBalance(evaid,evaPW);
+//        printOX("1.2.1. deposit with secure connection", b1 == 1491 && b2 == 3149 );
+//
+//        Protocol.handshake(eva,bank);
+//        Protocol.handshake(jane,bank);
+//        Protocol.communicate(new Withdraw(),jane, bank, 491);
+//        Protocol.communicate(new Withdraw(),eva, bank, 928);
+//        Protocol.communicate(new Withdraw(),jane, bank, 231);
+//        Protocol.communicate(new Withdraw(),eva, bank, 21);
+//        Protocol.communicate(new Withdraw(),eva, bank, 3150);
+//        Protocol.communicate(new Withdraw(),jane, bank, 1500);
+//        b1 = bank.getBalance(janeid,janePW);
+//        b2 = bank.getBalance(evaid,evaPW);
+//        printOX("1.2.2. withdraw with secure connection", b1 == 769 && b2 == 2200 );
+//
+//        Protocol.handshake(jane,bank);
+//        Protocol.handshake(eva,bank);
+//        Protocol.communicate(new Deposit(),jane, bank, 3900);
+//        Protocol.communicate(new Deposit(),eva, bank, 5000);
+//        bank.transfer(janeid, janePW,  evaid,20,48);
+//        bank.transfer(evaid, evaPW,  janeid,320,49);
+//        bank.transfer(janeid, janePW,  evaid,1100,50);
+//        bank.transfer(janeid, janePW,  evaid,1000,51);
+//        bank.transfer(evaid, evaPW,  janeid,1925,52);
+//        bank.transfer(janeid, janePW,  evaid,62000,53);
+//        bank.transfer(evaid, evaPW,  janeid,7076,54);
+//
+//        bank.transfer(evaid, evaPW,  janeid,1925,55);
+//        bank.transfer(janeid, janePW,  evaid,1000,565);
+//        Protocol.communicate(new Withdraw(),eva, bank, 3150);
+//        bank.transfer(janeid, janePW,  evaid,1000,57);
+//        Protocol.communicate(new Withdraw(),jane, bank, 231);
+//        bank.transfer(janeid, janePW,  evaid,1100,58);
+//        b1 = bank.getBalance(janeid,janePW);
+//        Protocol.communicate(new Withdraw(),jane, bank, 231);
+//        Protocol.communicate(new Withdraw(),jane, bank, 1500);
+//        bool1 = bank.transfer(evaid, evaPW,  janeid,7076,59);
+//        Protocol.communicate(new Withdraw(),eva, bank, 928);
+//        bank.transfer(evaid, evaPW, janeid,320,60);
+//        Protocol.communicate(new Deposit(),jane, bank, 123);
+//        Protocol.communicate(new Withdraw(),jane, bank, 491);
+//        b2 = bank.getBalance(evaid,evaPW);
+//        Protocol.communicate(new Withdraw(),eva, bank,21);
+//        Protocol.communicate(new Withdraw(),jane, bank,491);
+//        Protocol.communicate(new Deposit(),jane, bank,123);
+//        Protocol.communicate(new Withdraw(),eva, bank,928);
+//        Protocol.communicate(new Deposit(),jane, bank,768);
+//        bank.transfer(evaid, evaPW,janeid,1925,61);
+//        bank.transfer(janeid, janePW,evaid,20,62);
+//        bool2 = bank.transfer(janeid, janePW,evaid,62000,63);
+//        Protocol.communicate(new Withdraw(),eva, bank, 21);
+//        bank.transfer(janeid, janePW, evaid,1100,64);
+//        Protocol.communicate(new Deposit(),jane, bank,600);
+//        Protocol.communicate(new Deposit(),jane, bank,768);
+//        b1 = bank.getBalance(janeid,janePW);
+//        b2 = bank.getBalance(evaid,evaPW);
+//        printOX("1.2.3. deposit and withdraw with secure connection",
+//                b1 == 4182 &&  b2 == 2077 &&
+//                        !bool1  && !bool2);
+//
+//        Event[] events1,events2;
+//        char d = 'd', w = 'w' ,s='s',r='r';
+//        events1 = bank.getEvents(janeid,janePW);
+//        events2 = bank.getEvents(evaid,evaPW);
+//        printOX("1.2.4. getEvents with secure connection",
+//                events1 != null && compareEvents(events1,new char[]{d,d,d,w,w,d,s,r,s,s,r,r,s,s,w,s,w,w,r,d,w,w,d,d,r,s,s,d,d}) &&
+//                        events2 != null && compareEvents(events2,new char[]{d,d,w,w,d,r,s,r,r,s,s,r,w,r,r,w,s,w,w,s,r,w,r}) );
+//
+//    }
+//    static void subproblem3() {
+//        Bank bank = new Bank();
+//        Integer b1,b2,b3;
+//        boolean bool1,bool2;
+//        String janePW = "1234asdf";
+//        String evaPW = "5678ghkj";
+//        String janeid = "Jane";
+//        String evaid = "Eva";
+//        String janeQ ="BestProfessor";
+//        String evaQ = "BestTA";
+//        String janeA="LJW";
+//        String evaA = "JWS";
+//
+//
+//        bank.createAccount(janeid, janePW );
+//        bank.createAccount(janeid,janePW,0,janeQ, janeA);
+//        bank.createAccount(evaid, evaPW,0,evaQ,evaA);
+//        MobileApp jane = new MobileApp(janeid, janePW);
+//        MobileApp eva = new MobileApp(evaid, evaPW);
+//        jane.setCurTransId(1);
+//        Protocol.handshake(jane,bank);
+//        Protocol.communicate(new Deposit(),jane, bank,200);
+//        Protocol.communicate(new Deposit(),jane, bank, 300);
+//        Protocol.communicate(new Deposit(),jane, bank, 400);
+//        Protocol.communicate(new Withdraw(),jane,bank,300);
+//        Protocol.communicate(new Withdraw(),jane,bank,10);
+//        Protocol.communicate(new Withdraw(),jane,bank,20);
+//        Protocol.handshake(eva,bank);
+//        Protocol.communicate(new Deposit(),eva, bank, 1000);
+//        Protocol.communicate(new Deposit(),eva, bank, 1500);
+//        Protocol.communicate(new Withdraw(),eva,bank,1);
+//        Protocol.communicate(new Withdraw(),eva,bank,2);
+//        Protocol.communicate(new Withdraw(),eva,bank,3);
+//
+//        int[] janeReqTransIdList = {1,4,5};
+//        int[] evaReqTransIdList = {7,10,11};
+//
+//        bool1 = Protocol.communicate(new Compensate(),jane,bank,janeQ,janeA,janeReqTransIdList);
+//        bool2 = Protocol.communicate(new Compensate(),eva,bank,evaQ,janeA,evaReqTransIdList);
+//        b1 = bank.getBalance(janeid,janePW);
+//        b2 = bank.getBalance(evaid,evaPW);
+//        printOX("1.3.1. processCompensate",bool1 && !bool2 && b1==880 && b2==2494);
+//
+//    }
 
         static void printOX(String prompt,boolean condition){
         if(condition){
