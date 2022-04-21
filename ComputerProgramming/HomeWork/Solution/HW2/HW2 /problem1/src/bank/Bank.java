@@ -113,7 +113,7 @@ public class Bank {
         return null;
     }
 
-
+    // bankPublicKey와 bankSecretKey의 세트를 만든다. bankPublicKey로 encrypt된 것은 bankSecretKey로만 해제될 수 있다.
     private BankSecretKey secretKey;
     public BankPublicKey getPublicKey(){
         BankKeyPair keypair = Encryptor.publicKeyGen(); // generates two keys : BankPublicKey, BankSecretKey
@@ -123,6 +123,10 @@ public class Bank {
 
     int maxHandshakes = 10000;
     int numSymmetrickeys = 0;
+
+    // bankSymmetricKeys를 저장할 배열. mobileApp과 handShake할때마다 저장.
+    // bankSymmetricKey는 AppId와 페어를 이뤄서 저장되어야 한다.
+    // encrtyptedKey가 비었거나, decryption이 실패할 경우 아무것도 저장하지 않는다.
     BankSymmetricKey[] bankSymmetricKeys = new BankSymmetricKey[maxHandshakes];
     String[] AppIds = new String[maxHandshakes];
 
@@ -135,19 +139,90 @@ public class Bank {
         return -1;
     }
 
-//    public void fetchSymKey(Encrypted<BankSymmetricKey> encryptedKey, String AppId){
-//        //TODO: Problem 1.2
-//    }
-//
-//    public Encrypted<Boolean> processRequest(Encrypted<Message> messageEnc, String AppId) {
-//        //TODO: Problem 1.2
-//    }
-//
-//    public void createAccount(String id, String password, int initBalance, String question, String answer) {
-//        //TODO: Problem 1.3
-//    }
-//
-//    public boolean compensate(String id, String password, String questionAnswer, int[] transIdList){
-//        //TODO: Problem 1.3
-//    }
+    // 디버깅 : fetchSymKey까지는 문제가 없었다.
+    public void fetchSymKey(Encrypted<BankSymmetricKey> encryptedKey, String AppId){
+        //TODO: Problem 1.2
+       BankSymmetricKey tmpKey = encryptedKey.decrypt(secretKey);
+       if(tmpKey!=null) {
+           if(getAppIdIndex(AppId)!=-1) {
+               bankSymmetricKeys[getAppIdIndex(AppId)] = tmpKey;
+           } else {
+               bankSymmetricKeys[numSymmetrickeys] = tmpKey;
+               AppIds[numSymmetrickeys] = AppId;
+               numSymmetrickeys++;
+           }
+       }
+    }
+
+    public Encrypted<Boolean> processRequest(Encrypted<Message> messageEnc, String AppId) {
+        //TODO: Problem 1.2
+        BankSymmetricKey symKey = bankSymmetricKeys[getAppIdIndex(AppId)];
+        if(symKey == null) return null;
+        if(messageEnc.decrypt(symKey)==null) {
+            return null;
+        }
+        else {
+            String requestType = messageEnc.decrypt(symKey).getRequestType();
+            String id = messageEnc.decrypt(symKey).getId();
+            String password = messageEnc.decrypt(symKey).getPassword();
+            int amount = messageEnc.decrypt(symKey).getAmount();
+            int transId = messageEnc.decrypt(symKey).getTransId();
+            if(requestType.equals("deposit")) {
+                return new Encrypted<Boolean>(this.deposit(id, password, amount, transId), symKey);
+            } else if (requestType.equals("withdraw")) {
+                return new Encrypted<Boolean>(this.withdraw(id, password, amount, transId), symKey);
+            } else {
+                String questionAnswer = messageEnc.decrypt(symKey).getQnA();
+                int[] transIds = messageEnc.decrypt(symKey).getTransIdList();
+                return new Encrypted<Boolean>(this.compensate(id, password, questionAnswer, transIds), symKey);
+            }
+        }
+    }
+
+    public void createAccount(String id, String password, int initBalance, String question, String answer) {
+        //TODO: Problem 1.3
+
+        // 동일한 id가 존재할 경우 answer와 question 수정
+        for (int i = 0; i < numAccounts; i++) {
+            if(ids[i].equals(id)) {
+                if (accounts[i].authenticate(password)) {
+                    accounts[i].setQuestion(question);
+                    accounts[i].setAnswer(answer);
+                    return;
+                } else {
+                    return;
+                }
+            }
+        }
+
+        // 아래는 새로운 계정일 경우임
+        accounts[numAccounts] = new BankAccount(id, password, initBalance, question, answer);
+        ids[numAccounts++] = id;
+    }
+
+    public boolean compensate(String id, String password, String questionAnswer, int[] transIdList){
+        //TODO: Problem 1.3
+        for (int i = 0; i < numAccounts; i++) {
+            if(ids[i].equals(id)) {
+                if (accounts[i].authenticate(password) && accounts[i].secondaryAuthenticate(questionAnswer)) {
+                    Event[] events = accounts[i].getEvents();
+                    int sum=0;
+
+                    for(int j=0; j<transIdList.length; j++) {
+                        for(Event event : events) {
+                            if(event.getTransId() == transIdList[j] && event.toCustomString() == "WITHDRAW") {
+                                sum += event.getAmount();
+                            }
+                        }
+                    }
+
+                    accounts[i].compensate(sum);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 }

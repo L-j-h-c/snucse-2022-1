@@ -23,6 +23,11 @@ class BankAccount {
 
     BankAccount(String id, String password, int balance, String question, String answer) {
         //TODO: Problem 1.3
+        this.id = id;
+        this.password = password;
+        this.balance = balance;
+        this.question = question;
+        this.answer = answer;
     }
 
 
@@ -79,7 +84,22 @@ class BankAccount {
         return this.balance;
     }
 
-//    boolean secondaryAuthenticate(String questionAnswer) {
-//        //TODO: Problem 1.3
-//    }
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    boolean secondaryAuthenticate(String questionAnswer) {
+        //TODO: Problem 1.3
+        String[] terms = questionAnswer.split(",");
+        if(this.question == terms[0] && this.answer == terms[1]) return true;
+        else return false;
+    }
+
+    public void compensate(int amount) {
+        this.balance += amount;
+    }
 }
