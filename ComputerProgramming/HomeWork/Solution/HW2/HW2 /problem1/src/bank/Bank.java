@@ -215,7 +215,6 @@ public class Bank {
                             }
                         }
                     }
-
                     accounts[i].compensate(sum);
                     return true;
                 } else {

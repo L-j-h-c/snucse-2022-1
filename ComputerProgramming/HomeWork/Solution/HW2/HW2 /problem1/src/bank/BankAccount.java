@@ -95,7 +95,7 @@ class BankAccount {
     boolean secondaryAuthenticate(String questionAnswer) {
         //TODO: Problem 1.3
         String[] terms = questionAnswer.split(",");
-        if(this.question == terms[0] && this.answer == terms[1]) return true;
+        if(this.question.equals(terms[0]) && this.answer.equals(terms[1])) return true;
         else return false;
     }
 

@@ -62,7 +62,7 @@ public class MobileApp {
 
     public Encrypted<Message> requestCompensate(String question, String answer, int[] transIdList){
         //TODO: Problem 1.3
-        String qnA = question+answer;
+        String qnA = question+","+answer;
         Message message = new Message("compensate", id, password, qnA, transIdList);
         return new Encrypted<Message>(message, bankSymmetricKey);
     }
