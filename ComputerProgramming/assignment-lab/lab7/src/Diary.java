@@ -34,7 +34,7 @@ public class Diary {
         DiaryEntry diaryEntry = findEntry(id);
 
         if (diaryEntry == null) {
-            DiaryUI.print("There is no entry with id " + id);
+            DiaryUI.print("There is no entry with id " + id + ".");
             return;
         }
         DiaryUI.print(diaryEntry.getFullString());
@@ -45,7 +45,7 @@ public class Diary {
         // Practice 1 - Delete the entry of given id
         DiaryEntry diaryEntry = findEntry(id);
         if ( diaryEntry == null) {
-            DiaryUI.print("There is no entry with id " + id);
+            DiaryUI.print("There is no entry with id " + id + ".");
             return;
         }
         diaryEntries.remove(diaryEntry);
@@ -85,16 +85,41 @@ public class Diary {
     public void listEntries() {
         //TODO
         // Practice 2 - List all the entries - sorted in ascending order of the ID
+        Collections.sort(diaryEntries, new IDSort());
+        Iterator<DiaryEntry> iterator = diaryEntries.iterator();
+
+        while(iterator.hasNext()) {
+            DiaryEntry curDiaryEntry = iterator.next();
+            DiaryUI.print(curDiaryEntry.getShortString());
+        }
     }
     public void listEntries(String condition1) {
         //TODO
         // Practice 2 - List all the entries - sorted in ascending order of the title
+        Collections.sort(diaryEntries, new titleSort());
+
+        DiaryUI.print("List of entries sorted by the " + condition1 + ".");
+        ListIterator<DiaryEntry> iterator = diaryEntries.listIterator();
+        while(iterator.hasNext()) {
+            DiaryEntry currentEntry = iterator.next();
+            DiaryUI.print(currentEntry.getShortString());
+        }
     }
     public void listEntries(String condition1, String condition2) {
         //TODO
         // Practice 2 - List all the entries - sorted in ascending order of the title
         //                                      then in descending order of the content word count
         //                                      then in ascending order of the ID
+        Collections.sort(diaryEntries, new IDSort());
+        Collections.sort(diaryEntries, new lengthSort());
+        Collections.sort(diaryEntries, new titleSort());
+
+        DiaryUI.print("List of entries sorted by " + condition1 + " and " + condition2 + ".");
+        ListIterator<DiaryEntry> iterator = diaryEntries.listIterator();
+        while(iterator.hasNext()) {
+            DiaryEntry currentEntry = iterator.next();
+            DiaryUI.print(currentEntry.getShortString() + ", length: " + currentEntry.getContent().split("\\s").length);
+        }
 
     }
 
@@ -103,7 +128,7 @@ public class Diary {
         public int compare(DiaryEntry entry1, DiaryEntry entry2){
             //TODO
             // Practice 2 - List all the entries - sorted in ascending order of the ID
-            return -1;
+            return Integer.compare(entry1.getID(), entry2.getID());
         }
     }
     class titleSort implements Comparator<DiaryEntry>{
@@ -111,7 +136,7 @@ public class Diary {
         public int compare(DiaryEntry entry1, DiaryEntry entry2){
             //TODO
             // Practice 2 - List all the entries - sorted in ascending order of the title
-            return -1;
+            return entry1.getTitle().compareTo(entry2.getTitle());
         }
     }
 
@@ -120,7 +145,12 @@ public class Diary {
         public int compare(DiaryEntry entry1, DiaryEntry entry2){
             //TODO
             // Practice 2 - List all the entries - sorted in descending order of the content word count
-            return -1;
+            int length1 = entry1.getContent().split("\\s").length;
+            int length2 = entry2.getContent().split("\\s").length;
+
+            if(length1 == length2)
+                return 0;
+            return length1 < length2 ? 1 : -1;
         }
     }
 }
