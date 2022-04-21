@@ -19,9 +19,15 @@ public class Message {
 
     public double getDistance(){
     //TODO: Problem 2.1
+        double animalPosition = currentAnimal.getPosition();
+        double humanPosition = currentHuman.getPosition();
+        return animalPosition-humanPosition >=0
+                ? animalPosition-humanPosition
+                : humanPosition - animalPosition;
     }
 
-    @Override
-    public String toString(){
-    //TODO: Problem 2.1
+//    @Override
+//    public String toString() {
+//        //TODO: Problem 2.1
+//    }
 }

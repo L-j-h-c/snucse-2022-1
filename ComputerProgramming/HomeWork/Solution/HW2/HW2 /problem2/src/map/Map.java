@@ -12,7 +12,23 @@ public class Map {
     }
 
 
-    public boolean getOnWater(double position){
+    public boolean getOnWater(double position) {
         //TODO: Problem 2.1
+        if(position>=waterStart && position<waterEnd) return true;
+        else return false;
+    }
+
+    //2.1.을 위해 구현
+    public double getWaterStart() {
+        return this.waterStart;
+    }
+
+    public double getWaterEnd() {
+        return this.waterEnd;
+    }
+
+    public double getMapEnd() {
+        return this.mapEnd;
+    }
 }
 

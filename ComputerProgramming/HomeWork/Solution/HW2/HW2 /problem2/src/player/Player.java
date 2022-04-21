@@ -25,6 +25,11 @@ public abstract class Player implements Comparable<Player>{
 		this.playerType = playerType;
     }
 
+    // 2.1.을 위해 구현
+    public double getPosition() {
+        return this.position;
+    }
+
     public void setNextPlayerPosition(double position) {
         nextPlayerPosition = position;
 		eyesight.setNextPlayerPosition(position);
@@ -42,13 +47,13 @@ public abstract class Player implements Comparable<Player>{
     abstract public boolean getThrowUp();
     abstract public void hear(Message message);
 
-    public void passBaton(Player nextPlayer){
-        //TODO: Problem 2.2
-    }
-
-    protected double getMovableDistance(double velocity){
-        //TODO: Problem 2.2
-    }
+//    public void passBaton(Player nextPlayer){
+//        //TODO: Problem 2.2
+//    }
+//
+//    protected double getMovableDistance(double velocity){
+//        //TODO: Problem 2.2
+//    }
 
     @Override
     public String toString() {
@@ -56,4 +61,7 @@ public abstract class Player implements Comparable<Player>{
     }
     public abstract String toCustomString();
 
+    public void setPosition(double position) {
+        this.position = position;
+    }
 }
