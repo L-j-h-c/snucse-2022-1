@@ -65,26 +65,45 @@ public class Simulator {
 
     public boolean getRaceFinish(){return raceFinish;}
 
+    private boolean checkError() {
+        for(Player p : humanPlayers) {
+            if(p.toString().contains("animal")) return true;
+        }
+
+        for(Player p : animalPlayers) {
+            if(p.toString().contains("human")) return true;
+        }
+
+        if(humanPlayers.size()==0 || humanPlayers.size() > maxTeamPlayerNum) return true;
+        if(animalPlayers.size()==0 || animalPlayers.size() > maxTeamPlayerNum) return true;
+
+        return false;
+    }
+
      public void simulate() {
         //TODO: Problem 2.3
          int time = 0;
+
          while(!getRaceFinish()) {
+             if(checkError() || (time==0&&currentHuman.getPosition()!=0&&currentAnimal.getPosition()!=0)) {
+                 raceLogForEval[0] = "[ERROR] Team building error";
+                 raceFinish = true;
+                 break;
+             }
              currentHuman.hear(talk(time));
              if(!currentHuman.getThrowUp()) currentHuman.move();
              if(!currentAnimal.getThrowUp()) currentAnimal.move();
              snapshot();
+             time++;
              if(currentAnimal.getPosition()==map.getMapEnd()
                      || currentHuman.getPosition()==map.getMapEnd()) {
-                 time++;
                  currentHuman.hear(talk(time));
                  raceFinish=true;
              }
              else if (currentAnimal.getThrowUp() && currentHuman.getThrowUp()) {
-                 time++;
                  currentHuman.hear(talk(time));
                  raceFinish=true;
              }
-             time++;
          }
     }
 }
