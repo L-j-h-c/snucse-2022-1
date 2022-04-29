@@ -54,6 +54,7 @@ class ChangeExpression
 		postfix = new String[st.countTokens()];
 		boolean wasOp = false;
 		boolean wasNumber = false;
+		boolean rightBraceHandle = false;
 		while(st.hasMoreTokens()) {
 			String str = st.nextToken();
 			if(str.equals(" ")) continue;
@@ -64,6 +65,7 @@ class ChangeExpression
 				postfix[postfixCount++] = str;
 				wasNumber = true;
 				wasOp = false;
+				rightBraceHandle = false;
 			}
 
 			// 오퍼레이터인 경우
@@ -83,6 +85,7 @@ class ChangeExpression
 					if(newOp == Operator.LB) braceCount++;
 					wasOp = true;
 					wasNumber = false;
+					rightBraceHandle = false;
 					continue;
 				}
 
@@ -100,12 +103,14 @@ class ChangeExpression
 					if(newOp == Operator.LB) braceCount++;
 					wasOp = true;
 					wasNumber = false;
+					rightBraceHandle = false;
 				}
 				// 연산자 우선순위가 같거나 낮은 경우
 				else {
 					// 괄호에 대한 처리
 					if(newOp == Operator.RB) {
 						braceCount--;
+						if(rightBraceHandle) throw new Exception();
 						while(!stack.isEmpty()&&operatorPushRepeatChecker(newOp)) {
 							if(stack.peek().equals("(")) {
 								stack.pop();
@@ -150,6 +155,7 @@ class ChangeExpression
 					}
 					wasOp = true;
 					wasNumber = false;
+					rightBraceHandle = true;
 				}
 			}
 		} // 한 줄 입력을 token화하는 while문 종료. 아래부터는 스택에 남은 것들을 배열에 넣는다.
