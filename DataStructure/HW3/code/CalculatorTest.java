@@ -21,6 +21,7 @@ public class CalculatorTest
 			catch (Exception e)
 			{
 				System.out.println("ERROR");
+				continue;
 			}
 		}
 	}
@@ -29,8 +30,10 @@ public class CalculatorTest
 	{
 		ChangeExpression changer = new ChangeExpression(input);
 		changer.makePostFix();
+		int result = changer.calculatePostFix();
 		//계산 하는 자리
 		changer.printPostfix();
+		System.out.println(result);
 	}
 }
 
@@ -122,7 +125,10 @@ class ChangeExpression implements changeExpressionInterface
 								stack.push("~");
 							}
 						}
-						else stack.push("-");
+						else {
+							postfix[postfixCount++] = stack.pop();
+							stack.push("-");
+						}
 					} else {
 						postfix[postfixCount++] = stack.pop();
 						stack.push(str);
@@ -181,17 +187,51 @@ class ChangeExpression implements changeExpressionInterface
 	}
 
 	public int calculatePostFix() {
-		int result = 0;
-		int prevNum;
-		int currentNum = 0;
-
-		for(int i = 0; i < postfixCount-1; i++) {
-			if(prevNum)
-			if(isNumber(postfix[i].charAt(i))) {
-				prevNum = Integer.parseInt(postfix[i]);
+		Stack<Integer> opernands = new Stack();
+		for(int i = 0; i < postfixCount; i++) {
+			String str = postfix[i];
+			if(isNumber(str.charAt(0))) {
+				opernands.push(Integer.parseInt(postfix[i]));
+			} else {
+				Operator op = makeOperator(str);
+				int a, b;
+				a = opernands.pop();
+				if(op == Operator.Unary) {
+					opernands.push(calculateUnary(op, a));
+				} else {
+					b = opernands.pop();
+					opernands.push(calculateBinary(op, b, a));
+				}
 			}
 		}
 
-		return result;
+		return opernands.pop();
+	}
+
+	private int calculateBinary(Operator op, int a, int b) {
+		switch(op) {
+			case Add: return a + b;
+			case Sub: return a - b;
+			case Mul: return a * b;
+			case Div:
+				if(b==0) throw new Error();
+				else return a/b;
+			case Rem:
+				if(b==0) throw new Error();
+				else return a%b;
+			case pow:
+				if(a==0) throw new Error();
+				else return (int)Math.pow(a,b);
+			default:
+				throw new IllegalStateException("Unexpected value: " + op);
+		}
+	}
+
+	private int calculateUnary(Operator op, int a) {
+		switch(op) {
+			case Unary: return a*-1;
+			default:
+				throw new IllegalStateException("Unexpected value: " + op);
+		}
 	}
 }
