@@ -109,7 +109,6 @@ class ChangeExpression
 						while(!stack.isEmpty()&&operatorPushRepeatChecker(newOp)) {
 							if(stack.peek().equals("(")) {
 								stack.pop();
-								if(!stack.isEmpty()) postfix[postfixCount++] = stack.pop();
 								break;
 							}
 							postfix[postfixCount++] = stack.pop();
@@ -139,6 +138,7 @@ class ChangeExpression
 					// '^'에 대한 분기처리
 					else if (newOp == Operator.pow && stackedOp == Operator.pow) {
 						stack.push(str);
+						if(wasOp) throw new Exception();
 					}
 					// '-', '^'를 제외한 연산자들의 분기처리
 					else {
@@ -146,6 +146,7 @@ class ChangeExpression
 							postfix[postfixCount++] = stack.pop();
 						}
 						stack.push(str);
+						if(wasOp) throw new Exception();
 					}
 					wasOp = true;
 					wasNumber = false;
@@ -179,6 +180,7 @@ class ChangeExpression
 			if(i!=postfixCount-1) System.out.print(" ");
 		}
 		System.out.println();
+//		System.out.println(braceCount);
 	}
 
 	private Operator makeOperator(String str) {
@@ -245,7 +247,9 @@ class ChangeExpression
 				if(b==0) throw new Exception();
 				else return a%b;
 			case pow:
-				if(a<0) throw new Exception();
+				if(b<0) {
+					throw new Exception();
+				}
 				else {
 					double pow = Math.pow(a,b);
 					return (long)pow;
