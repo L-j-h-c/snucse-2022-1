@@ -26,12 +26,10 @@ public class CalculatorTest
 		}
 	}
 
-	private static void command(String input)
-	{
+	private static void command(String input) throws Exception {
 		ChangeExpression changer = new ChangeExpression(input);
 		changer.makePostFix();
 		int result = changer.calculatePostFix();
-		//계산 하는 자리
 		changer.printPostfix();
 		System.out.println(result);
 	}
@@ -71,15 +69,18 @@ class ChangeExpression implements changeExpressionInterface
 		st = new StringTokenizer(input);
 	}
 
-	public void makePostFix() {
+	public void makePostFix() throws Exception {
 		postfix = new String[st.countTokens()];
 		boolean wasOp = false;
+		boolean wasNumber = false;
 		while(st.hasMoreTokens()) {
 			String str = st.nextToken();
 
 			// 연산자인지 Operator인지 판단하기. 숫자인 경우
 			if(isNumber(str.charAt(0))) {
+				if (wasNumber) throw new Exception();
 				postfix[postfixCount++] = str;
+				wasNumber = true;
 				wasOp = false;
 			}
 
@@ -98,6 +99,7 @@ class ChangeExpression implements changeExpressionInterface
 							stack.push(str);
 					}
 					wasOp = true;
+					wasNumber = false;
 					continue;
 				}
 
@@ -109,17 +111,18 @@ class ChangeExpression implements changeExpressionInterface
 					if(newOp == Operator.Sub) {
 						if(wasOp || stack.peek().equals("(")) stack.push("~");
 						else stack.push("-");
-						wasOp = true;
-						continue;
+					} else {
+						stack.push(str);
 					}
-					stack.push(str);
 					wasOp = true;
+					wasNumber = false;
 				}
 				// 연산자 우선순위가 같거나 낮은 경우
 				else {
 					if(newOp == Operator.Sub) {
 						if(wasOp) {
 							if(stack.peek().equals("~")) stack.push("~");
+							else if (stack.peek().equals("-")) stack.push("~");
 							else {
 								postfix[postfixCount++] = stack.pop();
 								stack.push("~");
@@ -134,6 +137,7 @@ class ChangeExpression implements changeExpressionInterface
 						stack.push(str);
 					}
 					wasOp = true;
+					wasNumber = false;
 				}
 			}
 		} // 한 줄 입력을 token화하는 while문 종료. 아래부터는 스택에 남은 것들을 배열에 넣는다.
@@ -186,7 +190,7 @@ class ChangeExpression implements changeExpressionInterface
 		}
 	}
 
-	public int calculatePostFix() {
+	public int calculatePostFix() throws Exception {
 		Stack<Integer> opernands = new Stack();
 		for(int i = 0; i < postfixCount; i++) {
 			String str = postfix[i];
@@ -208,19 +212,19 @@ class ChangeExpression implements changeExpressionInterface
 		return opernands.pop();
 	}
 
-	private int calculateBinary(Operator op, int a, int b) {
+	private int calculateBinary(Operator op, int a, int b) throws Exception {
 		switch(op) {
 			case Add: return a + b;
 			case Sub: return a - b;
 			case Mul: return a * b;
 			case Div:
-				if(b==0) throw new Error();
+				if(b==0) throw new Exception();
 				else return a/b;
 			case Rem:
-				if(b==0) throw new Error();
+				if(b==0) throw new Exception();
 				else return a%b;
 			case pow:
-				if(a==0) throw new Error();
+				if(a==0) throw new Exception();
 				else return (int)Math.pow(a,b);
 			default:
 				throw new IllegalStateException("Unexpected value: " + op);
@@ -229,7 +233,7 @@ class ChangeExpression implements changeExpressionInterface
 
 	private int calculateUnary(Operator op, int a) {
 		switch(op) {
-			case Unary: return a*-1;
+			case Unary: return a*(-1);
 			default:
 				throw new IllegalStateException("Unexpected value: " + op);
 		}
