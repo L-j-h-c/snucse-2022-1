@@ -35,28 +35,7 @@ public class CalculatorTest
 	}
 }
 
-interface changeExpressionInterface {
-
-}
-
-enum Operator {
-	// 5순위
-	Add, // +
-	Sub, // -
-	// 4순위
-	Mul, // *
-	Div, // /
-	Rem, // %
-	// 3순위
-	Unary, // -
-	// 2순위
-  	pow, // ^
-	// 1순위
-	LB, // (
-	RB // )
-}
-
-class ChangeExpression implements changeExpressionInterface
+class ChangeExpression
 {
 	private StringTokenizer st;
 	private Stack<String> stack = new Stack();
@@ -127,7 +106,7 @@ class ChangeExpression implements changeExpressionInterface
 							if(stack.peek().equals("~")) stack.push("~");
 							else if (stack.peek().equals("-")) stack.push("~");
 							else {
-								while(!stack.isEmpty()&&operatorPushRepeatChecker(newOp)) {
+								while(!stack.isEmpty()&&operatorPushRepeatChecker(Operator.Unary)) {
 									postfix[postfixCount++] = stack.pop();
 								}
 								stack.push("~");
@@ -261,4 +240,21 @@ class ChangeExpression implements changeExpressionInterface
 				throw new IllegalStateException("Unexpected value: " + op);
 		}
 	}
+}
+
+enum Operator {
+	// 5순위
+	Add, // +
+	Sub, // -
+	// 4순위
+	Mul, // *
+	Div, // /
+	Rem, // %
+	// 3순위
+	Unary, // -
+	// 2순위
+	pow, // ^
+	// 1순위
+	LB, // (
+	RB // )
 }
