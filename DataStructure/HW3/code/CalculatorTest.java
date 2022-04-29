@@ -42,6 +42,7 @@ class ChangeExpression
 
 	private String[] postfix;
 	private int postfixCount = 0;
+	private int braceCount = 0;
 
 
 	public ChangeExpression(String input) {
@@ -79,6 +80,7 @@ class ChangeExpression
 					else {
 							stack.push(str);
 					}
+					if(newOp == Operator.LB) braceCount++;
 					wasOp = true;
 					wasNumber = false;
 					continue;
@@ -87,7 +89,7 @@ class ChangeExpression
 				Operator stackedOp = makeOperator(stack.peek());
 
 				// 연산자 우선순위를 비교해서 새로운 것이 높으면 스택에 넣어줌
-				if(getOperatorGrade(stackedOp) < getOperatorGrade(newOp)) {
+				if(getOperatorGrade(stackedOp) < getOperatorGrade(newOp) && !str.equals(")")) {
 					// '-'인 경우에만 unary인지 구분해서 넣어줌
 					if(newOp == Operator.Sub) {
 						if(wasOp || stack.peek().equals("(")) stack.push("~");
@@ -95,11 +97,26 @@ class ChangeExpression
 					} else {
 						stack.push(str);
 					}
+					if(newOp == Operator.LB) braceCount++;
 					wasOp = true;
 					wasNumber = false;
 				}
 				// 연산자 우선순위가 같거나 낮은 경우
 				else {
+					// 괄호에 대한 처리
+					if(newOp == Operator.RB) {
+						braceCount--;
+						while(!stack.isEmpty()&&operatorPushRepeatChecker(newOp)) {
+							if(stack.peek().equals("(")) {
+								stack.pop();
+								if(!stack.isEmpty()) postfix[postfixCount++] = stack.pop();
+								break;
+							}
+							postfix[postfixCount++] = stack.pop();
+						}
+						continue;
+					}
+
 					// '-'를 Unary로 만들어주는 분기처리
 					if(newOp == Operator.Sub) {
 						if(wasOp) {
@@ -119,10 +136,11 @@ class ChangeExpression
 							stack.push("-");
 						}
 					}
+					// '^'에 대한 분기처리
 					else if (newOp == Operator.pow && stackedOp == Operator.pow) {
 						stack.push(str);
 					}
-					// '-'를 제외한 연산자들의 분기처리
+					// '-', '^'를 제외한 연산자들의 분기처리
 					else {
 						while(!stack.isEmpty()&&operatorPushRepeatChecker(newOp)) {
 							postfix[postfixCount++] = stack.pop();
@@ -141,7 +159,11 @@ class ChangeExpression
 	}
 
 	private boolean operatorPushRepeatChecker(Operator op) {
-		if(getOperatorGrade(makeOperator(stack.peek()))>=getOperatorGrade(op)) {
+		int grade = getOperatorGrade(makeOperator(stack.peek()));
+		if(getOperatorGrade(op)==5) return true;
+
+		if(grade>=getOperatorGrade(op)) {
+			if(grade == 4) return false;
 			return true;
 		} else return false;
 	}
@@ -207,7 +229,7 @@ class ChangeExpression
 				}
 			}
 		}
-
+		if(braceCount!=0) throw new Exception();
 		return opernands.pop();
 	}
 
