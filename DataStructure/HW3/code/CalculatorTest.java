@@ -119,21 +119,33 @@ class ChangeExpression implements changeExpressionInterface
 				}
 				// 연산자 우선순위가 같거나 낮은 경우
 				else {
+					// '-'를 Unary로 만들어주는 분기처리
 					if(newOp == Operator.Sub) {
 						if(wasOp) {
 							if(stack.peek().equals("~")) stack.push("~");
 							else if (stack.peek().equals("-")) stack.push("~");
 							else {
-								postfix[postfixCount++] = stack.pop();
+								while(!stack.isEmpty()&&operatorPushRepeatChecker(newOp)) {
+									postfix[postfixCount++] = stack.pop();
+								}
 								stack.push("~");
 							}
 						}
 						else {
-							postfix[postfixCount++] = stack.pop();
+							while(!stack.isEmpty()&&operatorPushRepeatChecker(newOp)) {
+								postfix[postfixCount++] = stack.pop();
+							}
 							stack.push("-");
 						}
-					} else {
-						postfix[postfixCount++] = stack.pop();
+					}
+					else if (newOp == Operator.pow && stackedOp == Operator.pow) {
+						stack.push(str);
+					}
+					// '-'를 제외한 연산자들의 분기처리
+					else {
+						while(!stack.isEmpty()&&operatorPushRepeatChecker(newOp)) {
+							postfix[postfixCount++] = stack.pop();
+						}
 						stack.push(str);
 					}
 					wasOp = true;
@@ -145,6 +157,12 @@ class ChangeExpression implements changeExpressionInterface
 		while(!stack.isEmpty()) {
 			postfix[postfixCount++] = stack.pop();
 		}
+	}
+
+	private boolean operatorPushRepeatChecker(Operator op) {
+		if(getOperatorGrade(makeOperator(stack.peek()))>=getOperatorGrade(op)) {
+			return true;
+		} else return false;
 	}
 
 	private boolean isNumber(char a) {
@@ -224,7 +242,7 @@ class ChangeExpression implements changeExpressionInterface
 				if(b==0) throw new Exception();
 				else return a%b;
 			case pow:
-				if(a==0) throw new Exception();
+				if(a<0) throw new Exception();
 				else return (int)Math.pow(a,b);
 			default:
 				throw new IllegalStateException("Unexpected value: " + op);
