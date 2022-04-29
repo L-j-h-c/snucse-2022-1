@@ -29,7 +29,7 @@ public class CalculatorTest
 	private static void command(String input) throws Exception {
 		ChangeExpression changer = new ChangeExpression(input);
 		changer.makePostFix();
-		int result = changer.calculatePostFix();
+		Long result = changer.calculatePostFix();
 		changer.printPostfix();
 		System.out.println(result);
 	}
@@ -66,7 +66,8 @@ class ChangeExpression implements changeExpressionInterface
 
 
 	public ChangeExpression(String input) {
-		st = new StringTokenizer(input);
+		input = input.replaceAll("\\s+", " ");
+		st = new StringTokenizer(input, "+|-=*)(^%/ ",true);
 	}
 
 	public void makePostFix() throws Exception {
@@ -75,6 +76,7 @@ class ChangeExpression implements changeExpressionInterface
 		boolean wasNumber = false;
 		while(st.hasMoreTokens()) {
 			String str = st.nextToken();
+			if(str.equals(" ")) continue;
 
 			// 연산자인지 Operator인지 판단하기. 숫자인 경우
 			if(isNumber(str.charAt(0))) {
@@ -208,15 +210,15 @@ class ChangeExpression implements changeExpressionInterface
 		}
 	}
 
-	public int calculatePostFix() throws Exception {
-		Stack<Integer> opernands = new Stack();
+	public long calculatePostFix() throws Exception {
+		Stack<Long> opernands = new Stack();
 		for(int i = 0; i < postfixCount; i++) {
 			String str = postfix[i];
 			if(isNumber(str.charAt(0))) {
-				opernands.push(Integer.parseInt(postfix[i]));
+				opernands.push(Long.parseLong(postfix[i]));
 			} else {
 				Operator op = makeOperator(str);
-				int a, b;
+				Long a, b;
 				a = opernands.pop();
 				if(op == Operator.Unary) {
 					opernands.push(calculateUnary(op, a));
@@ -230,7 +232,7 @@ class ChangeExpression implements changeExpressionInterface
 		return opernands.pop();
 	}
 
-	private int calculateBinary(Operator op, int a, int b) throws Exception {
+	private Long calculateBinary(Operator op, Long a, Long b) throws Exception {
 		switch(op) {
 			case Add: return a + b;
 			case Sub: return a - b;
@@ -243,13 +245,16 @@ class ChangeExpression implements changeExpressionInterface
 				else return a%b;
 			case pow:
 				if(a<0) throw new Exception();
-				else return (int)Math.pow(a,b);
+				else {
+					double pow = Math.pow(a,b);
+					return (long)pow;
+				}
 			default:
 				throw new IllegalStateException("Unexpected value: " + op);
 		}
 	}
 
-	private int calculateUnary(Operator op, int a) {
+	private Long calculateUnary(Operator op, Long a) {
 		switch(op) {
 			case Unary: return a*(-1);
 			default:
