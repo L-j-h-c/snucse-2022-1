@@ -4,9 +4,31 @@ public class Diary {
     private List<DiaryEntry> diaryEntries = new LinkedList<>();
     private Map<Integer, Set<String>> searchMap = new HashMap<>();
 
+    public static String DATA_PATH = "data/";
+
     public Diary() {
         //TODO
         // Practice 2 - Load diary entries
+        loadEntries();
+    }
+
+    private void loadEntries() {
+        List<List<String>> entryDataList = StorageManager.directoryChildrenLines(DATA_PATH);
+        for (List<String> entryData : entryDataList) {
+            if (entryData.size() < 4) continue; // 잘못된 정보는 넘어감
+
+            int id = Integer.parseInt(entryData.get(0));
+            String createdTime = entryData.get(1);
+            String title = entryData.get(2);
+            String content = entryData.get(3);
+
+            DiaryEntry entry =
+                    new DiaryEntry(id, title, content, createdTime);
+            diaryEntries.add(entry);  //add entry to the list
+            addSearchKeyWords(entry); //add words to the searchMap
+
+            DiaryEntry.updateIncrementId(id);
+        }
     }
 
     public void createEntry() {
@@ -19,10 +41,17 @@ public class Diary {
 
         diaryEntries.add(entry);
         addSearchMap(entry);
+        saveEntry(entry);
         DiaryUI.print("The entry is saved.");
 
         //TODO
         // Practice 2 - Store the created entry in a file
+    }
+
+    private void saveEntry(DiaryEntry entry){
+        String filePath = DATA_PATH + entry.getFileName();
+        List<String> fileData = entry.getFileData();
+        StorageManager.writeLines(filePath, fileData);
     }
 
     private void addSearchMap(DiaryEntry entry){
@@ -106,13 +135,14 @@ public class Diary {
             return;
         }
 
-        diaryEntries.remove(entry);
-        searchMap.remove(entry.getID());
-
-        DiaryUI.print("Entry " + id + " is removed.");
-
         //TODO
         // Practice 2 - Delete the file of the entry
+
+        if(StorageManager.deleteFile(DATA_PATH + entry.getFileName())) {
+            diaryEntries.remove(entry);
+            searchMap.remove(entry.getID());
+            DiaryUI.print("Entry " + id + " is removed.");
+        }
     }
 
     public void searchEntry(String keyword) {
