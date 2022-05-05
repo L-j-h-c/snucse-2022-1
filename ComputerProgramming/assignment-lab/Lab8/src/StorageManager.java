@@ -27,7 +27,7 @@ public class StorageManager {
      * Read string lines of files in a specified directory.
      * The files are sorted by their names.
      */
-    public static List<List<String>> directoryChildrenLines(String directoryName) {
+    public static List<List<String>> directoryChildrenLines(String directoryName) throws NoDataDirectoryException {
         List<List<String>> childrenLines = new LinkedList<>();
         for (File childFile : nameSortedDirectoryFiles(directoryName)) {
             List<String> lines = readLines(childFile);
@@ -69,10 +69,14 @@ public class StorageManager {
         return strings;
     }
 
-    private static File[] nameSortedDirectoryFiles(String directoryName) {
+    private static File[] nameSortedDirectoryFiles(String directoryName) throws NoDataDirectoryException {
         //TODO: Practice 3 - (2)
         File[] directoryFiles = directoryFiles(directoryName);
-        Arrays.sort(directoryFiles, Comparator.comparing(File::getName));
+        try {
+            Arrays.sort(directoryFiles, Comparator.comparing(File::getName));
+        } catch (NullPointerException e) {
+            throw new NoDataDirectoryException();
+        }
         return directoryFiles;
     }
 

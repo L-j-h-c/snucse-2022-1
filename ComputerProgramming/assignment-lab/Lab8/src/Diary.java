@@ -6,13 +6,13 @@ public class Diary {
 
     public static String DATA_PATH = "data/";
 
-    public Diary() {
+    public Diary() throws NoDataDirectoryException{
         //TODO
         // Practice 2 - Load diary entries
         loadEntries();
     }
 
-    private void loadEntries() {
+    private void loadEntries() throws NoDataDirectoryException {
         List<List<String>> entryDataList = StorageManager.directoryChildrenLines(DATA_PATH);
         for (List<String> entryData : entryDataList) {
             if (entryData.size() < 4) continue; // 잘못된 정보는 넘어감

@@ -4,7 +4,7 @@ public class DiaryUI {
     private static Diary diary;
     private static Scanner scanner;
 
-    static void initializeDiaryUI(){
+    static void initializeDiaryUI() throws NoDataDirectoryException {
         diary = new Diary();
         scanner = new Scanner(System.in);
     }
@@ -56,16 +56,20 @@ public class DiaryUI {
         String command;
 
         //TODO: Practice 3 (1), (4)
-        initializeDiaryUI();
-        do {
-            System.out.println("\nType a command");
-            print("create: Create a diary entry");
-            print("list: List diary entries");
-            print("read <id>: Read a diary entry with <id>");
-            print("delete <id>: Delete a diary entry with <id>");
-            print("search <keyword>: List diary entries whose contents contain <keyword>");
-            System.out.print("Command: ");
-            command = scanner.nextLine();
-        } while (runCommand(command));
+        try {
+            initializeDiaryUI();
+            do {
+                System.out.println("\nType a command");
+                print("create: Create a diary entry");
+                print("list: List diary entries");
+                print("read <id>: Read a diary entry with <id>");
+                print("delete <id>: Delete a diary entry with <id>");
+                print("search <keyword>: List diary entries whose contents contain <keyword>");
+                System.out.print("Command: ");
+                command = scanner.nextLine();
+            } while (runCommand(command));
+        } catch (NoDataDirectoryException e) {
+            System.out.println("Diary directory data/ is not found.");
+        }
     }
 }
