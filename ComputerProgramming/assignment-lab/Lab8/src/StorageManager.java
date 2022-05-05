@@ -10,7 +10,7 @@ import java.util.Arrays;
 public class StorageManager {
 
     /* Save string lines into as a file */
-    public static void writeLines(String fileName, List<String> strings) {
+    public static void writeLines(String fileName, List<String> strings) throws NoDataDirectoryException {
         try {
             FileWriter fileWriter = new FileWriter(fileName);
             for (String string : strings) {
@@ -19,7 +19,7 @@ public class StorageManager {
             fileWriter.close();
         } catch (IOException e) {
             //TODO: Practice 3 - (3)
-            e.printStackTrace();
+            throw new NoDataDirectoryException();
         }
     }
 

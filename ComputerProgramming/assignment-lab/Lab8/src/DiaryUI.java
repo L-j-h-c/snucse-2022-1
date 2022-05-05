@@ -20,12 +20,13 @@ public class DiaryUI {
         System.out.println("\t" + object);
     }
 
-    private static boolean runCommand(String command) {
+    private static boolean runCommand(String command) throws NoDataDirectoryException {
         String[] commandSlices = command.split(" ");
         String commandName = commandSlices[0];
         int argNum = commandSlices.length;
 
         if (commandName.equals("exit")) {
+            System.out.println("Diary application terminated successfully.");
             return false;
         }
 
@@ -70,6 +71,7 @@ public class DiaryUI {
             } while (runCommand(command));
         } catch (NoDataDirectoryException e) {
             System.out.println("Diary directory data/ is not found.");
+            System.out.println("Diary application terminated successfully.");
         }
     }
 }

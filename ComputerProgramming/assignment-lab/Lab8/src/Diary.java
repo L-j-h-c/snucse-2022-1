@@ -31,7 +31,7 @@ public class Diary {
         }
     }
 
-    public void createEntry() {
+    public void createEntry() throws NoDataDirectoryException {
         //TODO
         // Practice 1 - Create a diary entry
         String title = DiaryUI.input("title : ");
@@ -48,7 +48,7 @@ public class Diary {
         // Practice 2 - Store the created entry in a file
     }
 
-    private void saveEntry(DiaryEntry entry){
+    private void saveEntry(DiaryEntry entry) throws NoDataDirectoryException {
         String filePath = DATA_PATH + entry.getFileName();
         List<String> fileData = entry.getFileData();
         StorageManager.writeLines(filePath, fileData);
