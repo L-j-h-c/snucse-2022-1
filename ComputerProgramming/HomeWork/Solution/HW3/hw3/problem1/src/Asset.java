@@ -18,5 +18,8 @@ public class Asset {
     public List<Lab> getOwners(){return owners;}
     // TODO sub-problem 1-4
 
-
+    @Override
+    public String toString() {
+        return ""+this.id;
+    }
 }
