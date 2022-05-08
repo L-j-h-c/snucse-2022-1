@@ -13,7 +13,11 @@ public class FrontEnd {
     
     public boolean auth(String authInfo){
         // TODO sub-problem 1
-         return false;
+        if (backend.auth(authInfo)) {
+            String[] authArray = authInfo.split("\\n");
+            user = new User(authArray[0], authArray[1]);
+            return true;
+        } else return false;
     }
 
     public void post(List titleContentList) {
