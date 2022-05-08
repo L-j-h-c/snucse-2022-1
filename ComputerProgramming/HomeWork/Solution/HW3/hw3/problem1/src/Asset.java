@@ -20,6 +20,10 @@ public class Asset {
         else return this.price;
     }
 
+    public int getSharedPrice() {
+        return this.price/(this.owners.size()+1);
+    }
+
     public String getItem() {
         return this.item;
     }

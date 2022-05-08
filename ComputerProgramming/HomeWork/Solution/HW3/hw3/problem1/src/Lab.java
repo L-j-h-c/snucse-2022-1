@@ -25,6 +25,15 @@ public class Lab {
 
     // TODO sub-problem 1-4
 
+    public void obtainDiffPrice(int diff){
+        this.balance += diff;
+    }
+
+    public void buySharedAsset(Integer id, Asset newAsset) {
+        this.balance -= newAsset.getSharedPrice();
+        assetInventory.put(id, newAsset);
+    }
+
     @Override
     public String toString() {
         return this.labname;

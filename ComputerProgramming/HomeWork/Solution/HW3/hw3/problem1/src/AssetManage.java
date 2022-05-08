@@ -121,9 +121,29 @@ public class AssetManage {
 
         return true;
     }
-//   public boolean assetOnShare(Lab sharer, int id) {
-//       // TODO sub-problem 4
-//       return;
-//   }
+
+   public boolean assetOnShare(Lab sharer, int id) {
+       // TODO sub-problem 4
+       if(findAsset(id) == null) return false;
+       if(findAsset(id).getOwners().size()<1) return false;
+       if(sharer == null) return false;
+
+       Asset targetAsset = findAsset(id);
+       if(sharer.getBalance()<targetAsset.getSharedPrice()) return false;
+
+       int prevPrice = targetAsset.getPrice();
+       int newPrice = targetAsset.getSharedPrice();
+
+       sharer.buySharedAsset(id, targetAsset);
+
+       List<Lab> prevOwners = targetAsset.getOwners();
+       for(Lab l : prevOwners) {
+           l.obtainDiffPrice(prevPrice-newPrice);
+       }
+
+       targetAsset.setOwners(sharer);
+
+       return true;
+   }
 
 }

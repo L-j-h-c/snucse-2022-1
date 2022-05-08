@@ -5,8 +5,9 @@ public class Test {
         testSubproblem1();
         testSubproblem2();
         testSubproblem3();
-//        testSubproblem4();
+        testSubproblem4();
     }
+
     static AssetManage initializeAssetManage(){
         AssetManage assetManage = new AssetManage();
         assetManage.addAsset(10, "Chair", 10000, "301");
@@ -77,43 +78,43 @@ public class Test {
         System.out.println("\tShould be [Rich] : " +  assetManage.getIdAsset().get(100).getOwners());
         System.out.println("\n");
     }
-//    static void testSubproblem4(){
-//        System.out.println("testSubproblem4");
-//        AssetManage assetManage = initializeAssetManage();
-//
-//        System.out.println("\tOwner should be [] : " +  assetManage.getIdAsset().get(300).getOwners());
-//        System.out.println("\tBalance of Smart should be 100000 : " +  assetManage.getNameLab().get("Smart").getBalance());
-//        System.out.println("\tBalance of Rich should be 100000 : " +  assetManage.getNameLab().get("Rich").getBalance());
-//        System.out.println("\tBalance of ManyPeople should be 100000 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
-//        System.out.println("\tBalance of Newborn should be 100000 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
-//
-//        assetManage.buyNewAsset(assetManage.getNameLab().get("Smart"), 300);
-//        System.out.println("\tOwner should be [Smart] : " +  assetManage.getIdAsset().get(300).getOwners());
-//        System.out.println("\tBalance of Smart should be 90000 : " +  assetManage.getNameLab().get("Smart").getBalance());
-//        System.out.println("\tBalance of Rich should be 100000 : " +  assetManage.getNameLab().get("Rich").getBalance());
-//        System.out.println("\tBalance of ManyPeople should be 100000 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
-//        System.out.println("\tBalance of Newborn should be 100000 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
-//
-//        assetManage.assetOnShare(assetManage.getNameLab().get("ManyPeople"), 300);
-//        System.out.println("\tOwner should be [Smart, ManyPeople] : " +  assetManage.getIdAsset().get(300).getOwners());
-//        System.out.println("\tBalance of Smart should be 95000 : " +  assetManage.getNameLab().get("Smart").getBalance());
-//        System.out.println("\tBalance of Rich should be 100000 : " +  assetManage.getNameLab().get("Rich").getBalance());
-//        System.out.println("\tBalance of ManyPeople should be 95000 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
-//        System.out.println("\tBalance of Newborn should be 100000 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
-//
-//        assetManage.assetOnShare(assetManage.getNameLab().get("Rich"), 300);
-//        System.out.println("\tOwner should be [Smart, ManyPeople, Rich] : " +  assetManage.getIdAsset().get(300).getOwners());
-//        System.out.println("\tBalance of Smart should be 96667 : " +  assetManage.getNameLab().get("Smart").getBalance());
-//        System.out.println("\tBalance of Rich should be 96667 : " +  assetManage.getNameLab().get("Rich").getBalance());
-//        System.out.println("\tBalance of ManyPeople should be 96667 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
-//        System.out.println("\tBalance of Newborn should be 100000 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
-//
-//        assetManage.tradeBtwLabs(assetManage.getNameLab().get("Newborn"), assetManage.getNameLab().get("Smart"), 300);
-//        System.out.println("\tOwner should be [ManyPeople, Rich, Newborn] : " +  assetManage.getIdAsset().get(300).getOwners());
-//        System.out.println("\tBalance of Smart should be 100000 : " +  assetManage.getNameLab().get("Smart").getBalance());
-//        System.out.println("\tBalance of Rich should be 96667 : " +  assetManage.getNameLab().get("Rich").getBalance());
-//        System.out.println("\tBalance of ManyPeople should be 96667 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
-//        System.out.println("\tBalance of Newborn should be 96667 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
-//    }
+    static void testSubproblem4(){
+        System.out.println("testSubproblem4");
+        AssetManage assetManage = initializeAssetManage();
+
+        System.out.println("\tOwner should be [] : " +  assetManage.getIdAsset().get(300).getOwners());
+        System.out.println("\tBalance of Smart should be 100000 : " +  assetManage.getNameLab().get("Smart").getBalance());
+        System.out.println("\tBalance of Rich should be 100000 : " +  assetManage.getNameLab().get("Rich").getBalance());
+        System.out.println("\tBalance of ManyPeople should be 100000 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
+        System.out.println("\tBalance of Newborn should be 100000 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
+
+        assetManage.buyNewAsset(assetManage.getNameLab().get("Smart"), 300);
+        System.out.println("\tOwner should be [Smart] : " +  assetManage.getIdAsset().get(300).getOwners());
+        System.out.println("\tBalance of Smart should be 90000 : " +  assetManage.getNameLab().get("Smart").getBalance());
+        System.out.println("\tBalance of Rich should be 100000 : " +  assetManage.getNameLab().get("Rich").getBalance());
+        System.out.println("\tBalance of ManyPeople should be 100000 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
+        System.out.println("\tBalance of Newborn should be 100000 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
+
+        assetManage.assetOnShare(assetManage.getNameLab().get("ManyPeople"), 300);
+        System.out.println("\tOwner should be [Smart, ManyPeople] : " +  assetManage.getIdAsset().get(300).getOwners());
+        System.out.println("\tBalance of Smart should be 95000 : " +  assetManage.getNameLab().get("Smart").getBalance());
+        System.out.println("\tBalance of Rich should be 100000 : " +  assetManage.getNameLab().get("Rich").getBalance());
+        System.out.println("\tBalance of ManyPeople should be 95000 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
+        System.out.println("\tBalance of Newborn should be 100000 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
+
+        assetManage.assetOnShare(assetManage.getNameLab().get("Rich"), 300);
+        System.out.println("\tOwner should be [Smart, ManyPeople, Rich] : " +  assetManage.getIdAsset().get(300).getOwners());
+        System.out.println("\tBalance of Smart should be 96667 : " +  assetManage.getNameLab().get("Smart").getBalance());
+        System.out.println("\tBalance of Rich should be 96667 : " +  assetManage.getNameLab().get("Rich").getBalance());
+        System.out.println("\tBalance of ManyPeople should be 96667 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
+        System.out.println("\tBalance of Newborn should be 100000 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
+
+        assetManage.tradeBtwLabs(assetManage.getNameLab().get("Newborn"), assetManage.getNameLab().get("Smart"), 300);
+        System.out.println("\tOwner should be [ManyPeople, Rich, Newborn] : " +  assetManage.getIdAsset().get(300).getOwners());
+        System.out.println("\tBalance of Smart should be 100000 : " +  assetManage.getNameLab().get("Smart").getBalance());
+        System.out.println("\tBalance of Rich should be 96667 : " +  assetManage.getNameLab().get("Rich").getBalance());
+        System.out.println("\tBalance of ManyPeople should be 96667 : " +  assetManage.getNameLab().get("ManyPeople").getBalance());
+        System.out.println("\tBalance of Newborn should be 96667 : " +  assetManage.getNameLab().get("Newborn").getBalance()+"\n");
+    }
 }
 
