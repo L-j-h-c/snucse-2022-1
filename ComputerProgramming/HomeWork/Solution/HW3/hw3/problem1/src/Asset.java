@@ -15,6 +15,17 @@ public class Asset {
         this.owners = new ArrayList<>();
     }
 
+    public int getPrice() {
+        return this.price;
+    }
+
+    public String getItem() {
+        return this.item;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
     public List<Lab> getOwners(){return owners;}
     // TODO sub-problem 1-4
 

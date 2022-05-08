@@ -36,18 +36,63 @@ public class AssetManage {
         // TODO sub-problem 1
         return nameLab.getOrDefault(labname, null);
     }
-//    public List<Asset> findAssetsWithConditions(int minprice, int maxprice, String item, String location){
-//        // TODO sub-problem 2
-//        return;
-//    }
-//    public boolean buyNewAsset(Lab lab, int id) {
-//        // TODO sub-problem 3
-//        return;
-//    }
-//    public boolean tradeBtwLabs(Lab buyer, Lab seller, int id){
-//        // TODO sub-problem 3
-//        return;
-//    }
+    public List<Asset> findAssetsWithConditions(int minprice, int maxprice, String item, String location){
+        // TODO sub-problem 2
+
+        List<Asset> assets = new ArrayList<>();
+        // 비어있으면 null
+        if(idAsset.isEmpty()) return assets;
+
+        Map<Integer, Asset> tmpAssets = new HashMap<>();
+
+        // 가격 wildCard 아니면 필터링
+        Set<Integer> keySet = idAsset.keySet();
+        if(!((minprice == -1) && (maxprice == -1))) {
+            for (Integer key : keySet) {
+                if(idAsset.get(key).getPrice()>=minprice && idAsset.get(key).getPrice()<=maxprice)
+                    tmpAssets.put(key, idAsset.get(key));
+            }
+        } else {
+            tmpAssets = idAsset;
+        }
+
+        // location으로 filter
+
+        Map<Integer, Asset> tmpSubAssets = new HashMap<>();
+        keySet = tmpAssets.keySet();
+        if(!item.equals("All")) {
+            for (Integer key : keySet) {
+                if(tmpAssets.get(key).getItem().equals(item))
+                    tmpSubAssets.put(key, tmpAssets.get(key));
+            }
+        } else {
+            tmpSubAssets = tmpAssets;
+        }
+
+        Map<Integer, Asset> finalAssets = new HashMap<>();
+        keySet = tmpSubAssets.keySet();
+
+        if(!location.equals("All")) {
+            for (Integer key : keySet) {
+                if(tmpSubAssets.get(key).getLocation().equals(location))
+                    finalAssets.put(key, tmpSubAssets.get(key));
+            }
+        } else {
+            finalAssets = tmpSubAssets;
+        }
+
+        Object[] arrayKey = finalAssets.keySet().toArray();
+        Arrays.sort(arrayKey);
+
+        if(finalAssets.isEmpty()) {
+            return assets;
+        } else {
+            for (Object key : arrayKey) {
+                assets.add(finalAssets.get(key));
+            }
+            return assets;
+        }
+    }
 //   public boolean assetOnShare(Lab sharer, int id) {
 //       // TODO sub-problem 4
 //       return;
