@@ -22,8 +22,9 @@ public class FrontEnd {
 
     public void post(List titleContentList) {
         // TODO sub-problem 2
+        backend.storePost(titleContentList, getUser());
     }
-    
+
     public void recommend(int N){
         // TODO sub-problem 3
     }

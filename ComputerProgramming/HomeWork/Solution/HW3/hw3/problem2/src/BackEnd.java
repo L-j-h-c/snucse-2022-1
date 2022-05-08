@@ -31,4 +31,36 @@ public class BackEnd extends ServerResourceAccessible {
         if (authArray[1].equals(pw)) return true;
         else return false;
     }
+
+    public void storePost(List contentList, User user) {
+        String fileName = "";
+        File[] files = directoryFiles(getServerStorageDir()+user.id+"/post");
+
+        int largeFileName = 0;
+        for(File file : files) {
+            int idx = file.getName().lastIndexOf(".");
+            if(Integer.parseInt(file.getName().substring(0, idx)) > largeFileName) {
+                largeFileName = Integer.parseInt(file.getName().substring(0, idx));
+                break;
+            }
+        }
+        largeFileName++;
+
+        fileName = getServerStorageDir()+user.id+"/post"+largeFileName;
+
+        try {
+            FileWriter fileWriter = new FileWriter(fileName);
+            for (Object string : contentList) {
+                fileWriter.write(string + "\n");
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.print("error");
+        }
+    }
+
+    private File[] directoryFiles(String directoryName) {
+        File directory = new File(directoryName);
+        return directory.listFiles();
+    }
 }
