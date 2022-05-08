@@ -3,8 +3,8 @@ import java.util.List;
 public class Test {
     public static void main(String[] args){
         testSubproblem1();
-//        testSubproblem2();
-//        testSubproblem3();
+        testSubproblem2();
+        testSubproblem3();
 //        testSubproblem4();
     }
     static AssetManage initializeAssetManage(){
@@ -48,35 +48,35 @@ public class Test {
         System.out.println("\tShould be false : " + assetManage.addLab("Rich"));
         System.out.println("\n");
     }
-//    static void testSubproblem2(){
-//        System.out.println("testSubproblem2");
-//        AssetManage assetManage = initializeAssetManage();
-//        List<Asset> foundAssets = assetManage.findAssetsWithConditions(-1, -1, "All","All");
-//        System.out.println("\tShould be "+ assetManage.getIdAsset().size() +" : "+ foundAssets.size());
-//        foundAssets = assetManage.findAssetsWithConditions(10000, 20000, "All","All");
-//        System.out.println("\tShould be [10, 20, 30, 300, 400, 500, 1000] : "+ foundAssets);
-//        foundAssets = assetManage.findAssetsWithConditions(-1, -1, "Gpu server","All");
-//        System.out.println("\tShould be [50, 500, 5000] : "+ foundAssets);
-//        foundAssets = assetManage.findAssetsWithConditions(-1, -1, "All","Haedong");
-//        System.out.println("\tShould be [1000, 2000, 3000, 4000, 5000] : "+ foundAssets);
-//        foundAssets = assetManage.findAssetsWithConditions(5000, 10000, "All","302");
-//        System.out.println("\tShould be [100, 200, 300] : "+ foundAssets);
-//        foundAssets = assetManage.findAssetsWithConditions(5000, 10000, "All","whatever");
-//        System.out.println("\tShould be [] : "+ foundAssets);
-//        System.out.println("\n");
-//    }
-//
-//    static void testSubproblem3(){
-//        System.out.println("testSubproblem3");
-//        AssetManage assetManage = initializeAssetManage();
-//        System.out.println("\tShould be [] : " +  assetManage.getIdAsset().get(100).getOwners());
-//        assetManage.buyNewAsset(assetManage.getNameLab().get("Smart"), 100);
-//        System.out.println("\tShould be [Smart] : " +  assetManage.getIdAsset().get(100).getOwners());
-//        System.out.println("\tShould be false : " +  assetManage.buyNewAsset(assetManage.getNameLab().get("Smart"), 100));
-//        assetManage.tradeBtwLabs(assetManage.getNameLab().get("Rich"), assetManage.getNameLab().get("Smart"), 100);
-//        System.out.println("\tShould be [Rich] : " +  assetManage.getIdAsset().get(100).getOwners());
-//        System.out.println("\n");
-//    }
+    static void testSubproblem2(){
+        System.out.println("testSubproblem2");
+        AssetManage assetManage = initializeAssetManage();
+        List<Asset> foundAssets = assetManage.findAssetsWithConditions(-1, -1, "All","All");
+        System.out.println("\tShould be "+ assetManage.getIdAsset().size() +" : "+ foundAssets.size());
+        foundAssets = assetManage.findAssetsWithConditions(10000, 20000, "All","All");
+        System.out.println("\tShould be [10, 20, 30, 300, 400, 500, 1000] : "+ foundAssets);
+        foundAssets = assetManage.findAssetsWithConditions(-1, -1, "Gpu server","All");
+        System.out.println("\tShould be [50, 500, 5000] : "+ foundAssets);
+        foundAssets = assetManage.findAssetsWithConditions(-1, -1, "All","Haedong");
+        System.out.println("\tShould be [1000, 2000, 3000, 4000, 5000] : "+ foundAssets);
+        foundAssets = assetManage.findAssetsWithConditions(5000, 10000, "All","302");
+        System.out.println("\tShould be [100, 200, 300] : "+ foundAssets);
+        foundAssets = assetManage.findAssetsWithConditions(5000, 10000, "All","whatever");
+        System.out.println("\tShould be [] : "+ foundAssets);
+        System.out.println("\n");
+    }
+
+    static void testSubproblem3(){
+        System.out.println("testSubproblem3");
+        AssetManage assetManage = initializeAssetManage();
+        System.out.println("\tShould be [] : " +  assetManage.getIdAsset().get(100).getOwners());
+        assetManage.buyNewAsset(assetManage.getNameLab().get("Smart"), 100);
+        System.out.println("\tShould be [Smart] : " +  assetManage.getIdAsset().get(100).getOwners());
+        System.out.println("\tShould be false : " +  assetManage.buyNewAsset(assetManage.getNameLab().get("Smart"), 100));
+        assetManage.tradeBtwLabs(assetManage.getNameLab().get("Rich"), assetManage.getNameLab().get("Smart"), 100);
+        System.out.println("\tShould be [Rich] : " +  assetManage.getIdAsset().get(100).getOwners());
+        System.out.println("\n");
+    }
 //    static void testSubproblem4(){
 //        System.out.println("testSubproblem4");
 //        AssetManage assetManage = initializeAssetManage();

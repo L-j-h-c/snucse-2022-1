@@ -13,6 +13,16 @@ public class Lab {
     }
     public int getBalance(){return balance;}
 
+    public void buyAsset(Integer id, Asset newAsset) {
+        this.balance -= newAsset.getPrice();
+        assetInventory.put(id, newAsset);
+    }
+
+    public void sellAsset(int id, Asset asset) {
+        this.balance += asset.getPrice();
+        assetInventory.remove(id);
+    }
+
     // TODO sub-problem 1-4
 
     @Override

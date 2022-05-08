@@ -16,7 +16,8 @@ public class Asset {
     }
 
     public int getPrice() {
-        return this.price;
+        if(getOwners().size()>0) return this.price/getOwners().size();
+        else return this.price;
     }
 
     public String getItem() {
@@ -26,6 +27,15 @@ public class Asset {
     public String getLocation() {
         return this.location;
     }
+
+    public void setOwners(Lab lab) {
+        this.owners.add(lab);
+    }
+
+    public void dismissOwners(Lab lab) {
+        this.owners.remove(lab);
+    }
+
     public List<Lab> getOwners(){return owners;}
     // TODO sub-problem 1-4
 

@@ -93,6 +93,34 @@ public class AssetManage {
             return assets;
         }
     }
+    public boolean buyNewAsset(Lab lab, int id) {
+        // TODO sub-problem 3
+        if(lab == null) return false;
+        if(findAsset(id) == null) return false;
+        if(findAsset(id).getOwners().size()>0) return false;
+        if(lab.getBalance()<findAsset(id).getPrice()) return false;
+        Asset newAsset = findAsset(id);
+        lab.buyAsset(id, newAsset);
+        newAsset.setOwners(lab);
+
+        return true;
+    }
+    public boolean tradeBtwLabs(Lab buyer, Lab seller, int id){
+        // TODO sub-problem 3
+        if(findAsset(id) == null) return false;
+        if(buyer == null || seller == null) return false;
+        Asset targetAsset = findAsset(id);
+        if(targetAsset.getOwners().contains(buyer)) return false;
+        if(!targetAsset.getOwners().contains(seller)) return false;
+        if(targetAsset.getPrice()>buyer.getBalance()) return false;
+
+        seller.sellAsset(id, targetAsset);
+        buyer.buyAsset(id, targetAsset);
+        targetAsset.setOwners(buyer);
+        targetAsset.dismissOwners(seller);
+
+        return true;
+    }
 //   public boolean assetOnShare(Lab sharer, int id) {
 //       // TODO sub-problem 4
 //       return;
