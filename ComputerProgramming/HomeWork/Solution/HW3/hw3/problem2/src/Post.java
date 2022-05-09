@@ -2,7 +2,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.zip.Adler32;
 
-class Post {
+class Post implements Comparable<Post> {
     private final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 
     private int id;
@@ -43,7 +43,16 @@ class Post {
             "title: %s\n" +
             "content: %s"
             , id, getDate(), title, content);
-}
+    }
+
+    @Override
+    public int compareTo(Post p) {
+        if(dateTime.isAfter(p.getOriDate())) {
+            return 1;
+        }
+        else if (dateTime.equals(p.getOriDate())) return 0;
+        else return -1;
+    }
 
     int getId() {
         return id;
@@ -55,6 +64,10 @@ class Post {
 
     String getDate() {
         return dateTime.format(formatter);
+    }
+
+    LocalDateTime getOriDate() {
+        return dateTime;
     }
 
     void setDateTime(LocalDateTime dateTime){

@@ -27,6 +27,8 @@ public class FrontEnd {
 
     public void recommend(int N){
         // TODO sub-problem 3
+        List<Post> recoms = backend.sendRecommend(N, getUser());
+        for (Post p : recoms) this.ui.println(p);
     }
 
     public void search(String command) {
