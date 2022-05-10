@@ -1,4 +1,6 @@
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 public class FrontEnd {
@@ -32,6 +34,22 @@ public class FrontEnd {
     }
 
     public void search(String command) {
+        String[] commandSlices = command.split(" ");
+        HashSet<String> keywords = new HashSet<>();
+
+        for(String k : commandSlices) {
+            if(!k.equals("search"))
+                keywords.add(k);
+        }
+
+        List<String> keyList = new ArrayList<>();
+        for(Object o : keywords.toArray()) {
+            keyList.add((String)o);
+        }
+
+        List<Post> posts = backend.search(keyList);
+
+        for (Post p : posts) this.ui.println(p.getSummary());
 
     }
     

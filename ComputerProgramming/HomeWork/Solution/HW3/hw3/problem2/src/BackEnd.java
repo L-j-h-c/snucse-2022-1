@@ -46,7 +46,7 @@ public class BackEnd extends ServerResourceAccessible {
         }
         largeFileName++;
 
-        fileName = getServerStorageDir()+user.id+"/post"+largeFileName;
+        fileName = getServerStorageDir()+user.id+"/post/"+largeFileName+".txt";
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         String dateTime = LocalDateTime.now().format(formatter);
@@ -140,53 +140,85 @@ public class BackEnd extends ServerResourceAccessible {
 
         return ret;
     }
-//    private static File[] nameSortedDirectoryFiles(String directoryName) throws NoDataDirectoryException {
-//        //TODO: Practice 3 - (2)
-//        File[] directoryFiles = directoryFiles(directoryName);
-//        try {
-//            Arrays.sort(directoryFiles, Comparator.comparing(File::getName));
-//        } catch (NullPointerException e) {
-//            throw new NoDataDirectoryException();
-//        }
-//        return directoryFiles;
-//    }
-//
-//    private static List<String> readLines(File file) {
-//        List<String> strings = new LinkedList<>();
-//        try {
-//            Scanner scanner = new Scanner(file);
-//            while (scanner.hasNext()) {
-//                String line = scanner.nextLine();
-//                strings.add(line);
-//            }
-//            scanner.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return strings;
-//    }
 
-//    public static List<List<String>> directoryChildrenLines(String directoryName) throws NoDataDirectoryException {
-//        List<List<String>> childrenLines = new LinkedList<>();
-//        for (File childFile : nameSortedDirectoryFiles(directoryName)) {
-//            List<String> lines = readLines(childFile);
-//            childrenLines.add(lines);
-//        }
-//        return childrenLines;
-//    }
-//
-//    private static List<String> readLines(File file) {
-//        List<String> strings = new LinkedList<>();
-//        try {
-//            Scanner scanner = new Scanner(file);
-//            while (scanner.hasNext()) {
-//                String line = scanner.nextLine();
-//                strings.add(line);
-//            }
-//            scanner.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return strings;
-//    }
+    public List<Post> search(List<String> keywords) {
+
+        File directory = new File(getServerStorageDir());
+        String[] users = directory.list();
+
+        List<File> files = new ArrayList<>();
+
+        for (String user : users) {
+            File[] targets = directoryFiles(getServerStorageDir()+user+"/post");
+            if(targets==null) continue;
+            for ( File t : targets) {
+                files.add(t);
+            }
+        }
+
+        StringTokenizer st;
+        int numOfKeys = 0;
+        int occurrence = 0;
+
+        List<PostSearch> ps = new ArrayList<>();
+            for (File f : files) {
+                occurrence = 0;
+                numOfKeys = 0;
+                for (String k : keywords) {
+                    try {
+                        Scanner scanner = new Scanner(f);
+                        if(f.getName().contains(".DS_Store")) continue;
+                        String date = scanner.nextLine();
+                        String title = scanner.nextLine();
+                        scanner.nextLine();
+                        scanner.nextLine();
+
+                        st = new StringTokenizer(title);
+                        while (st.hasMoreTokens()) {
+                            numOfKeys++;
+                            if (st.nextToken().equals(k)) {
+                                occurrence++;
+                            }
+                        }
+
+                        String contents = scanner.nextLine() + "\n";
+                        while (scanner.hasNext()) {
+                            contents += scanner.nextLine() + "\n";
+                        }
+                        scanner.close();
+
+                        st = new StringTokenizer(contents);
+                        while (st.hasMoreTokens()) {
+                            numOfKeys++;
+                            if (st.nextToken().equals(k)) {
+                                occurrence++;
+                            }
+                        }
+
+                        LocalDateTime postDate = LocalDateTime.parse(date, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+                        int idx = f.getName().lastIndexOf(".");
+                        int id = Integer.parseInt(f.getName().substring(0, idx));
+                        Post newPost = new Post(id, postDate, title, "");
+
+                        PostSearch newPostSearch = new PostSearch(newPost, occurrence, numOfKeys);
+
+                        ps.add(newPostSearch);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            Collections.sort(ps, Collections.reverseOrder());
+        List<Post> ret = new ArrayList<>();
+        int count = 0;
+        for(PostSearch p : ps) {
+            if(count<10) {
+                ret.add(p.post);
+                count++;
+            } else break;
+        }
+        return ret;
+    }
 }
+
