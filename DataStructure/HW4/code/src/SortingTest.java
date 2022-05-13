@@ -121,6 +121,20 @@ public class SortingTest
 	private static int[] DoInsertionSort(int[] value)
 	{
 		// TODO : Insertion Sort 를 구현하라.
+
+		for(int i = 0; i<value.length; i++) {
+			int newItem = value[i];
+			for(int j = i-1; j>=0; j--) {
+				if(value[j]>newItem) {
+					value[j + 1] = value[j];
+					if(j==0) value[j] = newItem;
+				} else {
+					value[j+1] = newItem;
+					break;
+				}
+			}
+		}
+
 		return (value);
 	}
 
