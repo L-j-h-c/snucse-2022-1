@@ -102,6 +102,18 @@ public class SortingTest
 		// 결과로 정렬된 배열은 리턴해 주어야 하며, 두가지 방법이 있으므로 잘 생각해서 사용할것.
 		// 주어진 value 배열에서 안의 값만을 바꾸고 value를 다시 리턴하거나
 		// 같은 크기의 새로운 배열을 만들어 그 배열을 리턴할 수도 있다.
+
+		int tmp;
+		for(int i = value.length-1; i>1; i--) {
+			for(int j = 0; j<i; j++) {
+				if(value[j]>value[j+1]) {
+					tmp = value[j+1];
+					value[j+1] = value[j];
+					value[j] = tmp;
+				}
+			}
+		}
+
 		return (value);
 	}
 
