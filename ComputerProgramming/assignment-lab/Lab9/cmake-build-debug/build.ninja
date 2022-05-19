@@ -61,6 +61,12 @@ build CMakeFiles/Lab9.dir/problem1.cpp.o: CXX_COMPILER__Lab9_Debug /Users/junhol
   OBJECT_DIR = CMakeFiles/Lab9.dir
   OBJECT_FILE_DIR = CMakeFiles/Lab9.dir
 
+build CMakeFiles/Lab9.dir/problem2.cpp.o: CXX_COMPILER__Lab9_Debug /Users/junholee/Desktop/snucse-2022-2/ComputerProgramming/assignment-lab/Lab9/problem2.cpp || cmake_object_order_depends_target_Lab9
+  DEP_FILE = CMakeFiles/Lab9.dir/problem2.cpp.o.d
+  FLAGS = -g -arch x86_64 -std=gnu++14
+  OBJECT_DIR = CMakeFiles/Lab9.dir
+  OBJECT_FILE_DIR = CMakeFiles/Lab9.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target Lab9
@@ -69,7 +75,7 @@ build CMakeFiles/Lab9.dir/problem1.cpp.o: CXX_COMPILER__Lab9_Debug /Users/junhol
 #############################################
 # Link the executable Lab9
 
-build Lab9: CXX_EXECUTABLE_LINKER__Lab9_Debug CMakeFiles/Lab9.dir/main.cpp.o CMakeFiles/Lab9.dir/problem1.cpp.o
+build Lab9: CXX_EXECUTABLE_LINKER__Lab9_Debug CMakeFiles/Lab9.dir/main.cpp.o CMakeFiles/Lab9.dir/problem1.cpp.o CMakeFiles/Lab9.dir/problem2.cpp.o
   FLAGS = -g -arch x86_64
   OBJECT_DIR = CMakeFiles/Lab9.dir
   POST_BUILD = :

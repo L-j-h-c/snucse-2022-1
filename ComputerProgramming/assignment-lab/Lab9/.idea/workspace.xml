@@ -19,17 +19,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0107b36a-ad9c-475d-a4d7-2ecaaa143a70" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../../HomeWork/Solution/HW3/hw3/problem1/out/production/problem1/.Asset 2.class.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../HomeWork/Solution/HW3/hw3/problem1/out/production/problem1/.AssetManage 2.class.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../HomeWork/Solution/HW3/hw3/problem1/out/production/problem1/.Lab 2.class.icloud" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeCache.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/problem1.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/problem1.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DataStructure/HW/HW4/~$HW4.docx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DataStructure/HW4/code/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DataStructure/HW4/code/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../../DataStructure/HW4/code/src/SortingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../../DataStructure/HW4/code/src/SortingTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/problem2.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,11 +91,22 @@
       <option name="presentableId" value="Default" />
       <updated>1652348908132</updated>
       <workItem from="1652348917432" duration="456000" />
-      <workItem from="1652900229213" duration="4025000" />
+      <workItem from="1652900229213" duration="4507000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

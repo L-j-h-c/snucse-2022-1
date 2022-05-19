@@ -4,28 +4,12 @@
 #include <iostream>
 using namespace std;
 
-void three_swap(int *a, int *b, int *c) {
-    int tmp;
-    tmp = *a;
-    *a = *b;
-    *b = *c;
-    *c = tmp;
-}
-
-void three_swap(int &a, int &b, int &c) {
-    int tmp;
-    tmp = a;
-    a = b;
-    b = c;
-    c = tmp;
-}
+#define PI 3.141519
+#define AREA(r) r*r*PI
 
 int main() {
-    int a,b,c;
-    cin >> a >> b >> c;
-    three_swap(&a, &b, &c);
-    cout << a << b << c << endl;
-    three_swap(a, b, c);
-    cout << a << b << c << endl;
+    float radius;
+    std::cin >> radius;
+    cout << AREA(radius) << endl;
     return 0;
 }
