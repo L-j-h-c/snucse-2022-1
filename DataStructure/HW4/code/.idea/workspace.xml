@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c39831cc-322e-46cb-9e9a-3edae9601012" name="Changes" comment="" />
+    <list default="true" id="c39831cc-322e-46cb-9e9a-3edae9601012" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../ComputerProgramming/HomeWork/Solution/HW3/hw3/problem1/out/production/problem1/.Asset 2.class.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ComputerProgramming/HomeWork/Solution/HW3/hw3/problem1/out/production/problem1/.AssetManage 2.class.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../ComputerProgramming/HomeWork/Solution/HW3/hw3/problem1/out/production/problem1/.Lab 2.class.icloud" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../HW/HW4/~$HW4.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SortingTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SortingTest.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,19 +29,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="node.js.detected.package.eslint" value="true" />
-    <property name="node.js.detected.package.tslint" value="true" />
-    <property name="node.js.selected.package.eslint" value="(autodetect)" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
-  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
+  }
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src" />
@@ -62,7 +65,10 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1652344019609</updated>
-      <workItem from="1652344025266" duration="7224000" />
+      <workItem from="1652344025266" duration="8700000" />
+      <workItem from="1652590088155" duration="953000" />
+      <workItem from="1652591129913" duration="878000" />
+      <workItem from="1652606169628" duration="3000" />
     </task>
     <servers />
   </component>

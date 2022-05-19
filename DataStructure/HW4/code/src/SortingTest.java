@@ -142,6 +142,8 @@ public class SortingTest
 	private static int[] DoHeapSort(int[] value)
 	{
 		// TODO : Heap Sort 를 구현하라.
+		
+
 		return (value);
 	}
 
