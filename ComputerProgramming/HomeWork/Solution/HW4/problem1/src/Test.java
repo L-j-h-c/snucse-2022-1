@@ -14,8 +14,8 @@ public class Test {
     public static void main(String[] args) throws Exception {
         System.out.println("<Test Sub-problem 1>");
         testSubProblem1();
-//        System.out.println("\n<Test Sub-problem 2>");
-//        testSubProblem2();
+        System.out.println("\n<Test Sub-problem 2>");
+        testSubProblem2();
     }
 
     static void testSubProblem1() {
