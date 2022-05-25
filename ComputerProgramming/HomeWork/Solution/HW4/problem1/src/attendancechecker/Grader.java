@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.*;
 
 import java.text.SimpleDateFormat;
@@ -98,8 +97,6 @@ public class Grader {
                 boolean admitFlag = false;
                 boolean refusedFlag = false;
 
-                ArrayList<Pair<String,String>> pairs = new ArrayList<>();
-
                 for(File f : files) {
                     try {
                         Scanner scanner = new Scanner(f);
@@ -123,7 +120,6 @@ public class Grader {
                                 endTime = l.lectureEnd;
                             }
 
-                            pairs.add(new Pair(startTime,endTime));
                             sumOfTime += logsToMinutes(startTime,endTime);
                         }
                     } catch (FileNotFoundException e) {

@@ -19,19 +19,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0107b36a-ad9c-475d-a4d7-2ecaaa143a70" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/problem2.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../HomeWork/Solution/HW4/problem1/out/production/problem1/attendancechecker/Grader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../../HomeWork/Solution/HW4/problem1/out/production/problem1/attendancechecker/Grader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../HomeWork/Solution/HW4/problem1/src/attendancechecker/Grader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../HomeWork/Solution/HW4/problem1/src/attendancechecker/Grader.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/codemodel-v2-0fe0ac24e0208a2998a6.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/index-2022-05-18T18-58-41-0344.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.cmake/api/v1/reply/target-Lab9-Debug-60bc0bfbb0a7979ae2a7.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_deps" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/.ninja_log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/problem1.dir/problem1.cpp.o" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/problem1.dir/problem1.cpp.o" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/build.ninja" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake-build-debug/problem1" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/problem1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/problem1.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/problem1.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,11 +69,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="problem1" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Lab9" TARGET_NAME="problem1" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Lab9" RUN_TARGET_NAME="problem1">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -103,6 +89,7 @@
       <updated>1652348908132</updated>
       <workItem from="1652348917432" duration="456000" />
       <workItem from="1652900229213" duration="4747000" />
+      <workItem from="1653502864803" duration="8000" />
     </task>
     <servers />
   </component>
