@@ -58,7 +58,13 @@ public:
     }
 
     //TODO Prob1.2 create explicit copy constructor
-    Grid(Grid const &g) {}
+    Grid(Grid const &g): Grid(g.getRow(), g.getColumn()) {
+        for(int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                grid[i][j] = g.grid[i][j];
+            }
+        }
+    }
 
     //TODO Prob1.3 Add proper clean-up code!
      ~Grid(){}
@@ -66,7 +72,15 @@ public:
 
 
 //TODO Prob1.2 print a grid with numbers incremented by 1 in the shape of the given Grid g
-void printNumberGrid(Grid &g){}
+void printNumberGrid(Grid &g){
+    Grid new_grid(g);
+    for(int i = 0; i < new_grid.getRow(); i++) {
+        for (int j = 0; j < new_grid.getColumn(); j++) {
+            new_grid.setAt(i,j,new_grid.getAt(i,j)+1);
+        }
+    }
+    new_grid.printGrid();
+}
 
 void problem1(){
     Point p(1,3);
@@ -111,8 +125,8 @@ void exercise(){
 */
 
 int main() {
-    problem1();
-    //problem2();
+//    problem1();
+//    problem2();
     //problem3();
     //exercise();
     return 0;
