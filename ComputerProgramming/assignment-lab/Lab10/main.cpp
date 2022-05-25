@@ -41,14 +41,20 @@ public:
 
     int getColumn() const { return column; }
 
-    int getAt(int r, int c) const { return gird[r][c]; }
+    int getAt(int r, int c) const { return grid[r][c]; }
 
     void setAt(int r, int c, int v) {
         grid[r][c] = v;
     }
 
     void printGrid() {
-        std::cout << "grid"
+        std::cout << "grid : " << std::endl;
+        for(int i = 0; i< row; i++) {
+            for(int j = 0; j < column; j++) {
+                std::cout << grid[i][j] << " ";
+            }
+            std::cout << std::endl;
+        }
     }
 
     //TODO Prob1.2 create explicit copy constructor
