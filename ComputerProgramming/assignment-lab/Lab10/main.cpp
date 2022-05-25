@@ -67,7 +67,13 @@ public:
     }
 
     //TODO Prob1.3 Add proper clean-up code!
-     ~Grid(){}
+     ~Grid(){
+        for(int i = 0; i<row ; i++) {
+            delete [] grid[i];
+        }
+        delete [] grid;
+        std::cout << "Clean-up Grid" << std::endl;
+    }
 };
 
 
@@ -127,7 +133,7 @@ void exercise(){
 int main() {
 //    problem1();
 //    problem2();
-    //problem3();
+    problem3();
     //exercise();
     return 0;
 }
