@@ -132,9 +132,9 @@ void exercise(){
 
 
 int main() {
-//    problem1();
-//    problem2();
-//    problem3();
+    problem1();
+    problem2();
+    problem3();
     exercise();
     return 0;
 }
