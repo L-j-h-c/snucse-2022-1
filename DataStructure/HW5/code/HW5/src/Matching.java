@@ -3,6 +3,7 @@ import java.util.*;
 
 public class Matching
 {
+	private Hashtable<String, AVLList> table = new Hashtable<>();
 	public static void main(String args[])
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
