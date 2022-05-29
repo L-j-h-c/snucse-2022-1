@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.*;
 
 public class Matching
 {
@@ -44,7 +45,18 @@ public class Matching
 	}
 
 	private static void loadData(String fileName) {
+		Hashtable<String, AVLList> hashtable = new Hashtable<String, AVLList>();
 
+		File file = new File(fileName);
+		try {
+			Scanner scanner = new Scanner(file);
+			while (scanner.hasNext()) {
+				String line = scanner.nextLine();
+			}
+			scanner.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static void printStringByIndex(int index) {
