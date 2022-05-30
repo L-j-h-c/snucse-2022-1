@@ -1,10 +1,14 @@
 // 교재 코드 참고했습니다.
 public class AVLList {
     private AVLNode root;
-    static final AVLNode NIL = new AVLNode(null, null, null, 0);
+    static final AVLNode NIL = new AVLNode(null, null, null, null, 0);
 
     public AVLList() {
         this.root = this.NIL;
+    }
+
+    public void printNodes() {
+        root.printKey();
     }
 
     public AVLNode search(Comparable target) {
@@ -18,21 +22,23 @@ public class AVLList {
         } else return searchItem(current.left, target);
     }
 
-    public void insert(Comparable target) {
-        this.root = insertItem(this.root, target);
+    public void insert(Comparable key, Comparable item) {
+        this.root = insertItem(this.root, key, item);
     }
 
-    private AVLNode insertItem(AVLNode current, Comparable target) {
+    private AVLNode insertItem(AVLNode current, Comparable key, Comparable item) {
         if(current == NIL) {
-            current = new AVLNode(target);
-        } else if(target.compareTo(current.getFirstItem()) < 0) {
-            current.left = insertItem(current.left, target);
-            current.height = 1 + Math.max(current.left.height, current.right.height);
+            current = new AVLNode(key, item);
+        } else if(key.compareTo(current.getKey()) < 0) {
+            current.left = insertItem(current.left, key, item);
+            current.height = 1 + getMaxHeight(current);
             BalanceType type = makeBalanceType(current);
             if(type != BalanceType.Balanced) current = makeBalance(current, type);
+        } else if(key.compareTo(current.getKey())==0) {
+            current.put(item);
         } else {
-            current.right = insertItem(current.right, target);
-            current.height = 1 + Math.max(current.left.height, current.right.height);
+            current.right = insertItem(current.right, key, item);
+            current.height = 1 + getMaxHeight(current);
             BalanceType type = makeBalanceType(current);
             if(type != BalanceType.Balanced) current = makeBalance(current, type);
         }
@@ -68,8 +74,8 @@ public class AVLList {
         AVLNode rightLeftChild = rightChild.left;
         rightChild.left = root;
         root.right = rightLeftChild;
-        root.height = 1 + Math.max(root.left.height, root.right.height);
-        rightChild.height = 1 + Math.max(rightChild.left.height, rightChild.right.height);
+        root.height = 1 + getMaxHeight(root);
+        rightChild.height = 1 + getMaxHeight(rightChild);
         return rightChild;
     }
 
@@ -81,9 +87,13 @@ public class AVLList {
         AVLNode leftRightChild = leftChild.right;
         leftChild.right = root;
         root.left = leftRightChild;
-        root.height = 1 + Math.max(root.left.height, root.right.height);
-        leftChild.height = 1 + Math.max(leftChild.left.height, leftChild.right.height);
+        root.height = 1 + getMaxHeight(root);
+        leftChild.height = 1 + getMaxHeight(leftChild);
         return leftChild;
+    }
+
+    private int getMaxHeight(AVLNode node) {
+        return Math.max(node.left.height, node.right.height);
     }
 
     enum BalanceType {
@@ -97,7 +107,7 @@ public class AVLList {
         if (target.left.height + 2 <= target.right.height) {
             if(target.right.left.height <= target.right.right.height)
                 return BalanceType.RR;
-            else return BalanceType.LL;
+            else return BalanceType.RL;
         } else if(target.left.height >= target.right.height + 2) {
             if(target.left.left.height >= target.left.right.height)
                 return BalanceType.LL;

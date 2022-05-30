@@ -19,4 +19,9 @@ public class HashableString implements Comparable<HashableString> {
     public int compareTo(HashableString op) {
         return content.compareTo(op.content);
     }
+
+    @Override
+    public String toString() {
+        return this.content;
+    }
 }

@@ -27,7 +27,7 @@ public class Matching
 
 	private static void command(String input)
 	{
-		char command = input.substring(0).charAt(0);
+		char command = input.charAt(0);
 		String content = input.substring(2);
 
 		switch(command) {
@@ -69,7 +69,7 @@ public class Matching
 	}
 
 	private static void printStringByIndex(int index) {
-
+		table.printTree(index);
 	}
 
 	private static void searchPatternString(String pattern) {

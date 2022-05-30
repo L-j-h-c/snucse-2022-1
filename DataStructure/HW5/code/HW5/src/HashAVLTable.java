@@ -14,6 +14,15 @@ public class HashAVLTable<Key extends Comparable<Key>, Value extends Comparable<
         if(table[index] == null) {
             table[index] = new AVLList();
         }
-        table[index].insert(value);
+        table[index].insert(key, value);
+    }
+
+    public void printTree(int index) {
+        if(table[index] == null) {
+            System.out.println("EMPTY");
+            return;
+        }
+        table[index].printNodes();
+        System.out.println();
     }
 }
