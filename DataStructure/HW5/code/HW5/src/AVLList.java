@@ -11,15 +11,15 @@ public class AVLList {
         root.printKey();
     }
 
-    public AVLNode search(Comparable target) {
-        return searchItem(this.root, target);
+    public AVLNode search(Comparable key) {
+        return searchItem(this.root, key);
     }
-    private AVLNode searchItem(AVLNode current, Comparable target) {
+    private AVLNode searchItem(AVLNode current, Comparable key) {
         if (current == NIL) return NIL;
-        else if (target.compareTo(current.getFirstItem()) == 0) return current;
-        else if (target.compareTo(current.getFirstItem()) < 0) {
-            return searchItem(current.left, target);
-        } else return searchItem(current.left, target);
+        else if (key.compareTo(current.getKey()) == 0) return current;
+        else if (key.compareTo(current.getKey()) < 0) {
+            return searchItem(current.left, key);
+        } else return searchItem(current.right, key);
     }
 
     public void insert(Comparable key, Comparable item) {

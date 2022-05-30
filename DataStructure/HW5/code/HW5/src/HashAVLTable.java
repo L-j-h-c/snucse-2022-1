@@ -25,4 +25,12 @@ public class HashAVLTable<Key extends Comparable<Key>, Value extends Comparable<
         table[index].printNodes();
         System.out.println();
     }
+
+    public AVLNode search(Comparable key) {
+        int index = key.hashCode();
+        if(table[index] == null) {
+            return null;
+        }
+        return table[index].search(key);
+    }
 }
