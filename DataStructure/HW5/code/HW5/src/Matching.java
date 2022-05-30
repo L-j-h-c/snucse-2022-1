@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Matching
 {
-	private Hashtable<String, AVLList> table = new Hashtable<>();
+	private static HashAVLTable table = new HashAVLTable<String, Pair<Integer,Integer>>();
 	public static void main(String args[])
 	{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -46,13 +46,21 @@ public class Matching
 	}
 
 	private static void loadData(String fileName) {
-		Hashtable<String, AVLList> hashtable = new Hashtable<String, AVLList>();
+		table = new HashAVLTable<String, Pair<Integer,Integer>>();
 
+		int yPos = 1;
 		File file = new File(fileName);
 		try {
 			Scanner scanner = new Scanner(file);
 			while (scanner.hasNext()) {
 				String line = scanner.nextLine();
+
+				for(int i=1; i<=line.length()-5; i++) {
+					String substr = line.substring(i-1,i+5);
+					HashableString hashStr = new HashableString(substr);
+					table.put(hashStr, new Pair<>(i,yPos));
+				}
+				yPos++;
 			}
 			scanner.close();
 		} catch (IOException e) {

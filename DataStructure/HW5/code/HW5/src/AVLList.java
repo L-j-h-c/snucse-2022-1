@@ -25,7 +25,7 @@ public class AVLList {
     private AVLNode insertItem(AVLNode current, Comparable target) {
         if(current == NIL) {
             current = new AVLNode(target);
-        } else if(target.compareTo(current) < 0) {
+        } else if(target.compareTo(current.getFirstItem()) < 0) {
             current.left = insertItem(current.left, target);
             current.height = 1 + Math.max(current.left.height, current.right.height);
             BalanceType type = makeBalanceType(current);
