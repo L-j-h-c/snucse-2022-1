@@ -58,7 +58,7 @@ public class Matching
 				for(int i=1; i<=line.length()-5; i++) {
 					String substr = line.substring(i-1,i+5);
 					HashableString hashStr = new HashableString(substr);
-					table.put(hashStr, new Pair<>(i,yPos));
+					table.put(hashStr, new Pair<>(yPos,i));
 				}
 				yPos++;
 			}
@@ -83,7 +83,7 @@ public class Matching
 
 			if(i==0) {
 				// 맨 처음에 아예 맞는것들이 업을때 0,0을 프린트
-				if(testList.data.getFirst()==null) {
+				if(testList==null||testList.data.isEmpty()||testList.data.getFirst()==null) {
 					System.out.println("(0, 0)");
 					return;
 				} // 그렇지 않으면 반환리스트에 처음 애들을 추가
@@ -94,18 +94,18 @@ public class Matching
 			}
 			// 처음에 서치한 것으로부터 점점 반환리스트를 줄여나갈 것임
 			else {
-				if(testList.data.getFirst()==null) {
+				if(testList==null||testList.data.isEmpty()||testList.data.getFirst()==null) {
 					System.out.println("(0, 0)");
 					return;
 				}
 				LinkedList<Pair<Integer,Integer>> finalList = new LinkedList<>();
 				for(Pair<Integer,Integer> p : initList) {
-					if(testList.data.contains(new Pair<>(p.row,p.column+i))) {
+					if(testList.data.contains(new Pair<>(p.row+i,p.column))) {
 						finalList.add(p);
 					}
 				}
 				initList = finalList;
-				if(initList.isEmpty()) {
+				if(initList.getFirst()==null) {
 					System.out.println("(0, 0)");
 					return;
 				}

@@ -16,6 +16,6 @@ public class Pair<T extends Comparable<T>, S extends Comparable<S>> implements C
 
     @Override
     public String toString() {
-        return "(" + this.column +", "+ this.row + ")";
+        return "(" + this.row +", "+ this.column + ")";
     }
 }

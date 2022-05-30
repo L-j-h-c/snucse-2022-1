@@ -4,7 +4,7 @@ import java.util.LinkedList;
 // 교재 코드 참고했습니다.
 public class AVLNode<Key extends Comparable<Key>, Item extends Comparable> {
     public LinkedList<Item> data = new LinkedList<>();
-    public Comparable key;
+    public Key key;
     public AVLNode left, right;
     public int height;
 
@@ -56,6 +56,6 @@ public class AVLNode<Key extends Comparable<Key>, Item extends Comparable> {
     }
 
     public Key getKey() {
-        return (Key) this.key;
+        return this.key;
     }
 }
