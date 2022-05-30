@@ -101,7 +101,7 @@ public class Matching
 				LinkedList<Pair<Integer,Integer>> finalList = new LinkedList<>();
 				for(Pair<Integer,Integer> p : initList) {
 					for(Pair<Integer,Integer> t : testList.data) {
-						if(t.row==p.row&&t.column==p.column+i) {
+						if(t.row.equals(p.row)&&t.column.equals(p.column+i)) {
 							finalList.add(p);
 						}
 					}
