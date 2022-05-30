@@ -45,12 +45,12 @@ public class AVLNode<Key extends Comparable<Key>, Item extends Comparable> {
         if(this.key!=null) {
             System.out.print(this.key);
         }
-        if(this.left != null) {
-            System.out.print(" ");
+        if(this.left != null && this.left.key!=null) {
+            System.out.print(' ');
             this.left.printKey();
         }
-        if(this.right != null) {
-            System.out.print(" ");
+        if(this.right != null && this.right.key!=null) {
+            System.out.print(' ');
             this.right.printKey();
         }
     }

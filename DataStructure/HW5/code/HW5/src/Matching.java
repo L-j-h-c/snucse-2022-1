@@ -100,12 +100,14 @@ public class Matching
 				}
 				LinkedList<Pair<Integer,Integer>> finalList = new LinkedList<>();
 				for(Pair<Integer,Integer> p : initList) {
-					if(testList.data.contains(new Pair<>(p.row+i,p.column))) {
-						finalList.add(p);
+					for(Pair<Integer,Integer> t : testList.data) {
+						if(t.row==p.row&&t.column==p.column+i) {
+							finalList.add(p);
+						}
 					}
 				}
 				initList = finalList;
-				if(initList.getFirst()==null) {
+				if(initList==null) {
 					System.out.println("(0, 0)");
 					return;
 				}
