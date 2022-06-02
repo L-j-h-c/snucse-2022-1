@@ -6,6 +6,7 @@
 using namespace std;
 
 typedef int hp_t;  // using hp_t = int;
+typedef int dex_t;
 
 enum MonsterType {
     waterMon = 0,
@@ -17,9 +18,11 @@ class Monster {
 private:
     static int num_monsters;
 protected:
+    int id;
     string name;
     hp_t hp;
     hp_t damage;
+    dex_t speed;
     MonsterType type;
     MonsterType critical_to;
 public:

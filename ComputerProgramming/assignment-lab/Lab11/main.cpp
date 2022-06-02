@@ -3,6 +3,8 @@
 
 void round();
 
+int Monster::num_monsters = 0;
+
 int main() {
 
     Player a, b;
