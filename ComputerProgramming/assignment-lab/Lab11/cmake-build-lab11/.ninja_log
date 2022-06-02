@@ -1,0 +1,5 @@
+# ninja log v5
+1	424	1654153217531205323	CMakeFiles/lab11.dir/player.cpp.o	c9c1de2ad730d6b5
+1	425	1654153217531209781	CMakeFiles/lab11.dir/monster.cpp.o	bf41dc9f1a7ff8ac
+0	425	1654153217531205615	CMakeFiles/lab11.dir/main.cpp.o	5e3c291ff351a3d0
+425	463	1654153217576834581	lab11	9ebfd3409cac52de
