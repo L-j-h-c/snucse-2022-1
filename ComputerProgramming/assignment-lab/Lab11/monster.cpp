@@ -22,6 +22,14 @@ string Monster::get_name() const {
     return name;
 }
 
+dex_t Monster::get_speed() const {
+    return speed;
+}
+
+int Monster::get_id() const {
+    return id;
+}
+
 void Monster::decrease_health(hp_t attack_damage) {
     hp -= attack_damage;
     if(hp<0) hp = 0;
@@ -37,4 +45,25 @@ void Monster::attack(Monster *attacked_monster) {
 
 void Monster::critical_attack(Monster *attacked_monster) {
     std::cout<<"Normal critical"<<std::endl;
+    attacked_monster->decrease_health(2*damage);
 }
+
+void WaterMon::critical_attack(Monster *attacked_monster) {
+    std::cout<<"Water Critical"<<std::endl;
+    attacked_monster->decrease_health((damage*damage/2));
+}
+
+void FireMon::critical_attack(Monster *attacked_monster) {
+    std::cout<<"Fire critical"<<std::endl;
+    attacked_monster->decrease_health((std::rand()%10+1)*damage);
+}
+
+void GrassMon::critical_attack(Monster *attacked_monster) {
+    std::cout<<"Grass critical"<<std::endl;
+    attacked_monster->decrease_health(3*damage);
+}
+
+std::ostream& operator<< (std::ostream& os, const Monster& monster) {
+//    std::cout<<monster.get_name();
+    return os<<monster.get_name();
+};

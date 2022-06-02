@@ -30,24 +30,32 @@ public:
     hp_t get_hp() const;
     MonsterType get_type() const;
     string get_name() const;
+    dex_t get_speed() const;
+    int get_id() const;
 
     void decrease_health(hp_t attack_damage);
     void attack(Monster *attacked_monster);
-    void critical_attack(Monster *attacked_monster);
+    virtual void critical_attack(Monster *attacked_monster);
 };
 
 class WaterMon : public Monster {
 public:
     WaterMon();
+    void critical_attack(Monster *attacked_monster);
 };
 
 class FireMon : public Monster {
 public:
     FireMon();
+    void critical_attack(Monster *attacked_monster);
 };
 
 class GrassMon : public Monster {
 public:
     GrassMon();
+    void critical_attack(Monster *attacked_monster);
 };
+
+std::ostream& operator<< (std::ostream& os, const Monster& monster);
+
 #endif //LAB11_MONSTER_H
