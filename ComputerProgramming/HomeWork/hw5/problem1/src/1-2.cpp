@@ -14,6 +14,7 @@ int HammingDistance(int x, int y) {
     for(int i=0; newX>0; ) {
         xArr[i]=newX%2;
         newX/=2;
+        i++;
         if(newX==1) {
             xArr[i+1] = 1;
             break;
@@ -23,8 +24,9 @@ int HammingDistance(int x, int y) {
     for(int i=0; newY>0; ) {
         yArr[i]=newY%2;
         newY/=2;
+        i++;
         if(newY==1) {
-            yArr[i+1] = 1;
+            yArr[i] = 1;
             break;
         }
     }
