@@ -23,7 +23,7 @@ void Delta::Print(std::ostream& os) const{
 
 std::ostream& operator<<(std::ostream& os, const DeltaUnit& du){
     // TODO: problem 2.3
-
+    os << "(dt " << du.delta << ")";
     return os;
 }
 

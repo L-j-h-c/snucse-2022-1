@@ -31,6 +31,7 @@ std::ostream& operator<<(std::ostream& os, const RunLengthUnit& rlu){
 void RunLength::Encode(const char* file_name){
     // TODO: problem 2.2
 
+
 }
 
 double RunLength::Evaluate(const char* file_name) {
