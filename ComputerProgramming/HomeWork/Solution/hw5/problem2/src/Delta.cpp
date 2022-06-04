@@ -92,5 +92,33 @@ void Delta::Encode(const char* file_name){
 double Delta::Evaluate(const char* file_name) {
     // TODO: problem 2.5
 
-    return 0;
+    std::ifstream fin;
+    fin.open(file_name);
+
+    string s;
+    int count = 0;
+    int dataNum;
+    int bitWidth;
+    while (true) {
+        if (count == 0) {
+            getline(fin, s);
+            bitWidth = std::stoi(s);
+            count++;
+        }
+        if (count == 1) {
+            getline(fin, s);
+            dataNum = std::stoi(s);
+            count++;
+            break;
+        }
+    }
+    double lastSize = (dataNum+2)*bitWidth;
+
+    double currentSize = data_bit_width_+delta_bit_width_*(num_data_-1)+3*data_bit_width_;
+
+    double res = lastSize/currentSize;
+
+    fin.close();
+
+    return trunc(res*100)/100;
 }
