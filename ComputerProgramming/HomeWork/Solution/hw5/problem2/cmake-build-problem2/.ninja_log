@@ -1,0 +1,12 @@
+# ninja log v5
+1	1029	1654337927597534400	CMakeFiles/problem2.dir/src/main.cpp.o	b10fe90216b505bb
+0	1031	1654337927594873288	CMakeFiles/problem2.dir/src/Delta.cpp.o	7a31f645b00b1ada
+1	1032	1654337927592279841	CMakeFiles/problem2.dir/src/RunLength.cpp.o	59e506ac4da98c4a
+2	1041	1654337927614147558	CMakeFiles/problem2.dir/src/TestHelper.cpp.o	786ff47452a23a73
+1041	1102	1654337927679003641	problem2	d65a6adffec59833
+2	538	1654342004698512063	CMakeFiles/problem2.dir/src/RunLength.cpp.o	59e506ac4da98c4a
+538	585	1654342004752010642	problem2	d65a6adffec59833
+3	492	1654342071547358276	CMakeFiles/problem2.dir/src/main.cpp.o	b10fe90216b505bb
+492	534	1654342071593909110	problem2	d65a6adffec59833
+3	444	1654342081489489530	CMakeFiles/problem2.dir/src/main.cpp.o	b10fe90216b505bb
+445	483	1654342081531924775	problem2	d65a6adffec59833

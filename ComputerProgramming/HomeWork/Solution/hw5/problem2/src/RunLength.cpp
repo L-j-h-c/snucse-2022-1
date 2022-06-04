@@ -24,6 +24,7 @@ void RunLength::Print(std::ostream& os) const{
 std::ostream& operator<<(std::ostream& os, const RunLengthUnit& rlu){
     // TODO: problem 2.1
 
+    os << "(" << rlu.data << " " << rlu.length << ")";
     return os;
 }
 
