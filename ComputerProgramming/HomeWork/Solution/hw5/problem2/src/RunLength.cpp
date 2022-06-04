@@ -112,6 +112,33 @@ void RunLength::Encode(const char* file_name){
 
 double RunLength::Evaluate(const char* file_name) {
     // TODO: problem 2.5
+    std::ifstream fin;
+    fin.open(file_name);
 
-    return 0;
+    string s;
+    int count = 0;
+    int dataNum;
+    int bitWidth;
+    while (true) {
+        if (count == 0) {
+            getline(fin, s);
+            bitWidth = std::stoi(s);
+            count++;
+        }
+        if (count == 1) {
+            getline(fin, s);
+            dataNum = std::stoi(s);
+            count++;
+            break;
+        }
+    }
+    double lastSize = (dataNum+2)*bitWidth;
+
+    double currentSize = num_data_*(length_bit_width_+data_bit_width_)+3*data_bit_width_;
+
+    double res = lastSize/currentSize;
+
+    fin.close();
+
+    return trunc(res*100)/100;
 }
