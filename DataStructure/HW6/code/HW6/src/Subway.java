@@ -5,6 +5,8 @@ import java.util.*;
 public class Subway
 {
     final Long Infinity = Long.MAX_VALUE;
+
+    static Hashtable<String, String> idToName = new Hashtable<>();
     static Hashtable<String, ArrayList<Station>> stations = new Hashtable<>();
     public static void main(String[] args)
     {
@@ -31,17 +33,29 @@ public class Subway
 //                    String idWithLine = id + lineNum;
 
                     Station station = new Station(id, name, lineNum);
-                    if(stations.containsKey(id)) {
-                        ArrayList<Station> prevStations = stations.get(id);
+
+                    idToName.put(id,name);
+
+                    if(stations.containsKey(name)) {
+                        ArrayList<Station> prevStations = stations.get(name);
+                        // 동일한 라인에 동일한 이름일 경우 edge를 부여하지 않음.
+                        boolean sameLine = false;
                         for(Station s : prevStations) {
-                            s.edges.add(new Edge(s, station, 5L));
-                            station.edges.add(new Edge(station, s, 5L));
+                            if((s.lineNum.equals(lineNum)) || (sameLine)) {
+                                sameLine = true;
+                            }
                         }
-                        stations.get(id).add(station);
+                        if(!sameLine) {
+                            for(Station s : prevStations) {
+                                s.edges.add(new Edge(s, station, 5L));
+                                station.edges.add(new Edge(station, s, 5L));
+                            }
+                            stations.get(name).add(station);
+                        }
                     } else {
                         ArrayList<Station> arr = new ArrayList<>();
                         arr.add(station);
-                        stations.put(id,arr);
+                        stations.put(name,arr);
                     }
                 } // 아래는 edge 할당하는 부분
                 else {
@@ -49,10 +63,14 @@ public class Subway
                     StringTokenizer stringTokenizer = new StringTokenizer(line);
                     String beginId = stringTokenizer.nextToken();
                     String destinationId = stringTokenizer.nextToken();
+
+                    String beginName = idToName.get(beginId);
+                    String destinationName = idToName.get(destinationId);
+
                     Long time = Long.parseLong(stringTokenizer.nextToken());
 
-                    for(Station b : stations.get(beginId)) {
-                        for(Station d : stations.get(destinationId)) {
+                    for(Station b : stations.get(beginName)) {
+                        for(Station d : stations.get(destinationName)) {
                             if(b.lineNum.equals(d.lineNum)) {
                                 b.edges.add(new Edge(b, d, time));
                             }
@@ -66,9 +84,12 @@ public class Subway
         }
 
         Set<String> s = stations.keySet();
-        for(String id : s) {
-            for(Station ar : stations.get(id)) {
+        for(String name : s) {
+            for(Station ar : stations.get(name)) {
                 System.out.println(ar);
+                for(Edge e : ar.edges) {
+                    System.out.println(e.begin +" "+ e.destination +" "+ e.weight);
+                }
             }
         }
 
