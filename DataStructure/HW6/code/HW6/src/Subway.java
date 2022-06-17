@@ -39,19 +39,11 @@ public class Subway
                     if(stations.containsKey(name)) {
                         ArrayList<Station> prevStations = stations.get(name);
                         // 동일한 라인에 동일한 이름일 경우 edge를 부여하지 않음.
-                        boolean sameLine = false;
-                        for(Station s : prevStations) {
-                            if((s.lineNum.equals(lineNum)) || (sameLine)) {
-                                sameLine = true;
-                            }
-                        }
-                        if(!sameLine) {
                             for(Station s : prevStations) {
                                 s.edges.add(new Edge(s, station, 5L));
                                 station.edges.add(new Edge(station, s, 5L));
                             }
                             stations.get(name).add(station);
-                        }
                     } else {
                         ArrayList<Station> arr = new ArrayList<>();
                         arr.add(station);
@@ -70,9 +62,11 @@ public class Subway
                     Long time = Long.parseLong(stringTokenizer.nextToken());
 
                     for(Station b : stations.get(beginName)) {
-                        for(Station d : stations.get(destinationName)) {
-                            if(b.lineNum.equals(d.lineNum)) {
-                                b.edges.add(new Edge(b, d, time));
+                        if(b.id.equals(beginId)) {
+                            for(Station d : stations.get(destinationName)) {
+                                if(d.id.equals(destinationId)) {
+                                    b.edges.add(new Edge(b, d, time));
+                                }
                             }
                         }
                     }
@@ -126,6 +120,7 @@ public class Subway
     }
 
     private static void printResult(Path shortest) {
+        StringBuilder sb = new StringBuilder();
         ArrayList<Station> shortestPath = shortest.savedPath;
         String curStation = "";
         String nextStation = "";
