@@ -116,5 +116,25 @@ public class Subway
     {
         String beginSt = input.substring(2);
         String destinationSt = input.substring(2);
+    private static Pair closestStationPair(Set<Station> completed, Map<Station, Boolean> completedCheck) {
+
+        Station closestStation = new Station(null, null, null);
+        Station beginStation = new Station(null, null, null);
+
+        Long minWeight=Long.MAX_VALUE;
+
+        for(Station s : completed) {
+            for(Edge e : s.edges) {
+                if(!completedCheck.get(e.destination)) {
+                    if(e.weight<minWeight) {
+                        beginStation = e.begin;
+                        closestStation = e.destination;
+                        minWeight = e.weight;
+                    }
+                }
+            }
+        }
+
+        return new Pair(beginStation,closestStation,minWeight);
     }
 }
