@@ -164,29 +164,29 @@ public class Subway
         stationToPath.put(begin, beginPath);
 
         // notCompleted가 빌때까지 한다.
-        while(!(notCompleted.size()==1)) {
+        while(true) {
 
             // 가진 completed 중에서 가장 가까운 Station을 가져온다
-            Pair pair = closestStationPair(completed, completedChecker);
-
+            Pair pair = closestStationPair(completed, completedChecker, stationToPath);
+            if(pair.weight == Long.MAX_VALUE) break;
             Station standardStation = pair.begin;
             Station closestStation = pair.destination;
             Long weight = pair.weight;
 
             // 가장 가까운 역에 대한 Path가 이미 저장되어 있는 경우, Path를 가져와서 새로운 길이 더 가까우면 Path를 바꿔치기한다.
             if(stationToPath.containsKey(closestStation)) {
-                System.out.println("출발역 :" + standardStation + ", 가까운 역 : " + closestStation);
-                Path newPath = stationToPath.get(standardStation);
+//                System.out.println("출발역 :" + standardStation + ", 가까운 역 : " + closestStation);
+                Path newPath = stationToPath.get(standardStation).clone();
                 if(stationToPath.get(closestStation).totalWeight>newPath.totalWeight+weight) {
                     newPath.savedPath.add(closestStation);
                     newPath.totalWeight += weight;
-                    System.out.println(newPath.totalWeight);
+//                    System.out.println(newPath.totalWeight);
                     stationToPath.replace(closestStation, newPath);
                 }
             } else // Path가 등록되어 있지 않은 경우 새로 만들어서 넣어준다.
             {
-                Path newPath = stationToPath.get(standardStation);
-                System.out.println("출발역 :" + standardStation + ", 가까운 역 : " + closestStation);
+                Path newPath = stationToPath.get(standardStation).clone();
+//                System.out.println("출발역 :" + standardStation + ", 가까운 역 : " + closestStation);
                 newPath.savedPath.add(closestStation);
                 newPath.totalWeight += weight;
 //                System.out.println(newPath.totalWeight);
@@ -195,15 +195,13 @@ public class Subway
 
             completedChecker.replace(closestStation, true);
             completed.add(closestStation);
-            notCompleted.remove(closestStation);
-            System.out.println(completed.size());
-            System.out.println(notCompleted.size());
-            if(stationToPath.containsKey(stations.get("동춘"))) System.out.println(stationToPath.get(stations.get("동춘")).totalWeight);
+//            System.out.println(completed.size());
+//            System.out.println(notCompleted.size());
         }
 
         return stationToPath.get(destination);
     }
-    private static Pair closestStationPair(Set<Station> completed, Map<Station, Boolean> completedCheck) {
+    private static Pair closestStationPair(Set<Station> completed, Map<Station, Boolean> completedCheck, Map<Station, Path> stationToPath) {
 
         Station closestStation = new Station(null, null, null);
         Station beginStation = new Station(null, null, null);
@@ -212,7 +210,13 @@ public class Subway
 
         for(Station s : completed) {
             for(Edge e : s.edges) {
-                if(!completedCheck.get(e.destination)) {
+                if(stationToPath.containsKey(e.destination)) {
+                    if(stationToPath.get(e.destination).totalWeight > stationToPath.get(e.begin).totalWeight + e.weight) {
+                        beginStation = e.begin;
+                        closestStation = e.destination;
+                        minWeight = e.weight;
+                    }
+                } else {
                     if(e.weight<minWeight) {
                         beginStation = e.begin;
                         closestStation = e.destination;
