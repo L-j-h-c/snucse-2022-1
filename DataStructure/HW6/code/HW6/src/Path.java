@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Path {
+public class Path implements Cloneable {
     ArrayList<Station> savedPath = new ArrayList<>();
     Long totalWeight = 0L;
 
@@ -8,8 +8,14 @@ public class Path {
 
     }
 
-    public void replacePath(ArrayList<Station> path, Long weight) {
-        this.savedPath = path;
-        totalWeight = weight;
+    @Override
+    public Path clone() {
+        try {
+            Path clone = (Path) super.clone();
+            clone.savedPath = (ArrayList<Station>) savedPath.clone();
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
