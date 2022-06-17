@@ -4,8 +4,6 @@ import java.util.*;
 
 public class Subway
 {
-    final Long Infinity = Long.MAX_VALUE;
-
     static Hashtable<String, String> idToName = new Hashtable<>();
     static Hashtable<String, ArrayList<Station>> stations = new Hashtable<>();
     public static void main(String[] args)
@@ -85,17 +83,6 @@ public class Subway
             e.printStackTrace();
         }
 
-//        // 디버깅을 위한 역별 edge 출력
-//        Set<String> s = stations.keySet();
-//        for(String name : s) {
-//            for(Station ar : stations.get(name)) {
-//                System.out.println(ar);
-//                for(Edge e : ar.edges) {
-//                    System.out.println(e.begin +" "+ e.destination +" "+ e.weight);
-//                }
-//            }
-//        }
-
         // 쿼리를 받아서 최소 시간을 출력하는 부분
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
         while (true)
@@ -127,15 +114,45 @@ public class Subway
         shortestPath.totalWeight = Long.MAX_VALUE;
         for(Station beginS : beginStations) {
             for(Station destinationS : destinationStations) {
-                Path tempPath = findPath(beginS, destinationS);
+                Path tempPath = findPath(beginS, destinationS);;
                 if(tempPath.totalWeight< shortestPath.totalWeight) {
-                    System.out.println(tempPath);
+//                    System.out.println(tempPath);
                     shortestPath = tempPath;
                 }
             }
         }
 
-        System.out.println(shortestPath);
+        printResult(shortestPath);
+    }
+
+    private static void printResult(Path shortest) {
+        ArrayList<Station> shortestPath = shortest.savedPath;
+        String curStation = "";
+        String nextStation = "";
+        boolean transferCheck = false;
+
+        for(int i=0; i<shortestPath.size()-1; i++) {
+            nextStation = shortestPath.get(i+1).name;
+            curStation = shortestPath.get(i).name;
+            if(curStation.equals(nextStation)) {
+                transferCheck = true;
+                continue;
+            }
+            if(transferCheck) {
+                System.out.print("["+curStation+"]");
+                System.out.print(" ");
+                transferCheck = false;
+            } else if(i==shortestPath.size()-2){
+                System.out.print(curStation);
+                System.out.print(" ");
+                System.out.print(nextStation);
+                System.out.print(" ");
+            } else {
+                System.out.print(curStation);
+                System.out.print(" ");
+            }
+        }
+        System.out.println(shortest.totalWeight);
     }
 
     private static Path findPath(Station begin, Station destination) {
