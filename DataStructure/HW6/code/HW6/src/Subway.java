@@ -116,10 +116,14 @@ public class Subway
             }
         }
 
-        printResult(shortestPath);
+        try {
+            printResult(shortestPath);
+        } catch(Exception exception) {
+
+    }
     }
 
-    private static void printResult(Path shortest) {
+    private static void printResult(Path shortest) throws UnsupportedEncodingException {
         StringBuilder sb = new StringBuilder();
         ArrayList<Station> shortestPath = shortest.savedPath;
         String curStation = "";
@@ -146,7 +150,8 @@ public class Subway
             }
         }
         sb.append("\n").append(shortest.totalWeight);
-        System.out.println(sb);
+        PrintStream out = new PrintStream(System.out, true, "UTF-8");
+        out.println(sb);
     }
 
     private static Path findPath(Station begin, Station destination) {
