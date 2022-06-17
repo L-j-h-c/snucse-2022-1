@@ -94,7 +94,7 @@ public class Subway
             }
             catch (IOException e)
             {
-                System.out.println("입력이 잘못되었습니다. 오류 : " + e.toString());
+//                System.out.println("error : " + e.toString());
             }
         }
     }
@@ -134,73 +134,56 @@ public class Subway
                 continue;
             }
             if(transferCheck) {
-                System.out.print("["+curStation+"]");
-                System.out.print(" ");
+                sb.append("["+curStation+"]").append(" ");
                 if(i==shortestPath.size()-2) {
-                    System.out.print(shortestPath.get(i+1).name);
+                    sb.append(shortestPath.get(i+1).name);
                 }
                 transferCheck = false;
             } else if(i==shortestPath.size()-2){
-                System.out.print(curStation);
-                System.out.print(" ");
-                System.out.print(nextStation);
+                sb.append(curStation+" "+nextStation);
             } else {
-                System.out.print(curStation);
-                System.out.print(" ");
+                sb.append(curStation+" ");
             }
         }
-        System.out.println();
-        System.out.println(shortest.totalWeight);
+        sb.append("\n").append(shortest.totalWeight);
+        System.out.println(sb);
     }
 
     private static Path findPath(Station begin, Station destination) {
 
-        Map<Station, Boolean> completedChecker = new HashMap<>();
         Map<Station, Path> stationToPath = new HashMap<>();
 
         Set<Station> completed = new HashSet<>();
-        Set<String> s = stations.keySet();
-        for(String name : s) {
-            for(Station station : stations.get(name)) {
-                completedChecker.put(station, false);
-            }
-        }
 
         // 시작 역 Path에 추가하기
         completed.add(begin);
-        completedChecker.put(begin, true);
 
         Path beginPath = new Path();
         beginPath.savedPath.add(begin);
         beginPath.totalWeight = 0L;
         stationToPath.put(begin, beginPath);
 
-        // notCompleted가 빌때까지 한다.
         while(true) {
 
             // 가진 completed 중에서 가장 가까운 Station을 가져온다
-            Pair pair = closestStationPair(completed, completedChecker, stationToPath);
+            Pair pair = closestStationPair(completed, stationToPath);
             if(pair.weight == Long.MAX_VALUE) break;
-            Station standardStation = pair.begin;
             Station closestStation = pair.destination;
-            Long weight = pair.weight;
 
             // 가장 가까운 역에 대한 Path가 이미 저장되어 있는 경우, Path를 가져와서 새로운 길이 더 가까우면 Path를 바꿔치기한다.
             if(stationToPath.containsKey(closestStation)) {
 //                System.out.println("출발역 :" + standardStation + ", 가까운 역 : " + closestStation);
-                Path newPath = stationToPath.get(standardStation).clone();
-                if(stationToPath.get(closestStation).totalWeight>newPath.totalWeight+weight) {
+                Path newPath = stationToPath.get(pair.begin).clone();
                     newPath.savedPath.add(closestStation);
-                    newPath.totalWeight += weight;
+                    newPath.totalWeight += pair.weight;
 //                    System.out.println(newPath.totalWeight);
                     stationToPath.replace(closestStation, newPath);
-                }
             } else // Path가 등록되어 있지 않은 경우 새로 만들어서 넣어준다.
             {
-                Path newPath = stationToPath.get(standardStation).clone();
+                Path newPath = stationToPath.get(pair.begin).clone();
 //                System.out.println("출발역 :" + standardStation + ", 가까운 역 : " + closestStation);
                 newPath.savedPath.add(closestStation);
-                newPath.totalWeight += weight;
+                newPath.totalWeight += pair.weight;
 //                System.out.println(newPath.totalWeight);
                 stationToPath.put(closestStation, newPath);
             }
@@ -213,7 +196,7 @@ public class Subway
 
         return stationToPath.get(destination);
     }
-    private static Pair closestStationPair(Set<Station> completed, Map<Station, Boolean> completedCheck, Map<Station, Path> stationToPath) {
+    private static Pair closestStationPair(Set<Station> completed, Map<Station, Path> stationToPath) {
 
         Station closestStation = new Station(null, null, null);
         Station beginStation = new Station(null, null, null);
@@ -222,16 +205,14 @@ public class Subway
 
         for(Station s : completed) {
             for(Edge e : s.edges) {
-                if(stationToPath.containsKey(e.destination)) {
-                    if(stationToPath.get(e.destination).totalWeight > stationToPath.get(e.begin).totalWeight + e.weight) {
-                        if(e.weight<minWeight) {
+                if(e.weight<minWeight) {
+                    if (stationToPath.containsKey(e.destination)) {
+                        if (stationToPath.get(e.destination).totalWeight > stationToPath.get(e.begin).totalWeight + e.weight) {
                             beginStation = e.begin;
                             closestStation = e.destination;
                             minWeight = e.weight;
                         }
-                    }
-                } else {
-                    if(e.weight<minWeight) {
+                    } else {
                         beginStation = e.begin;
                         closestStation = e.destination;
                         minWeight = e.weight;
