@@ -141,17 +141,20 @@ public class Subway
             if(transferCheck) {
                 System.out.print("["+curStation+"]");
                 System.out.print(" ");
+                if(i==shortestPath.size()-2) {
+                    System.out.print(shortestPath.get(i+1).name);
+                }
                 transferCheck = false;
             } else if(i==shortestPath.size()-2){
                 System.out.print(curStation);
                 System.out.print(" ");
                 System.out.print(nextStation);
-                System.out.print(" ");
             } else {
                 System.out.print(curStation);
                 System.out.print(" ");
             }
         }
+        System.out.println();
         System.out.println(shortest.totalWeight);
     }
 
@@ -161,11 +164,9 @@ public class Subway
         Map<Station, Path> stationToPath = new HashMap<>();
 
         Set<Station> completed = new HashSet<>();
-        Set<Station> notCompleted = new HashSet<>();
         Set<String> s = stations.keySet();
         for(String name : s) {
             for(Station station : stations.get(name)) {
-                notCompleted.add(station);
                 completedChecker.put(station, false);
             }
         }
@@ -173,7 +174,6 @@ public class Subway
         // 시작 역 Path에 추가하기
         completed.add(begin);
         completedChecker.put(begin, true);
-        notCompleted.remove(begin);
 
         Path beginPath = new Path();
         beginPath.savedPath.add(begin);
@@ -210,7 +210,7 @@ public class Subway
                 stationToPath.put(closestStation, newPath);
             }
 
-            completedChecker.replace(closestStation, true);
+//            completedChecker.replace(closestStation, true);
             completed.add(closestStation);
 //            System.out.println(completed.size());
 //            System.out.println(notCompleted.size());
@@ -229,9 +229,11 @@ public class Subway
             for(Edge e : s.edges) {
                 if(stationToPath.containsKey(e.destination)) {
                     if(stationToPath.get(e.destination).totalWeight > stationToPath.get(e.begin).totalWeight + e.weight) {
-                        beginStation = e.begin;
-                        closestStation = e.destination;
-                        minWeight = e.weight;
+                        if(e.weight<minWeight) {
+                            beginStation = e.begin;
+                            closestStation = e.destination;
+                            minWeight = e.weight;
+                        }
                     }
                 } else {
                     if(e.weight<minWeight) {
