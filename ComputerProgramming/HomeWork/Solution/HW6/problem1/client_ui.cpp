@@ -58,6 +58,7 @@ void ClientUI::buy(std::string product_name) {
         if(temp== nullptr) {
             os<< "CLIENT_UI: Invalid product name.";
         } else {
+            current_user->add_purchase_history(temp);
             if(current_user->premium) {
                 os << "CLIENT_UI: Purchase completed. Price: " << makeDiscount(temp->price)<<".";
             } else {
@@ -132,10 +133,12 @@ void ClientUI::buy_all_in_cart() {
             int totalPrice = 0;
             if(current_user->premium) {
                 for(Product* p : products) {
+                    current_user->add_purchase_history(p);
                     totalPrice += makeDiscount(p->price);
                 }
             } else {
                 for(Product* p : products) {
+                    current_user->add_purchase_history(p);
                     totalPrice += p->price;
                 }
             }
@@ -147,5 +150,41 @@ void ClientUI::buy_all_in_cart() {
 
 void ClientUI::recommend_products() {
     // TODO: Problem 1.3
-
+    if(isLoggedIn()) {
+        if(current_user->premium) {
+            std::vector<Product*> pros = current_user->makeRecommend();
+            if(pros[0]== nullptr) {
+                os << "CLIENT_UI: Recommended Products: []";
+                os << std::endl;
+            } else {
+                os<<"CLIENT_UI: Recommended Products: [";
+                int size = 0;
+                for(Product* p : pros) {
+                    if(p== nullptr) break;
+                    size++;
+                    os << "(" << p->name << ", " << makeDiscount(p->price) << ")";
+                    if(pros[size]!= nullptr) os<<", ";
+                }
+                os<<"]";
+                os<<std::endl;
+            }
+        } else {
+            std::vector<Product*> pros = current_user->makeRecommend();
+            if(pros[0]== nullptr) {
+                os << "CLIENT_UI: Recommended Products: []";
+                os << std::endl;
+            } else {
+                os<<"CLIENT_UI: Recommended Products: [";
+                int size = 0;
+                for(Product* p : pros) {
+                    if(p== nullptr) break;
+                    size++;
+                    os << "(" << p->name << ", " << makeDiscount(p->price) << ")";
+                    if(pros[size]!= nullptr) os<<", ";
+                }
+                os<<"]";
+                os<<std::endl;
+            }
+        }
+    }
 }

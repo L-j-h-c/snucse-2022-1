@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include "product.h"
+#include <map>
+#include <queue>
 #define DISCOUNT_RATE 0.1
 
 class User {
@@ -14,6 +16,12 @@ public:
     void add_purchase_history(Product* product);
     bool matchPassword(std::string password);
     std::vector<Product*> cart;
+    std::vector<Product*> tempRecommendList;
+    std::vector<Product*> finalRecommendList;
+    std::vector<Product*> purchasHistory;
+    std::map<std::string, int> productToCount;
+    std::vector<Product*> makeRecommend();
+    std::vector<Product*> makePremiumRecommend();
 private:
     std::string password;
 };
