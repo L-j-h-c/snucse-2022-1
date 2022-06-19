@@ -1,0 +1,9 @@
+# ninja log v5
+1	423	1655492620784186444	CMakeFiles/problem1_main.dir/product.cpp.o	dea483452517ae9e
+1	472	1655492620830963755	CMakeFiles/problem1_main.dir/shopping_db.cpp.o	decf00d3a41364af
+1	501	1655492620860060579	CMakeFiles/problem1_main.dir/client_ui.cpp.o	79375fa79e285f34
+0	503	1655492620864409911	CMakeFiles/problem1_main.dir/ui.cpp.o	4b668c3a11f6459f
+0	513	1655492620874991438	CMakeFiles/problem1_main.dir/admin_ui.cpp.o	6f5d0e0e6ce37f38
+0	582	1655492620943824403	CMakeFiles/problem1_main.dir/test.cpp.o	2b35b38020eedf98
+424	629	1655492620992240543	CMakeFiles/problem1_main.dir/user.cpp.o	b0d3535c6debf48c
+629	675	1655492621039740000	problem1_main	dccbfe095af24afb
