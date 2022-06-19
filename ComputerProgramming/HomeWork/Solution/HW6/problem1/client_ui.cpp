@@ -179,7 +179,7 @@ void ClientUI::recommend_products() {
                 for(Product* p : pros) {
                     if(p== nullptr) break;
                     size++;
-                    os << "(" << p->name << ", " << makeDiscount(p->price) << ")";
+                    os << "(" << p->name << ", " << p->price << ")";
                     if(pros[size]!= nullptr) os<<", ";
                 }
                 os<<"]";

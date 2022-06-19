@@ -16,12 +16,11 @@ public:
     void add_purchase_history(Product* product);
     bool matchPassword(std::string password);
     std::vector<Product*> cart;
-    std::vector<Product*> tempRecommendList;
     std::vector<Product*> finalRecommendList;
     std::vector<Product*> purchasHistory;
     std::map<std::string, int> productToCount;
     std::vector<Product*> makeRecommend();
-    std::vector<Product*> makePremiumRecommend();
+    std::vector<Product*> makePremiumRecommend(std::vector<User*> users);
 private:
     std::string password;
 };

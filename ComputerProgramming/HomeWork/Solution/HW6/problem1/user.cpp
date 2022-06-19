@@ -29,6 +29,8 @@ void User::add_purchase_history(Product* product){
 }
 
 std::vector<Product*> User::makeRecommend() {
+    std::vector<Product*> tempRecommendList;
+
     for(Product* p : purchasHistory) {
         if(tempRecommendList.empty()) {
             tempRecommendList.push_back(p);
@@ -43,7 +45,7 @@ std::vector<Product*> User::makeRecommend() {
 
     for(int i = 0; i<tempRecommendList.size(); i++) {
         for(int j = 0; j<tempRecommendList.size()-i-1; j++) {
-            if(productToCount[tempRecommendList[j]->name]>productToCount[tempRecommendList[j+1]->name]) {
+            if(productToCount[tempRecommendList[j]->name]<productToCount[tempRecommendList[j+1]->name]) {
                 Product* temp = tempRecommendList[j+1];
                 tempRecommendList[j+1] = tempRecommendList[j];
                 tempRecommendList[j] = temp;
@@ -74,36 +76,55 @@ std::vector<Product*> User::makeRecommend() {
         return tempRecommendList;
 };
 
-std::vector<Product*> User::makeRecommend() {
-    for(Product* p : purchasHistory) {
-        if(tempRecommendList.empty()) {
-            tempRecommendList.push_back(p);
-        } else {
-            bool checker = false;
-            for(Product* pro : tempRecommendList) {
-                if(pro->name == p->name) checker = true;
+std::vector<Product*> User::makePremiumRecommend(std::vector<User*> users) {
+    std::vector<Product*> tempRecommendList;
+    std::vector<User*> tempUsers;
+    std::map<std::string, int> userToCount;
+    std::map<std::string, int> userToIndex;
+
+    for(User* u : users) {
+        if(u->name == name) continue;
+        tempUsers.push_back(u);
+        for(Product* p : u->purchasHistory) {
+            for(Product* myP : purchasHistory) {
+                if(p->name == myP->name) {
+                    if(userToCount.find(u->name) == productToCount.end()) {
+                        productToCount[u->name] = 1;
+                    } else {
+                        productToCount[u->name]++;
+                    }
+                }
             }
-            if(!checker) tempRecommendList.push_back(p);
         }
     }
 
-    for(int i = 0; i<tempRecommendList.size(); i++) {
-        for(int j = 0; j<tempRecommendList.size()-i-1; j++) {
-            if(productToCount[tempRecommendList[j]->name]>productToCount[tempRecommendList[j+1]->name]) {
-                Product* temp = tempRecommendList[j+1];
-                tempRecommendList[j+1] = tempRecommendList[j];
-                tempRecommendList[j] = temp;
+    for(int i = 0; i<tempUsers.size(); i++) {
+        for(int j = 0; j<tempUsers.size()-i-1; j++) {
+            if(userToCount[tempUsers[j]->name]<userToCount[tempUsers[j+1]->name]) {
+                User* temp = tempUsers[j+1];
+                tempUsers[j+1] = tempUsers[j];
+                tempUsers[j] = temp;
             }
         }
     }
 
-    tempRecommendList.resize(3, nullptr);
+    tempUsers.resize(3, nullptr);
 
-    if(tempRecommendList[2] != nullptr) {
-        if(productToCount[tempRecommendList[0]->name] == productToCount[tempRecommendList[2]->name]) {
-            Product* temp = tempRecommendList[2];
-            tempRecommendList[2] = tempRecommendList[0];
-            tempRecommendList[0] = temp;
+    if(tempUsers[2] != nullptr) {
+        if(userToCount[tempUsers[0]->name] == userToCount[tempUsers[2]->name]) {
+            for(User* u : tempUsers) {
+                for(int i = 0; i<users.size(); i++) {
+                    if(users[i]->name==u->name) {
+                        userToIndex[u->name] = i;
+                        break;
+                    }
+                }
+            }
+            if(userToIndex[tempUsers[0]->name] > userToIndex[tempUsers[1]->name]) {
+                User* temp = tempUsers[1];
+                tempUsers[1] = tempUsers[0];
+                tempUsers[0] = temp;
+            }
         } else if (productToCount[tempRecommendList[0]->name] == productToCount[tempRecommendList[1]->name]) {
             Product* temp = tempRecommendList[1];
             tempRecommendList[1] = tempRecommendList[0];

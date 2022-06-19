@@ -72,3 +72,7 @@ Product *ShoppingDB::findProduct(std::string name) {
 
     return nullptr;
 }
+
+std::vector<User*> ShoppingDB::getUsers() {
+    return users;
+}
