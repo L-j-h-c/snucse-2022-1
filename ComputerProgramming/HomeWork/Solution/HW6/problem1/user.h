@@ -11,6 +11,7 @@ public:
     User(std::string name, std::string password);
     const std::string name;
     void add_purchase_history(Product* product);
+    bool matchPassword(std::string password);
 private:
     std::string password;
 };

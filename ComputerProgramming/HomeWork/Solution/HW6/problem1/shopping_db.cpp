@@ -51,3 +51,14 @@ void ShoppingDB::add_user(std::string username, std::string password, bool premi
         users.push_back(newUser);
     }
 }
+
+User* ShoppingDB::login(std::string username, std::string password) {
+
+    for(User* u : users) {
+        if(u->name == username && u->matchPassword(password)) {
+            return u;
+        }
+    }
+
+    return new User("","");
+}

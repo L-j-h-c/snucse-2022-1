@@ -13,6 +13,7 @@ public:
     int edit_product(std::string name, int price);
     std::vector<Product*> list_products();
     void add_user(std::string username, std::string password, bool premium);
+    User* login(std::string username, std::string password);
 private:
     std::vector<User*> users;
     std::vector<Product*> products;
