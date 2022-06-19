@@ -37,6 +37,10 @@ int ShoppingDB::edit_product(std::string name, int price) {
         return 2;
 }
 
+std::vector<Product*> ShoppingDB::list_products() {
+    return products;
+}
+
 void ShoppingDB::add_user(std::string username, std::string password, bool premium) {
     // TODO: Problem 1.2
 

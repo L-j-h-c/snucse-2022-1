@@ -11,6 +11,7 @@ public:
     ShoppingDB();
     void add_product(std::string name, int price);
     int edit_product(std::string name, int price);
+    std::vector<Product*> list_products();
     void add_user(std::string username, std::string password, bool premium);
 private:
     std::vector<User*> users;
