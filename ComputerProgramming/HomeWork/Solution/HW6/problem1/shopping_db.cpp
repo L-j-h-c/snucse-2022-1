@@ -43,5 +43,11 @@ std::vector<Product*> ShoppingDB::list_products() {
 
 void ShoppingDB::add_user(std::string username, std::string password, bool premium) {
     // TODO: Problem 1.2
-
+    if(premium) {
+        PremiumUser* newUser = new PremiumUser(username, password);
+        users.push_back(newUser);
+    } else {
+        NormalUser* newUser = new NormalUser(username, password);
+        users.push_back(newUser);
+    }
 }

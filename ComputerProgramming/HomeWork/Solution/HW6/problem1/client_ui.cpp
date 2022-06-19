@@ -7,7 +7,8 @@ ClientUI::ClientUI(ShoppingDB &db, std::ostream& os) : UI(db, os), current_user(
 
 void ClientUI::signup(std::string username, std::string password, bool premium) {
     // TODO: Problem 1.2
-
+    db.add_user(username, password, premium);
+    os<<"CLIENT_UI: "<<username<< " is signed up.";
 }
 
 void ClientUI::login(std::string username, std::string password) {

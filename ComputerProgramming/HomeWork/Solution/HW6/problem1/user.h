@@ -16,11 +16,13 @@ private:
 };
 
 class NormalUser : public User {
-
+public:
+    NormalUser(std::string name, std::string password);
 };
 
 class PremiumUser : public User {
-
+public:
+    PremiumUser(std::string name, std::string password);
 };
 
 #endif //PROBLEM1_USER_H
