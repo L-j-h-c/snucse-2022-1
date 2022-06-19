@@ -17,6 +17,8 @@ class ClientUI : public UI {
         void buy_all_in_cart();
         void recommend_products();
     private:
+        bool isLoggedIn();
+        int makeDiscount(int price);
         User* current_user;
 };
 

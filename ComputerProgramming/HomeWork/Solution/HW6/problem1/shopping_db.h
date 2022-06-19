@@ -14,6 +14,7 @@ public:
     std::vector<Product*> list_products();
     void add_user(std::string username, std::string password, bool premium);
     User* login(std::string username, std::string password);
+    Product* findProduct(std::string name);
 private:
     std::vector<User*> users;
     std::vector<Product*> products;

@@ -1,6 +1,6 @@
 #include "user.h"
 
-User::User(std::string name, std::string password): name(name), password(password) {
+User::User(std::string name, std::string password, bool premium): name(name), password(password), premium(premium) {
 
 }
 
@@ -8,11 +8,11 @@ bool User::matchPassword(std::string password) {
     return (password==this->password);
 }
 
-NormalUser::NormalUser(std::string name, std::string password): User(name, password) {
+NormalUser::NormalUser(std::string name, std::string password, bool premium): User(name, password, premium) {
 
 }
 
-PremiumUser::PremiumUser(std::string name, std::string password): User(name, password) {
+PremiumUser::PremiumUser(std::string name, std::string password, bool premium): User(name, password, premium) {
 
 }
 

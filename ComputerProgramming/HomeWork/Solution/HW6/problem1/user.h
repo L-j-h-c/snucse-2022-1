@@ -8,22 +8,24 @@
 
 class User {
 public:
-    User(std::string name, std::string password);
+    User(std::string name, std::string password, bool premium);
     const std::string name;
+    bool premium;
     void add_purchase_history(Product* product);
     bool matchPassword(std::string password);
+    std::vector<Product*> cart;
 private:
     std::string password;
 };
 
 class NormalUser : public User {
 public:
-    NormalUser(std::string name, std::string password);
+    NormalUser(std::string name, std::string password, bool premium);
 };
 
 class PremiumUser : public User {
 public:
-    PremiumUser(std::string name, std::string password);
+    PremiumUser(std::string name, std::string password, bool premium);
 };
 
 #endif //PROBLEM1_USER_H

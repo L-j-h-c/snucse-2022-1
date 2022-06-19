@@ -2,6 +2,7 @@
 #include "client_ui.h"
 #include "product.h"
 #include "user.h"
+#include "cmath"
 
 ClientUI::ClientUI(ShoppingDB &db, std::ostream& os) : UI(db, os), current_user(nullptr) { }
 
@@ -18,7 +19,7 @@ void ClientUI::login(std::string username, std::string password) {
         os<<"CLIENT_UI: Please logout first.";
     } else {
         User* temp = db.login(username, password);
-        if (temp->name == "" && temp->matchPassword("")) {
+        if (temp == nullptr) {
             os<<"CLIENT_UI: Invalid username or password.";
         } else {
             current_user = temp;
@@ -32,7 +33,8 @@ void ClientUI::logout() {
     // TODO: Problem 1.2
     if(current_user != nullptr) {
         os<<"CLIENT_UI: "<< current_user->name <<" is logged out.";
-        delete(current_user);
+        current_user->cart.clear();
+        current_user = nullptr;
         os<<std::endl;
     } else {
         os<<"CLIENT_UI: There is no logged-in user.";
@@ -40,24 +42,107 @@ void ClientUI::logout() {
     }
 }
 
+bool ClientUI::isLoggedIn() {
+    if(current_user == nullptr) {
+        os<<"CLIENT_UI: Please login first.";
+        os<<std::endl;
+        return false;
+    } else return true;
+}
+
 void ClientUI::buy(std::string product_name) {
     // TODO: Problem 1.2
+    if(isLoggedIn()) {
+        Product* temp = db.findProduct(product_name);
 
+        if(temp== nullptr) {
+            os<< "CLIENT_UI: Invalid product name.";
+        } else {
+            if(current_user->premium) {
+                os << "CLIENT_UI: Purchase completed. Price: " << makeDiscount(temp->price)<<".";
+            } else {
+                os << "CLIENT_UI: Purchase completed. Price: " << temp->price<<".";
+            }
+        }
+
+        os <<std::endl;
+    }
 }
 
 void ClientUI::add_to_cart(std::string product_name) {
     // TODO: Problem 1.2
+    if(isLoggedIn()) {
+        Product* temp = db.findProduct(product_name);
 
+        if(temp== nullptr) {
+            os<< "CLIENT_UI: Invalid product name.";
+        } else {
+            current_user->cart.push_back(temp);
+            os<< "CLIENT_UI: "<<temp->name<<" is added to the cart.";
+        }
+
+        os <<std::endl;
+    }
+}
+
+int ClientUI::makeDiscount(int price) {
+    double realPrice = price;
+    realPrice *= 0.009;
+    realPrice = round(realPrice);
+    realPrice *= 100;
+    return (int)realPrice;
 }
 
 void ClientUI::list_cart_products() {
     // TODO: Problem 1.2.
+    if(isLoggedIn()) {
+        std::vector products = current_user->cart;
+        if(products.size()==0) {
+            os << "CLIENT_UI: Products: []";
+        } else {
+            int size = 0;
+            os << "CLIENT_UI: Cart: ";
+            os<<"[";
 
+            for(Product* p : products) {
+                size++;
+                if(current_user->premium) {
+                    os << "(" << p->name << ", " << makeDiscount(p->price) << ")";
+                } else {
+                    os << "(" << p->name << ", " << p->price << ")";
+                }
+
+                if(!(size==products.size())) {
+                    os<<", ";
+                }
+            }
+            os<<"]";
+            os<<std::endl;
+        }
+    }
 }
 
 void ClientUI::buy_all_in_cart() {
     // TODO: Problem 1.2
-
+    if(isLoggedIn()) {
+        std::vector products = current_user->cart;
+        if(products.size()==0) {
+            os << "ADMIN_UI: Products: []";
+        } else {
+            int totalPrice = 0;
+            if(current_user->premium) {
+                for(Product* p : products) {
+                    totalPrice += makeDiscount(p->price);
+                }
+            } else {
+                for(Product* p : products) {
+                    totalPrice += p->price;
+                }
+            }
+            os << "CLIENT_UI: Cart purchase completed. Total price: " << totalPrice << ".";
+            os << std::endl;
+        }
+    }
 }
 
 void ClientUI::recommend_products() {
